@@ -2,7 +2,7 @@ drop database if exists calculator;
 create database calculator;
 use calculator;
 
-CREATE TABLE `User` (
+CREATE TABLE `appUser` (
     `user_id` INT AUTO_INCREMENT NOT NULL,
     `username` VARCHAR(100) NOT NULL,
     `passhash` CHAR(60) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE `Budget` (
 CREATE TABLE `Category` (
     `category_id` INT AUTO_INCREMENT NOT NULL,
     `cat_name` VARCHAR(100) NOT NULL,
-    `cat_%` INT NOT NULL,
+    `cat_percent` INT NOT NULL,
     `higher_limit` INT NOT NULL,
     `lower_limit` INT NOT NULL,
     `goal` BOOLEAN NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE `Category` (
     PRIMARY KEY (`category_id`)
 );
 
-CREATE TABLE `AutoTrigger` (
+CREATE TABLE `autoTrigger` (
     `auto_id` INT AUTO_INCREMENT NOT NULL,
     `trigger_date` DATE NOT NULL,
     `payment_amount` INT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE `AutoTrigger` (
     PRIMARY KEY (`auto_id`)
 );
 
-CREATE TABLE `Transaction` (
+CREATE TABLE `myTransaction` (
     `transaction_id` INT AUTO_INCREMENT NOT NULL,
     `transaction_name` VARCHAR(50) NOT NULL,
     `transaction_amount` INT NOT NULL,
@@ -49,42 +49,42 @@ CREATE TABLE `Transaction` (
     PRIMARY KEY (`transaction_id`)
 );
 
-CREATE TABLE `Role` (
+CREATE TABLE `myRole` (
     `role_id` INT AUTO_INCREMENT NOT NULL,
     `role_name` VARCHAR(50) NOT NULL,
     PRIMARY KEY (`role_id`)
 );
 
-CREATE TABLE `User_Budget` (
-    `user_budget_id` INT AUTO_INCREMENT NOT NULL,
+CREATE TABLE `userBudget` (
+    `userBudget_id` INT AUTO_INCREMENT NOT NULL,
     `isOwner` BOOLEAN NOT NULL,
     `user_id` INT NOT NULL,
     `budget_id` INT NOT NULL,
-    PRIMARY KEY (`user_budget_id`)
+    PRIMARY KEY (`userBudget_id`)
 );
 
-ALTER TABLE `User` ADD CONSTRAINT `fk_User_role_id` FOREIGN KEY(`role_id`)
-REFERENCES `Role` (`role_id`);
+ALTER TABLE `appUser` ADD CONSTRAINT `fk_appUser_role_id` FOREIGN KEY(`role_id`)
+REFERENCES `myRole` (`role_id`);
 
 ALTER TABLE `Category` ADD CONSTRAINT `fk_Category_budget_id` FOREIGN KEY(`budget_id`)
 REFERENCES `Budget` (`budget_id`);
 
-ALTER TABLE `AutoTrigger` ADD CONSTRAINT `fk_AutoTrigger_category_id` FOREIGN KEY(`category_id`)
+ALTER TABLE `autoTrigger` ADD CONSTRAINT `fk_autoTrigger_category_id` FOREIGN KEY(`category_id`)
 REFERENCES `Category` (`category_id`);
 
-ALTER TABLE `Transaction` ADD CONSTRAINT `fk_Transaction_category_id` FOREIGN KEY(`category_id`)
+ALTER TABLE `myTransaction` ADD CONSTRAINT `fk_myTransaction_category_id` FOREIGN KEY(`category_id`)
 REFERENCES `Category` (`category_id`);
 
-ALTER TABLE `Transaction` ADD CONSTRAINT `fk_Transaction_auto_id` FOREIGN KEY(`auto_id`)
-REFERENCES `AutoTrigger` (`auto_id`);
+ALTER TABLE `myTransaction` ADD CONSTRAINT `fk_myTransaction_auto_id` FOREIGN KEY(`auto_id`)
+REFERENCES `autoTrigger` (`auto_id`);
 
-ALTER TABLE `Transaction` ADD CONSTRAINT `fk_Transaction_user_id` FOREIGN KEY(`user_id`)
-REFERENCES `User` (`user_id`);
+ALTER TABLE `myTransaction` ADD CONSTRAINT `fk_myTransaction_user_id` FOREIGN KEY(`user_id`)
+REFERENCES `appUser` (`user_id`);
 
-ALTER TABLE `User_Budget` ADD CONSTRAINT `fk_User_Budget_user_id` FOREIGN KEY(`user_id`)
-REFERENCES `User` (`user_id`);
+ALTER TABLE `userBudget` ADD CONSTRAINT `fk_userBudget_user_id` FOREIGN KEY(`user_id`)
+REFERENCES `appUser` (`user_id`);
 
-ALTER TABLE `User_Budget` ADD CONSTRAINT `fk_User_Budget_budget_id` FOREIGN KEY(`budget_id`)
+ALTER TABLE `userBudget` ADD CONSTRAINT `fk_userBudget_budget_id` FOREIGN KEY(`budget_id`)
 REFERENCES `Budget` (`budget_id`);
 
 /*
