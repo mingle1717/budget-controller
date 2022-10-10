@@ -1,0 +1,46 @@
+.authHeader{
+    margin-top: 3em;
+}
+
+.submitButton{
+    margin-top: 2em;
+    margin-right: 1em;
+    margin-bottom: 3em;
+}
+.cancelButton{
+    margin-top: 2em;
+    margin-left: 1em;
+    margin-bottom: 3em;
+}
+.linkContainer{
+    outline: 4px double #2955A4;
+    outline-offset: 0px;
+    margin-left: 10em;
+    margin-right: 10em;
+    
+}
+.fieldContainer{
+    padding-left: 10em;
+    padding-right: 10em;
+}
+.usernameField{
+    margin-bottom: 1em;
+}
+.passwordField{
+    margin-bottom: 1em;
+}
+.usernameLabel{
+    margin-right: 75em;
+    margin-bottom: 1em;
+}
+.passwordLabel{
+    margin-right: 75em;
+    margin-bottom: 1em;
+}
+.emailField{
+
+}
+.emailLabel{
+    margin-right: 77em;
+    margin-bottom: 1em;
+}
