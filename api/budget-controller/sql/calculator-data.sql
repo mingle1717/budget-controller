@@ -73,7 +73,8 @@ VALUES
 ('State Farm' , '0'),
 ('Broke' , '10'),
 ('Help' , '999'),
-('Rabbit' , '1000.50');
+('Rabbit' , '1000.50'),
+('Low', '1');
 
 DELETE FROM myRole;
 ALTER TABLE myRole AUTO_INCREMENT = 1;
@@ -102,7 +103,8 @@ INSERT INTO Category (cat_name, cat_percent, higher_limit, lower_limit, goal, bu
 VALUES
 ('Entertainment', '25', '500', '250', True, '1'),
 ('Food', '10', '200', '100', False, '2'),
-('Misc', '5', '1000', '250', True, '3');
+('Misc', '5', '1000', '250', True, '3'),
+('Rent', '10', '1000', '550', True, '3');
 
 DELETE FROM userBudget;
 ALTER TABLE userBudget AUTO_INCREMENT = 1;
@@ -113,7 +115,9 @@ VALUES
 (True, '2', '2'),
 (True, '3', '3'),
 (True, '4', '4'),
-(False, '5', '5');
+(False, '4', '3'),
+(False, '4', '2'),
+(False, '4', '1');
 
 DELETE FROM autoTrigger;
 ALTER TABLE autoTrigger AUTO_INCREMENT = 1;
@@ -121,6 +125,12 @@ ALTER TABLE autoTrigger AUTO_INCREMENT = 1;
 INSERT INTO autoTrigger (trigger_date, payment_amount, category_id)
 VALUES
 ('2022-11-01', 500, 1),
+('2022-12-15', 800, 2),
+('2021-10-31', 90.50, 3),
+('2021-11-01', 500, 1),
+('2021-12-15', 800, 2),
+('2021-10-31', 90.50, 3),
+('2021-11-01', 500, 1),
 ('2022-12-15', 800, 2),
 ('2022-10-31', 90.50, 3),
 ('2022-10-15', 1000, 1);
