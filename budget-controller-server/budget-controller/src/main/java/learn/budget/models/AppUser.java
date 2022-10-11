@@ -11,17 +11,15 @@ public class AppUser extends User {
     private String email;
     private boolean isDeleted;
     private List<MyRole> userRoles;
-    private MyRole myRole;
 
-    public AppUser(int userId, String username, String email, String passHash, boolean isDeleted, List<MyRole> roles){
-        super(username, passHash, roles.stream().map( r -> r.getAuthority()).collect(Collectors.toList()));
+    public AppUser(int userId, String username, String email, String passHash, boolean isDeleted, List<MyRole> userRoles){
+        super(username, passHash, userRoles.stream().map( r -> r.getAuthority()).collect(Collectors.toList()));
         this.userId = userId;
         this.username = username;
         this.passHash = passHash;
         this.userRoles = userRoles;
         this.email = email;
         this.isDeleted = isDeleted;
-        this.myRole = myRole;
     }
 
 
