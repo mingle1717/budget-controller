@@ -40,7 +40,7 @@ function Login(props){
             console.log( jwt );
             console.log(claimsObject);
 
-            props.setLoginInfo({jwt, claims:claimsObject});
+            
         
         })
         .catch( error => {
