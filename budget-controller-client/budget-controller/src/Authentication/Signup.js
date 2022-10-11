@@ -64,7 +64,7 @@ function Signup(){
 
             <div>
                 <button type="button" className="btn btn-primary submitButton">Submit</button>
-                <button type="button" className="btn btn-danger cancelButton">Cancel</button>
+                <Link to = "/home" type="button " className="btn btn-danger cancelButton">Cancel</Link>
             </div>
             </form>
             <div className="linkContainer">

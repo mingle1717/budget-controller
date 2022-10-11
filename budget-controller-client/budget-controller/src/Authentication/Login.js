@@ -12,9 +12,9 @@ function Login(props){
 
     const history = useHistory();
 
-    function handleSubmit(e){
-   
+    function handleSubmit(evt){
 
+        evt.preventDefault();
 
     fetch("http://localhost:8080/api/security", {
         method: "POST",
@@ -41,7 +41,7 @@ function Login(props){
             console.log(claimsObject);
 
             props.setLoginInfo({jwt, claims:claimsObject});
-            history.push("/home");
+        
         })
         .catch( error => {
             console.log( error );
@@ -70,7 +70,7 @@ function Login(props){
             </div>
             <div>
                 <button type="button " className="btn btn-primary submitButton">Submit</button>
-                <button type="button " className="btn btn-danger cancelButton">Cancel</button>
+                <Link to = "/home" type="button " className="btn btn-danger cancelButton">Cancel</Link>
             </div>
             </form>
             <div className='linkContainer'>
