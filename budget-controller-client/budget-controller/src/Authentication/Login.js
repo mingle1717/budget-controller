@@ -1,9 +1,9 @@
 
 import {Link, useHistory} from 'react-router-dom';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import jwtDecode from 'jwt-decode';
 import './Authentication.css'
-
+import AuthContext from '../AuthContext';
 
 function Login(props){
     const [username,setUsername] = useState("");
@@ -12,41 +12,45 @@ function Login(props){
 
     const history = useHistory();
 
+    const auth = useContext(AuthContext);
+
     function handleSubmit(evt){
 
         evt.preventDefault();
 
-    fetch("http://localhost:8080/api/security", {
-        method: "POST",
-        headers: {
-            "Content-Type" : "application/json"
-        },
-        body: JSON.stringify({
-            username,
-            password
+        fetch("http://localhost:8080/api/security", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({
+                username,
+                password
+            })
         })
-    })
-    .then (response => {
-        if( response.status === 200) {
-            return response.json();
-        } else {
-            console.log(response);
-        }
-    })
-        .then( jwtContainer => {
-            const jwt = jwtContainer.jwt_token;
-            const claimsObject = jwtDecode(jwt);
+        .then (response => {
+            if( response.status === 200) {
+                return response.json();
+            } else {
+                console.log(response);
+            }
+        })
+            .then( jwtContainer => {
+                const jwt = jwtContainer.jwt_token;
+                const claimsObject = jwtDecode(jwt);
 
-            console.log( jwt );
-            console.log(claimsObject);
+                console.log( jwt );
+                console.log(claimsObject);
 
+               
+                auth.login(jwt);
+                history.push("/Home");
             
-        
-        })
-        .catch( error => {
-            console.log( error );
-        });
-    }
+            })
+            .catch( error => {
+                console.log( error );
+            });
+        }
 
 
     return(

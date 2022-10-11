@@ -1,7 +1,7 @@
 function EditBudget(){
     return(
         <div>
-            <h1>Contact</h1>
+            <h1>Edit Budget</h1>
         </div>
         )
 }

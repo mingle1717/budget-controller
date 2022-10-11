@@ -1,7 +1,7 @@
 function BudgetMemberDashboard(){
     return(
         <div>
-            <h1>Contact</h1>
+            <h1>Budget Member Dashboard</h1>
         </div>
         )
 }

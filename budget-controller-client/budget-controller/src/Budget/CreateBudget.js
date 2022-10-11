@@ -1,7 +1,7 @@
 function CreateBudget(){
     return(
         <div>
-            <h1>Contact</h1>
+            <h1>Create Budget</h1>
         </div>
         )
 }

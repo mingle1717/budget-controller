@@ -1,7 +1,7 @@
 function TransactionForm(){
     return(
         <div>
-            <h1>Contact</h1>
+            <h1>Transaction form</h1>
         </div>
         )
 }

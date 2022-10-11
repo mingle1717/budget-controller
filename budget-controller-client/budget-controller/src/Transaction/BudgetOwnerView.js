@@ -1,7 +1,7 @@
 function BudgetOwnerView(){
     return(
         <div>
-            <h1>Contact</h1>
+            <h1>Budget Owner View</h1>
         </div>
         )
 }
