@@ -9,5 +9,5 @@ public interface CategoryRepository {
 
     Category addCategory(Category category);
 
-    boolean editBudget(Category category);
+    boolean editCategory(Category category);
 }

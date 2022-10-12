@@ -60,10 +60,9 @@ public class CategoryJdbcRepository implements CategoryRepository {
     }
 
     @Override
-    public boolean editBudget(Category category) {
+    public boolean editCategory(Category category) {
 
         final String sql = " UPDATE `calculator_test`.`Category` SET"
-                + "`category_id` = ?, "
                 + "`cat_name` = ?, "
                 + "`cat_percent` = ?, "
                 + "`higher_limit` = ?, "
@@ -73,7 +72,6 @@ public class CategoryJdbcRepository implements CategoryRepository {
                 + "where `category_id` = ?;";
 
         return jdbcTemplate.update(sql,
-                category.getCategoryId(),
                 category.getCategoryName(),
                 category.getCategoryPercent(),
                 category.getHigherLimit(),
