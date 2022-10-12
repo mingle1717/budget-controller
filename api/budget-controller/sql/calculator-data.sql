@@ -76,6 +76,7 @@ VALUES
 ('Rabbit' , '1000.50'),
 ('Low', '1');
 
+
 DELETE FROM myRole;
 ALTER TABLE myRole AUTO_INCREMENT = 1;
 
@@ -104,7 +105,8 @@ VALUES
 ('Entertainment', '25', '500', '250', True, '1'),
 ('Food', '10', '200', '100', False, '2'),
 ('Misc', '5', '1000', '250', True, '3'),
-('Rent', '10', '1000', '550', True, '3');
+('Rent', '10', '1000', '550', True, '4'),
+('Drinks', '5', '100', '300', False, '5');
 
 DELETE FROM userBudget;
 ALTER TABLE userBudget AUTO_INCREMENT = 1;
@@ -142,7 +144,9 @@ INSERT INTO myTransaction (transaction_name, transaction_amount, transaction_des
 VALUES
 ('McDonalds', '12.50', 'Food', '1', '1', '1'),
 ('Rent', '850', 'Rent', '3', '3', '3'),
-('Movie', '50', 'Entertainment', '1', '2', '4');
+('Movie', '50', 'Entertainment', '1', '2', '4'),
+('Bar', '100', 'Entertainment', '2', '4', '2'),
+('Hiking', '200', 'Camping', '4', '3', '3');
 
 
 
