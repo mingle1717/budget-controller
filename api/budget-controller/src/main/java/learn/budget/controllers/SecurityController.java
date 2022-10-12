@@ -1,7 +1,10 @@
 package learn.budget.controllers;
 
+import learn.budget.domain.Result;
 import learn.budget.models.AppUser;
 import learn.budget.models.viewmodels.LoginRequest;
+import learn.budget.models.viewmodels.RegisterRequest;
+import learn.budget.security.AppUserService;
 import learn.budget.security.JwtConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,9 @@ public class SecurityController {
     @Autowired
     JwtConverter converter;
 
+    @Autowired
+    AppUserService service;
+
 
 
     @PostMapping
@@ -44,5 +50,11 @@ public class SecurityController {
         tokenHolder.put("jwt_token", token);
 
         return ResponseEntity.ok( tokenHolder );
+    }
+
+    @PostMapping("/register")
+    ResponseEntity<AppUser> register(@RequestBody RegisterRequest request) {
+        Result<AppUser> newUser = service.register(request);
+        return ResponseEntity.ok(newUser.getPayload());
     }
 }
