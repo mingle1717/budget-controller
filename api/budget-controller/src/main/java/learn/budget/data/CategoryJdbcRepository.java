@@ -44,9 +44,9 @@ public class CategoryJdbcRepository implements CategoryRepository {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, category.getCategoryId());
             ps.setString(2, category.getCategoryName());
-            ps.setInt(3, category.getCategoryPercent());
-            ps.setInt(4, category.getHigherLimit());
-            ps.setInt(5, category.getLowerLimit());
+            ps.setBigDecimal(3, category.getCategoryPercent());
+            ps.setBigDecimal(4, category.getHigherLimit());
+            ps.setBigDecimal(5, category.getLowerLimit());
             ps.setBoolean(6, category.isGoal());
             ps.setInt(7, category.getBudgetId());
             return ps;

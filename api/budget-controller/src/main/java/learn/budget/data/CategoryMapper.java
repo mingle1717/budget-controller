@@ -22,18 +22,3 @@ public class CategoryMapper implements RowMapper<Category> {
         return category;
     }
 }
-/*
-BudgetMapper:
-
-public class BudgetMapper implements RowMapper<Budget> {
-    @Override
-    public Budget mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Budget budget = new Budget();
-
-        budget.setBudgetName(rs.getString("budget_name"));
-        budget.setBudgetId(rs.getInt("budget_id"));
-        budget.setBalance(rs.getBigDecimal("balance"));
-
-        return budget;
-    }
- */

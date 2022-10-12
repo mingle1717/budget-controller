@@ -1,15 +1,43 @@
 package learn.budget.domain;
 
+import learn.budget.data.CategoryJdbcRepository;
 import learn.budget.models.Budget;
 import learn.budget.models.Category;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CategoryService {
+    @Autowired
+    CategoryJdbcRepository repository;
     public Result<Budget> editBudgetCategories(Budget budget) {
-        throw new UnsupportedOperationException();
+        List<Category> categories = budget.getCategories();
+        Result<Budget> result = new Result<>();
+        for (Category c: categories) {
+            if (!(validateCategory(c).isSuccess())) {
+                for (String m : validateCategory(c).getMessages()) {
+                    result.addMessage(m, ResultType.INVALID);
+                }
+            }
+        }
+        if (result.getMessages().size() > 0) {
+            return result;
+        }
+        // good to go!
+        List<Category> updatedCategories = new ArrayList<>();
+        for (Category c : categories) {
+            if (repository.editCategory(c)) {
+                c = repository.findById(c.getCategoryId());
+                updatedCategories.add(c);
+            }
+        }
+        budget.setCategories(updatedCategories);
+        result.setPayload(budget);
+        return result;
     }
 
     public Result<Category> validateCategory(Category category) {

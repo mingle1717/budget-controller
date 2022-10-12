@@ -13,4 +13,5 @@ public class CategoryServiceTest {
 
     @MockBean
     CategoryJdbcRepository repository;
+    // need to make tests for validateCategory and editBudgetCategories
 }
