@@ -1,20 +1,25 @@
-import shibe from "../Images/shibe.jpg"
+import shibe from "../Images/PieChart.jpg"
 import {Link} from "react-router-dom";
-
+import "./Dashboard.css";
 
 function BudgetOwnerDashboard(){
     return(
         <div>
             <h1>Budget Owner Dashboard</h1>
-            <Link to ="/budgetownermanageauto"> Manage auto transactions </Link>
-            <div className="budgetPieContainer" >
-                <img src={shibe} className="card-img-top" alt="..."/>
-                <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" className="btn btn-primary">Go somewhere</a>
+
+            <div>
+           
+            <Link to = "/editbudget" className="budgetPieContainer" >
+                <img src={shibe} className="budgetPieChart" alt="..."/>
+            </Link>
+            <Link to = "/budgetownerview" className="spendingPieContainer" >
+                <img src={shibe} className="spendingPieChart" alt="..."/>
+            </Link>
             </div>
-</div>
+            <div className="manageTransactions">
+            <Link to ="/budgetownermanageauto"> Manage auto transactions </Link>
+            </div>
+            
         </div>
         )
 }

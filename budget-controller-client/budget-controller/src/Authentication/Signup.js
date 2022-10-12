@@ -30,7 +30,7 @@ function Signup(){
         })
         .then(response => {
 
-        if(response.status ===200) {
+        if(response.status ===201) {
             fetch("http://localhost:8080/api/security", {
                 method: "POST",
                 headers: {
