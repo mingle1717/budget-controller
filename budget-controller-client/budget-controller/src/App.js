@@ -110,7 +110,7 @@ function App() {
               {user ?(user.userRoles[0].roleName === "Admin" ? <EditBudget/>:<Redirect to="/budgetmemberdashboard"/> ): <Redirect to="/login"/>}
             </Route>
             <Route path="/budgetmemberview">
-              {user ? (user.userRoles[0].roleName === "Admin" ? <BudgetMemberView/>:<Redirect to="/budgetownerview"/> ) : <Redirect to="/login"/>}
+              {user ? (user.userRoles[0].roleName === "Admin" ? <BudgetOwnerView/>:<Redirect to="/budgetmemberview"/> ) : <Redirect to="/login"/>}
             </Route>
             <Route path="/budgetownerview">
               {user ?(user.userRoles[0].roleName === "Admin" ? <BudgetOwnerView/>:<Redirect to="/budgetmemberview"/> ) : <Redirect to="/login"/>}

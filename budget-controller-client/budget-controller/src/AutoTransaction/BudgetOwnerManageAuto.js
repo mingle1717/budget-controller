@@ -1,7 +1,7 @@
 function BudgetOwnerManageAuto(){
     return(
         <div>
-            <h1>Budget Ownder Manage Auto transactions</h1>
+            <h1>Budget Owner Manage Auto transactions</h1>
         </div>
         )
 }

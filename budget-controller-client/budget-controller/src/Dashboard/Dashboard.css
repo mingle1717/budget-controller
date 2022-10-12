@@ -1,4 +1,23 @@
 .budgetPieContainer{
-    margin-right: 18rem;
+    
+    
+}
+.budgetPieChart {
+    size: 10%;
+    margin-right: 5%;
+    margin-top: 5%;
+}
 
+.spendingPieContainer{
+    
+
+}
+.spendingPieChart {
+    size: 10%;
+    margin-top: 5%;
+}
+
+.manageTransactions{
+    margin-right: 70%;
+    margin-top : -10%;
 }
