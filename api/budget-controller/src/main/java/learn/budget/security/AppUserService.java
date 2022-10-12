@@ -24,14 +24,22 @@ public class AppUserService {
         String password = request.getPassword();
         // password validation here
 
-        if (password.length() < 6 || password.length() > 12) {
+        if (password == null || password.length() < 6 || password.length() > 12 || password.isBlank()) {
             result.addMessage("This password does not meet the length requirements" +
                     " (6-12 characters)", ResultType.INVALID);
+        }
+
+        if (username == null || username.isBlank()) {
+            result.addMessage("Please enter a username.", ResultType.INVALID);
         }
 
         if (repo.getUserByUsername(username) != null) {
             result.addMessage("This username already exists. Please try a different username.",
                     ResultType.INVALID);
+        }
+
+        if (email == null || email.isBlank()) {
+            result.addMessage("Please enter an email.", ResultType.INVALID);
         }
 
         if (repo.getUserByEmail(email) != null) {
@@ -41,9 +49,7 @@ public class AppUserService {
         if (result.getMessages().size() > 0) {
             return result;
         } else  {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            String passhash = encoder.encode(password);
-            payload = repo.register(request, passhash);
+            payload = repo.register(request, request.getPasshash());
             if (payload != null) {
                 result.setPayload(payload);
                 return result;

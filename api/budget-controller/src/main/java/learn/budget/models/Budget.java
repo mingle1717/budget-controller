@@ -7,7 +7,7 @@ public class Budget {
 
     private int budgetId;
 
-    private AppUser appUser;
+    private List<AppUser> appUsers;
 
     private List<Category> categories;
 
@@ -15,20 +15,20 @@ public class Budget {
 
     private String budgetName;
 
-    public Budget(AppUser appUser, List<Category> categories, List<AutoTrigger> autoTriggers, List<Transaction> transactions, BigDecimal balance, String budgetName) {
-        this.appUser = appUser;
+    public Budget(List<AppUser> appUsers, List<Category> categories, List<AutoTrigger> autoTriggers, List<Transaction> transactions, BigDecimal balance, String budgetName) {
+        this.appUsers = appUsers;
         this.categories = categories;
         this.balance = balance;
         this.budgetName = budgetName;
     }
     public Budget(){};
 
-    public AppUser getAppUser() {
-        return appUser;
+    public List<AppUser> getAppUsers() {
+        return appUsers;
     }
 
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
+    public void setAppUser(List<AppUser> appUsers) {
+        this.appUsers = appUsers;
     }
 
     public List<Category> getCategories() {

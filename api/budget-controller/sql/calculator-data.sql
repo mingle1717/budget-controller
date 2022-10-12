@@ -62,10 +62,30 @@ CREATE TABLE `userBudget` (
     `budget_id` INT NOT NULL,
     PRIMARY KEY (`userBudget_id`)
 );
+---------------------------------- #Above Is the Tables
+--------------------------------- #Below Is the Data being inserted
 
+delimiter //
+CREATE PROCEDURE set_known_good_state()
+BEGIN
 
 DELETE FROM Budget;
 ALTER TABLE Budget AUTO_INCREMENT = 1;
+
+DELETE FROM myRole;
+ALTER TABLE myRole AUTO_INCREMENT = 1;
+
+DELETE FROM appUser;
+ALTER TABLE appUser AUTO_INCREMENT = 1;
+
+DELETE FROM Category;
+ALTER TABLE Category AUTO_INCREMENT = 1;
+
+DELETE FROM userBudget;
+ALTER TABLE userBudget AUTO_INCREMENT = 1;
+
+DELETE FROM autoTrigger;
+ALTER TABLE autoTrigger AUTO_INCREMENT = 1;
 
 INSERT INTO Budget (budget_name, balance)
 VALUES
@@ -76,18 +96,10 @@ VALUES
 ('Rabbit' , '1000.50'),
 ('Low', '1');
 
-
-DELETE FROM myRole;
-ALTER TABLE myRole AUTO_INCREMENT = 1;
-
 INSERT INTO myRole (role_name)
 VALUES
 ('Admin'),
 ('Member');
-
-
-DELETE FROM appUser;
-ALTER TABLE appUser AUTO_INCREMENT = 1;
 
 INSERT INTO appUser (username, passhash, email, isDeleted, role_id)
 VALUES
@@ -97,9 +109,6 @@ VALUES
 ('cristian' , '$2a$10$ODjwk.5kRpfn1N90i7lnd.AApC8zlWWRTiOsnRSxVIZallZwJo/uq' , 'cristian@dev-10.com', False, '1'),
 ('fakemember' , '$2a$10$NAj5oxiRD4ymrsOEunLVoedTuO.xpTXVMfs68AS098QGpmPgOnK42 ', 'fakemember@gmail.com', False, '2');
 
-DELETE FROM Category;
-ALTER TABLE Category AUTO_INCREMENT = 1;
-
 INSERT INTO Category (cat_name, cat_percent, higher_limit, lower_limit, goal, budget_id)
 VALUES
 ('Entertainment', '25', '500', '250', True, '1'),
@@ -107,9 +116,6 @@ VALUES
 ('Misc', '5', '1000', '250', True, '3'),
 ('Rent', '10', '1000', '550', True, '4'),
 ('Drinks', '5', '100', '300', False, '5');
-
-DELETE FROM userBudget;
-ALTER TABLE userBudget AUTO_INCREMENT = 1;
 
 INSERT INTO userBudget (isOwner, user_id, budget_id)
 VALUES
@@ -120,9 +126,6 @@ VALUES
 (False, '4', '3'),
 (False, '4', '2'),
 (False, '4', '1');
-
-DELETE FROM autoTrigger;
-ALTER TABLE autoTrigger AUTO_INCREMENT = 1;
 
 INSERT INTO autoTrigger (trigger_date, payment_amount, category_id)
 VALUES
@@ -137,16 +140,24 @@ VALUES
 ('2022-10-31', 90.50, 3),
 ('2022-10-15', 1000, 1);
 
-DELETE FROM myTransaction;
-ALTER TABLE myTransaction AUTO_INCREMENT = 1;
-
 INSERT INTO myTransaction (transaction_name, transaction_amount, transaction_description, category_id, auto_id, user_id)
 VALUES
 ('McDonalds', '12.50', 'Food', '1', '1', '1'),
 ('Rent', '850', 'Rent', '3', '3', '3'),
 ('Movie', '50', 'Entertainment', '1', '2', '4'),
 ('Bar', '100', 'Entertainment', '2', '4', '2'),
-('Hiking', '200', 'Camping', '4', '3', '3');
+('Hiking', '200', 'Camping', '4', '3', '2');
+
+END //
+delimiter ;
+
+
+
+
+
+
+
+
 
 
 

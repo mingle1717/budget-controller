@@ -1,7 +1,7 @@
 # All Methods For This Project:
 
 ## Security Methods:
-- Login method in SecurityController
+- Login method in SecurityController (done)
 - 
 
 ## Budget Methods:
