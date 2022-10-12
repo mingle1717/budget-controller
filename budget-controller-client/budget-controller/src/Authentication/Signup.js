@@ -76,7 +76,7 @@ function Signup(){
     return(
         <div className="container">
             <h1 className="authHeader">Signup</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
             <div className="form-group fieldContainer">
                 <label htmlFor="username" className="usernameLabel"> Username</label>
                 <input 
@@ -100,7 +100,7 @@ function Signup(){
             </div>
 
             <div>
-                <button type="button" className="btn btn-primary submitButton">Submit</button>
+                <button type="button" onClick={handleSubmit}  className="btn btn-primary submitButton">Submit</button>
                 <Link to = "/home" type="button " className="btn btn-danger cancelButton">Cancel</Link>
             </div>
             </form>
