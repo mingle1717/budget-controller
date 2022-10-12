@@ -1,22 +1,24 @@
 package learn.budget.models;
 
+import java.math.BigDecimal;
+
 public class Category {
 
     private int categoryId;
 
     private String categoryName;
 
-    private int categoryPercent;
+    private BigDecimal categoryPercent;
 
-    private int higherLimit;
+    private BigDecimal higherLimit;
 
-    private int lowerLimit;
+    private BigDecimal lowerLimit;
 
     private boolean goal;
 
     private int budgetId;
 
-    public Category(int categoryId, String categoryName, int categoryPercent, int higherLimit, int lowerLimit, boolean goal, int budgetId) {
+    public Category(int categoryId, String categoryName, BigDecimal categoryPercent, BigDecimal higherLimit, BigDecimal lowerLimit, boolean goal, int budgetId) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryPercent = categoryPercent;
@@ -25,6 +27,8 @@ public class Category {
         this.goal = goal;
         this.budgetId = budgetId;
     }
+
+    public Category(){}
 
     public int getCategoryId() {
         return categoryId;
@@ -42,27 +46,27 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public int getCategoryPercent() {
+    public BigDecimal getCategoryPercent() {
         return categoryPercent;
     }
 
-    public void setCategoryPercent(int categoryPercent) {
+    public void setCategoryPercent(BigDecimal categoryPercent) {
         this.categoryPercent = categoryPercent;
     }
 
-    public int getHigherLimit() {
+    public BigDecimal getHigherLimit() {
         return higherLimit;
     }
 
-    public void setHigherLimit(int higherLimit) {
+    public void setHigherLimit(BigDecimal higherLimit) {
         this.higherLimit = higherLimit;
     }
 
-    public int getLowerLimit() {
+    public BigDecimal getLowerLimit() {
         return lowerLimit;
     }
 
-    public void setLowerLimit(int lowerLimit) {
+    public void setLowerLimit(BigDecimal lowerLimit) {
         this.lowerLimit = lowerLimit;
     }
 
