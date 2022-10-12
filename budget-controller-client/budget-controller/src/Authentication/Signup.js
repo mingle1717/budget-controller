@@ -100,7 +100,7 @@ function Signup(){
             </div>
 
             <div>
-                <button type="button" onClick={handleSubmit}  className="btn btn-primary submitButton">Submit</button>
+                <button type="submit"  className="btn btn-primary submitButton">Submit</button>
                 <Link to = "/home" type="button " className="btn btn-danger cancelButton">Cancel</Link>
             </div>
             </form>

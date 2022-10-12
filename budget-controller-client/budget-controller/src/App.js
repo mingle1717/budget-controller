@@ -104,13 +104,13 @@ function App() {
               <Signup/>
             </Route>
             <Route path="/createbudget">
-              {user ? (user.userRoles[0].roleName === "Admin" ? <CreateBudget/>:<Redirect to="/budgetmemberdashboard"/> ) : <Redirect to="/login"/>}
+              {user ? (user.userRoles[0].roleName === "Member" ? <CreateBudget/>:<Redirect to="/budgetownerdashboard"/> ) : <Redirect to="/login"/>}
             </Route>
             <Route path="/editbudget">
               {user ?(user.userRoles[0].roleName === "Admin" ? <EditBudget/>:<Redirect to="/budgetmemberdashboard"/> ): <Redirect to="/login"/>}
             </Route>
             <Route path="/budgetmemberview">
-              {user ? (user.userRoles[0].roleName === "Admin" ? <BudgetOwnerView/>:<Redirect to="/budgetmemberview"/> ) : <Redirect to="/login"/>}
+              {user ? (user.userRoles[0].roleName === "Member" ? <BudgetMemberView/>:<Redirect to="/budgetownerview"/> ) : <Redirect to="/login"/>}
             </Route>
             <Route path="/budgetownerview">
               {user ?(user.userRoles[0].roleName === "Admin" ? <BudgetOwnerView/>:<Redirect to="/budgetmemberview"/> ) : <Redirect to="/login"/>}
