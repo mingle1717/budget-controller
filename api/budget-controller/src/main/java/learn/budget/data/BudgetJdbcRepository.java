@@ -22,7 +22,7 @@ public class BudgetJdbcRepository implements BudgetRepository {
     @Transactional
     public Budget findById(int budgetId) {
 
-        final String sql = "select `budget_id`, `budget_name`, `balance`"
+        final String sql = "select `Budget`.`budget_id`, `Budget`.`budget_name`, `Budget`.`balance` "
                 + "from `calculator_test`.`Budget`"
                 + "where budget_id = ?;";
 

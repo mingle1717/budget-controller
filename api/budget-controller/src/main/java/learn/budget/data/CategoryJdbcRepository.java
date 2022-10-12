@@ -23,7 +23,8 @@ public class CategoryJdbcRepository implements CategoryRepository {
     @Transactional
     public Category findById(int categoryId){
 
-        final String sql ="SELECT `category_id`, `cat_name`, `cat_percent`, `higher_limit`, `lower_limit`, `goal`, `budget_id`"
+        final String sql ="SELECT `Category`.`category_id`, `Category`.`cat_name`, `Category`.`cat_percent`," +
+                " `Category`.`higher_limit`, `Category`.`lower_limit`, `Category`.`goal`, `Category`.`budget_id`"
                 + "from `calculator_test`.`Category`"
                 + "where `category_id`= ?;";
 
