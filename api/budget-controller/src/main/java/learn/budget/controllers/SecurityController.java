@@ -7,6 +7,7 @@ import learn.budget.models.viewmodels.RegisterRequest;
 import learn.budget.security.AppUserService;
 import learn.budget.security.JwtConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -53,8 +54,11 @@ public class SecurityController {
     }
 
     @PostMapping("/register")
-    ResponseEntity<AppUser> register(@RequestBody RegisterRequest request) {
+    ResponseEntity<Object> register(@RequestBody RegisterRequest request) {
         Result<AppUser> newUser = service.register(request);
-        return ResponseEntity.ok(newUser.getPayload());
+        if (newUser.isSuccess()) {
+            return new ResponseEntity<>(newUser.getPayload(), HttpStatus.CREATED);
+        }
+        return ErrorResponse.build(newUser);
     }
 }
