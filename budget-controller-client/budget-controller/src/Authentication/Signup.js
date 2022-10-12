@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
+import AuthContext from '../AuthContext';
 import './Authentication.css'
 function Signup(){
 
@@ -11,9 +12,12 @@ function Signup(){
 
     const history = useHistory();
 
-    const handleSubmit = async (event) =>{
-        event.preventDefualt();
-        const response = await fetch("http://localhost:8080/authenticate", {
+    const auth = useContext(AuthContext);
+
+
+    function handleSubmit (event){
+        event.preventDefault();
+        fetch("http://localhost:8080/api/security/register", {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
@@ -23,17 +27,50 @@ function Signup(){
                 password,
                 email
             }),
-        });
+        })
+        .then(response => {
 
         if(response.status ===200) {
-            const {jwt_token} = await response.json();
-            console.log(jwt_token);
-            history.push("/home");
-        } else if (response.status === 403) {
+            fetch("http://localhost:8080/api/security", {
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            })
+            .then( loginResponse => {
+                if( loginResponse.status === 200){
+                    return loginResponse.json();
+                } else {
+                    console.log(loginResponse);
+                }
+            })
+            .then(jwtContainer => {
+                const jwt = jwtContainer.jwt_token;
+                const claimsObject = jwtDecode(jwt);
+
+                console.log( jwt );
+                console.log(claimsObject);
+
+                auth.login(jwt);
+                history.push("/budgetmemberdashboard");
+            })
+            .catch(loginError => {
+                console.log( loginError );
+            });
+            return response.json();
+        }
+            
+    
+         else if (response.status === 403) {
             setErrors(["Login failed."]);
         } else {
             setErrors(["Unknown error."]);
         }
+        })
     };
 
     return(

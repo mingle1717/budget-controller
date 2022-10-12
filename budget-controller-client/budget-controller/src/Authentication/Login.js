@@ -44,7 +44,7 @@ function Login(props){
 
                
                 auth.login(jwt);
-                history.push("/Home");
+                history.push("/budgetmemberdashboard");
             
             })
             .catch( error => {

@@ -92,7 +92,7 @@ function App() {
         <Navbar setUser={setUser}/>
           <Switch>
             <Route path="/home">
-              <Home/>
+              {!user ? <Home/> : (user.userRoles[0].roleName === "Admin" ? <Redirect to = "/budgetownerdashboard"/> : <Redirect to ="budgetmemberdashboard"/>)}
             </Route>
             <Route path="/contact">
               <Contact/>
