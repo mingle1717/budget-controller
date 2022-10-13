@@ -5,10 +5,6 @@ import learn.budget.models.Budget;
 import learn.budget.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +19,8 @@ public class BudgetService {
 
     public Result<Budget> createBudget(Budget budget) {
         //this is to maybe create the budget name and validate the balance.
-        /*
-        private int budgetId;
-
-    private List<AppUser> appUsers;
-
-    private List<Category> categories;
-
-    private BigDecimal balance;
-
-    private String budgetName;
-         */
         Result<Budget> result = new Result();
-        if (budget.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
+        if (budget.getBalance() == null || budget.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
             result.addMessage("Please enter a balance greater than zero.", ResultType.INVALID);
         }
         if (budget.getAppUsers() == null || budget.getAppUsers().size() <= 0) { // unlikely to reach this validation
@@ -46,13 +31,15 @@ public class BudgetService {
         }
         List<Category> categories = new ArrayList<>();
 
-        for (Category c: budget.getCategories()) {
-            Result<Category> categoryResult = categoryService.validateCategory(c);
-            if (!(categoryResult.isSuccess())) {
-                // adds all the messages for failing categories. Accurate but potentially verbose if
-                //the user makes a lot of failing categories.
-                for (String m : categoryResult.getMessages())
-                result.addMessage(m, ResultType.INVALID);
+        if (budget.getCategories() != null) {
+            for (Category c : budget.getCategories()) {
+                Result<Category> categoryResult = categoryService.validateCategory(c);
+                if (!(categoryResult.isSuccess())) {
+                    // adds all the messages for failing categories. Accurate but potentially verbose if
+                    //the user makes a lot of failing categories.
+                    for (String m : categoryResult.getMessages())
+                        result.addMessage(m, ResultType.INVALID);
+                }
             }
         }
 
@@ -65,8 +52,12 @@ public class BudgetService {
         // set this later: savings.setCategoryPercent();
         BigDecimal sum = BigDecimal.ZERO;
 
-        for (Category c: budget.getCategories()) {
-            sum = sum.add(c.getCategoryPercent());
+        if (budget.getCategories() != null) {
+            for (Category c : budget.getCategories()) {
+                if (c.getCategoryPercent() != null) {
+                    sum = sum.add(c.getCategoryPercent());
+                }
+            }
         }
         //checks that sum is equal to 100 percent
         if (sum.compareTo(BigDecimal.valueOf(100)) == 0) {
@@ -78,7 +69,7 @@ public class BudgetService {
             savings.setCategoryPercent(BigDecimal.valueOf(100).subtract(sum));
         }
         // the next line checks if the total percentages are over 100 percent
-        if (sum.compareTo(BigDecimal.valueOf(100)) > 0){
+        if (sum.compareTo(BigDecimal.valueOf(100)) > 0) {
             result.addMessage("The categories must add up to be no greater than 100.", ResultType.INVALID);
         }
         if (result.getMessages().size() > 0) {

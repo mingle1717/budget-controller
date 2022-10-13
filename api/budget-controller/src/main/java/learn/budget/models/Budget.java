@@ -27,7 +27,7 @@ public class Budget {
         return appUsers;
     }
 
-    public void setAppUser(List<AppUser> appUsers) {
+    public void setAppUsers(List<AppUser> appUsers) {
         this.appUsers = appUsers;
     }
 

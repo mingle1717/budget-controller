@@ -24,10 +24,30 @@ public class CategoryService {
                 }
             }
         }
+        BigDecimal sum = BigDecimal.ZERO;
+
+        for (Category c: budget.getCategories()) {
+            if (c.getCategoryPercent() != null) { // avoids null pointer exception
+                sum = sum.add(c.getCategoryPercent());
+            }
+        }
+        // Still need to validate that percentages aren't changed to add up over 100%
+        //checks that sum is equal to 100 percent
+        if (sum.compareTo(BigDecimal.valueOf(100)) == 0) {
+            // good to go! Set savings to 0 percent
+            budget.getCategories().get(1).setCategoryPercent(BigDecimal.ZERO);
+        }
+        // the next line checks if the sum of all percentages is less than 100 percent and auto sets savings
+        if (sum.compareTo(BigDecimal.valueOf(100)) < 0) {
+            budget.getCategories().get(1).setCategoryPercent(BigDecimal.valueOf(100).subtract(sum));
+        }
+        // the next line checks if the total percentages are over 100 percent
+        if (sum.compareTo(BigDecimal.valueOf(100)) > 0){
+            result.addMessage("The categories must add up to be no greater than 100.", ResultType.INVALID);
+        }
         if (result.getMessages().size() > 0) {
             return result;
         }
-        // good to go!
         List<Category> updatedCategories = new ArrayList<>();
         for (Category c : categories) {
             if (repository.editCategory(c)) {
@@ -45,21 +65,21 @@ public class CategoryService {
 
         if (category.getCategoryPercent() == null) {
             result.addMessage("Category percent must be provided.", ResultType.INVALID);
+        } else if (category.getCategoryPercent().compareTo(BigDecimal.ZERO) < 0) {
+            result.addMessage("Category percent must be a positive number.", ResultType.INVALID);
         }
         if (category.getCategoryName() == null || category.getCategoryName().isBlank()) {
             result.addMessage("Category name must be provided.", ResultType.INVALID);
         }
         if (category.getLowerLimit() == null) {
             result.addMessage("Category lower limit must be provided.", ResultType.INVALID);
+        } else if (category.getLowerLimit().compareTo(BigDecimal.ZERO) < 0) {
+            result.addMessage("Category lower limit must be a positive number", ResultType.INVALID);
         }
         if (category.getHigherLimit() == null) {
             result.addMessage("Category higher limit must be provided.", ResultType.INVALID);
-        }
-        if (category.getLowerLimit().compareTo(BigDecimal.ZERO) < 0) {
+        } else if (category.getHigherLimit().compareTo(BigDecimal.ZERO) < 0) {
             result.addMessage("Category higher limit must be a positive number", ResultType.INVALID);
-        }
-        if (category.getLowerLimit().compareTo(BigDecimal.ZERO) < 0) {
-            result.addMessage("Category lower limit must be a positive number", ResultType.INVALID);
         }
         result.setPayload(category);
         return result;

@@ -119,9 +119,6 @@ public class AppUserServiceTest {
                 request.getPasshash(), false, new ArrayList<MyRole>()));
         assertFalse(service.register(request).isSuccess());
     }
-
-    // TODO: 10/12/2022 Fill in all the above tests with this mock method:
-
     @Test
     void shouldNotRegisterUserWithBlankEmail() {
         RegisterRequest request = new RegisterRequest();
