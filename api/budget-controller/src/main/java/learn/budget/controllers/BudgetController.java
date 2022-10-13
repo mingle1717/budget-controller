@@ -28,4 +28,19 @@ public class BudgetController {
         return ErrorResponse.build(budgetResult);
     }
 
+    @GetMapping("/personal/{username}")
+    public Object viewBudgetDetails(@PathVariable String username) {
+
+        Result<Budget> partiallyHydratedBudgetResult = budgetService.viewBudgetDetails(username);
+        if (partiallyHydratedBudgetResult.isSuccess()) {
+            Result<Budget> budgetResultWithCategories = categoryService.getBudgetCategoryDetails(partiallyHydratedBudgetResult.getPayload());
+            if (budgetResultWithCategories.isSuccess()) {
+                return budgetResultWithCategories.getPayload();
+            } else {
+                return ErrorResponse.build(budgetResultWithCategories);
+            }
+        }
+        return ErrorResponse.build(partiallyHydratedBudgetResult);
+    }
+
 }

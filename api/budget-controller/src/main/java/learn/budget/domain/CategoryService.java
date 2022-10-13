@@ -84,4 +84,25 @@ public class CategoryService {
         result.setPayload(category);
         return result;
     }
+
+    public Result<Budget> getBudgetCategoryDetails(Budget budget) {
+        // It is nearly impossible for the budget not to pass these validations, but you can never be too secure.
+        Result<Budget> result = new Result<>();
+        if (budget.getBalance() == null) {
+            result.addMessage("The budget requested has no balance on record.", ResultType.INVALID);
+        }
+        if (budget.getBudgetName() == null || budget.getBudgetName().isBlank()) {
+            result.addMessage("The budget requested has no budget name. This is the developer's fault.", ResultType.INVALID);
+        }
+        if (result.getMessages().size() > 0) {
+            return result;
+        }
+        Budget fullyHydratedBudget = repository.findAllCategoriesForABudget(budget);
+        if (fullyHydratedBudget.getCategories() == null) {
+            result.addMessage("There are no categories associated with this budget", ResultType.INVALID);
+            //shouldn't reach this since the savings category is on every created budget.
+        }
+        result.setPayload(fullyHydratedBudget);
+        return result;
+    }
 }

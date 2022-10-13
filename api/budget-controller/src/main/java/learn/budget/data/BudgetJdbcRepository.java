@@ -1,6 +1,7 @@
 package learn.budget.data;
 
 import learn.budget.models.Budget;
+import learn.budget.models.UserBudget;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -51,6 +52,14 @@ public class BudgetJdbcRepository implements BudgetRepository {
 
         toAdd.setBudgetId(keyHolder.getKey().intValue());
         return toAdd;
+    }
+
+    public UserBudget getBridgeTableInfo(int userId) {
+        final String sql = "select user_budget_id, isOwner, user_id, budget_id from User_Budget where user_id = ?;";
+        return jdbcTemplate.query(
+                sql,
+                new UserBudgetMapper(),
+                userId).stream().findFirst().orElse(null);
     }
 }
 

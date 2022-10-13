@@ -1,5 +1,6 @@
 package learn.budget.data;
 
+import learn.budget.models.Budget;
 import learn.budget.models.Category;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.List;
 
 @Repository
 public class CategoryJdbcRepository implements CategoryRepository {
@@ -33,6 +35,7 @@ public class CategoryJdbcRepository implements CategoryRepository {
     }
 
     @Override
+    @Transactional
     public Category addCategory(Category category){
 
         final String sql = "INSERT INTO `calculator_test`.`Category` " +
@@ -61,6 +64,7 @@ public class CategoryJdbcRepository implements CategoryRepository {
     }
 
     @Override
+    @Transactional
     public boolean editCategory(Category category) {
 
         final String sql = " UPDATE `calculator_test`.`Category` SET"
@@ -79,5 +83,18 @@ public class CategoryJdbcRepository implements CategoryRepository {
                 category.getLowerLimit(),
                 category.isGoal(),
                 category.getBudgetId()) > 0;
+    }
+
+    @Transactional
+    public Budget findAllCategoriesForABudget(Budget budget) {
+
+        final String sql = "select `Category`.`category_id`, `Category`.`cat_name`, `Category`.`cat_percent`,\" +\n" +
+                "                \" `Category`.`higher_limit`, `Category`.`lower_limit`, `Category`.`goal`, `Category`.`budget_id`\"\n" +
+                "                + \"from `calculator_test`.`Category`\"\n" +
+                "                + \"where `budget_id`= ?;";
+
+        List<Category> categories = jdbcTemplate.query(sql, new CategoryMapper(), budget.getBudgetId());
+        budget.setCategories(categories);
+        return budget;
     }
 }

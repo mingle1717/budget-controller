@@ -1,8 +1,11 @@
 package learn.budget.domain;
 
 import learn.budget.data.BudgetJdbcRepository;
+import learn.budget.data.UserJdbcRepo;
+import learn.budget.models.AppUser;
 import learn.budget.models.Budget;
 import learn.budget.models.Category;
+import learn.budget.models.UserBudget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -14,6 +17,8 @@ public class BudgetService {
 
     @Autowired
     BudgetJdbcRepository budgetRepository;
+    @Autowired
+    UserJdbcRepo userJdbcRepo;
     @Autowired
     CategoryService categoryService;
 
@@ -79,8 +84,29 @@ public class BudgetService {
         categories.addAll(budget.getCategories());
         budget.setCategories(categories);
         budget = budgetRepository.createBudget(budget);
+        for (Category c : budget.getCategories()) {
+            categoryService.repository.addCategory(c);
+        }
         result.setPayload(budget);
 
         return result;
+    }
+
+    public Result<Budget> viewBudgetDetails(String username) {
+        // validate that user_id is in the database before having the repo retrieve the existing budget
+        Result<Budget> result = new Result<>();
+        AppUser user = userJdbcRepo.getUserByUsername(username);
+        if (user != null) {
+            UserBudget bridge = budgetRepository.getBridgeTableInfo(user.getUserId());
+            if (bridge != null) {
+                Budget budget = budgetRepository.findById(bridge.getBudgetId());
+                    result.setPayload(budget);
+                    return result;
+            }
+            return null; // there is a user but they don't have/own a budget
+        }
+        result.addMessage("There was no user found in the database with this information.", ResultType.INVALID);
+        return result;
+        // Note: the above error should never appear.
     }
 }
