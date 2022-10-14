@@ -62,7 +62,7 @@ function CreateBudget(){
     }
 
     return(
-        <div className="container createBudgetContainer">
+        <div className="container createBudgetContainer" key="createBudget">
             <form onSubmit={handleSubmit}>
             <FormInput 
                     inputType={"text"} 

@@ -35,7 +35,7 @@ function AddCategoryContainer({onCategoriesChange}){
 
 
     return(
-        <div className='categoryContainer'>
+        <div className='categoryContainer' key='editBudget'>
             {categories.map( c => <CategoryForm category={c}  onCategoryChange={categoryChangeHandler} />)}
 
             <div className='buttons'>

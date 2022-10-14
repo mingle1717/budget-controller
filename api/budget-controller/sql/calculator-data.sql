@@ -151,12 +151,7 @@ VALUES
 END //
 delimiter ;
 
-
-
-
-
-
-
+call set_known_good_state;
 
 
 
