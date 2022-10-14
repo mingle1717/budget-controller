@@ -8,6 +8,9 @@ import java.util.List;
 public interface TransactionRepository {
     List<Transaction> findAll();
 
+    @Transactional
+    Transaction findById(int transactionId);
+
     Transaction addTransaction(Transaction transaction);
 
     boolean update(Transaction transactionUpdate);

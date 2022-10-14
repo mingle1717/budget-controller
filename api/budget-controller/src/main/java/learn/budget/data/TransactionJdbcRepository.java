@@ -29,6 +29,17 @@ public class TransactionJdbcRepository implements TransactionRepository {
     }
 
     @Override
+    @Transactional
+    public Transaction findById(int transactionId){
+        final String sql = "SELECT `myTransaction`.`transaction_id`,`myTransaction`.`transaction_name`` myTransaction`.`transaction_amount`,`myTransaction`.`transaction_description`,`myTransaction`.`category_id`,`myTransaction`.`auto_id`,`myTransaction`.`user_id`"
+                + "from `calculator_test`.`myTransaction`"
+                + " where `transaction_id` = ?;";
+
+        return jdbcTemplate.query(sql, new TransactionMapper(), transactionId).stream()
+                .findFirst().orElse(null);
+    }
+
+    @Override
     public Transaction addTransaction(Transaction transaction) {
         final String sql = " INSERT INTO `calculator_test`.`myTransaction`" +
                 " (`transaction_id`,`transaction_name`,`transaction_amount`,`transaction_description`,`category_id`, +`auto_id`, +`user_id`)" +
