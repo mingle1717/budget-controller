@@ -1,11 +1,12 @@
 package learn.budget.controllers;
+import learn.budget.domain.Result;
 import learn.budget.domain.TransactionService;
+import learn.budget.models.Budget;
 import org.springframework.beans.factory.annotation.Autowired;
 import learn.budget.models.Transaction;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +20,14 @@ public class TransactionController {
     @GetMapping("/{userId}")
     public List<Transaction> viewAllTransactions(@PathVariable int userId) {
         return service.viewAllTransactions(userId);
+    }
+    @PostMapping
+    public ResponseEntity<Object> addTransaction(@RequestBody Transaction transaction) {
+        Result<Transaction> result = service.addTransaction(transaction);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
+        }
+        return ErrorResponse.build(result);
+
     }
 }

@@ -44,7 +44,7 @@ function BudgetOwnerView(props){
                 <Transaction category={"savings"} moneySpent={500} spender={"Ryan"}description={"ipsum adfasdfasdfasdfasdfa"}/>
                 <Transaction category={"savings"} moneySpent={500} spender={"Cristian"} description={"ipsum adfasdfasdfasdfasdfa"}/>
                 <Transaction category={"savings"} moneySpent={500} spender={"Kendy"} description={"ipsum adfasdfasdfasdfasdfa"}/>
-                <Transaction category={"savings"} moneySpent={500} spender={"Cristian"} description={"ipsum adfasdfasdfasdfasdfa"}/>}
+                <Transaction category={"savings"} moneySpent={500} spender={"Cristian"} description={"ipsum adfasdfasdfasdfasdfa"}/>
                 
                 </tbody>
                 </table>

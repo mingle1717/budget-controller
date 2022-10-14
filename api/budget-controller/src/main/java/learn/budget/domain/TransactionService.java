@@ -46,4 +46,22 @@ public class TransactionService {
         result.setPayload(transaction);
         return result;
     }
+
+    public Result<Transaction> addTransaction(Transaction transaction) {
+        Result<Transaction> addedTransaction = new Result<>();
+
+        if (validateTransaction(transaction).isSuccess()) {
+
+            Transaction resultingTransactionFromRepo = repository.addTransaction(transaction);
+            addedTransaction.setPayload(resultingTransactionFromRepo);
+            return addedTransaction;
+
+        } else {
+            for (String message : validateTransaction(transaction).getMessages()) {
+                addedTransaction.addMessage(message, ResultType.INVALID);
+            }
+            return addedTransaction;
+        }
+
+    }
 }

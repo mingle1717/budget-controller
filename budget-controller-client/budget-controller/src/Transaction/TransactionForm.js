@@ -6,7 +6,7 @@ import {useState} from 'react';
 
 
 
-function TransactionForm(){
+function TransactionForm({onTransactionChange}){
 
     const [transaction, setTransaction] = useState();
 
@@ -17,12 +17,21 @@ function TransactionForm(){
         const transactionCopy = {...transaction};
     
         transactionCopy[propertyName] = newValue;
-    
+
         setTransaction(transactionCopy);
+        onTransactionChange(transaction);
     
     }
     return(
         <div className="container">
+            <FormInput
+                inputType={"text"} 
+                identifier={"name"} 
+                labelText={"Name"} 
+                currVal={""} 
+                labelClass={"inputLabel"}
+                onChangeHandler={inputChangeHandler}
+                className={"form-control"}/>
             <FormInput 
                 inputType={"text"} 
                 identifier={"moneySpent"} 
@@ -43,7 +52,7 @@ function TransactionForm(){
             <FormInput 
                 inputType={"text"} 
                 identifier={"description"} 
-                labelText={"Description of Transacation"} 
+                labelText={"Description of Transaction"} 
                 currVal={""} 
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
