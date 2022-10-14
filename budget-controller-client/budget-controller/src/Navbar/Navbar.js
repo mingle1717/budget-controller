@@ -99,7 +99,7 @@ function Navbar(props){
 
             <div className="contactNav">
                 {auth.user? 
-                <button className="btn btn-danger" onClick={() => auth.logout()}>Logout</button>
+                <button className="btn btn-danger logoutButton" onClick={() => auth.logout()}>Logout</button>
             : <Link to ={Directories.LOGIN}  className="homeLink" >Login</Link> }
             </div>
         

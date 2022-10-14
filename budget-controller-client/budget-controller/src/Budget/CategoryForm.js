@@ -27,7 +27,7 @@ function CategoryForm({ onCategoryChange , category}){
 
     
     return(
-        <div className="container">
+        <div className="container ">
       
                 <FormInput 
                     inputType={"text"} 
@@ -75,9 +75,9 @@ function CategoryForm({ onCategoryChange , category}){
                     identifier={"goal"} 
                     labelText={"Financial Goal?"} 
                     currVal={category.goal} 
-                    labelClass={"financialCheckbox"}
+                    labelClass={"financialCheckboxLabel"}
                     onChangeHandler={inputChangeHandler}  
-                    className={"form-check"}/>
+                    className={"financialCheckbox"}/>
                
         
             </div>

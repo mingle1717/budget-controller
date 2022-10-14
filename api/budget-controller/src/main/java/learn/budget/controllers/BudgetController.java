@@ -18,7 +18,7 @@ public class BudgetController {
     BudgetService budgetService;
     CategoryService categoryService;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<Object> createBudget(@RequestBody Budget budget) {
         Result<Budget> budgetResult = budgetService.createBudget(budget);
         Result<Budget> budgetCategoryResult = categoryService.editBudgetCategories(budget);
