@@ -14,10 +14,10 @@ function Transaction(props){
     return(
 
         <tr>
-            <th scope="row"> {props.moneySpent} </th>
-            <td> {props.category} </td>
-            <td> {props.description} </td>
-            {auth.user.userRoles[0].roleName === "Admin" ? <td>{props.spender}</td>: null}
+            <th scope="row"> {props.transactionAmount} </th>
+            <td> {props.transactionCategory} </td>
+            <td> {props.transactionDescription} </td>
+            {auth.user.userRoles[0].roleName === "Admin" ? <td>{props.username}</td>: null}
             <td><button className='btn btn primary' > Edit </button>
             <button className='btn btn danger' > Delete </button></td>
         </tr>

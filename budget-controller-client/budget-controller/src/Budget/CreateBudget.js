@@ -1,6 +1,7 @@
 
-import {useState} from "react"
+import {useState, useContext} from "react"
 import{useHistory} from "react-router-dom"
+import AuthContext from "../AuthContext";
 
 import FormInput from "../FormInput"
 import AddCategoryContainer from "./AddCategoryContainer"
@@ -8,20 +9,28 @@ import AddMemberContainer from "./AddMemberContainer";
 
 function CreateBudget(){
 
-    const [budget, setBudget] = useState({startingBalance: 0, members : [], categories: []});
+    const [budget, setBudget] = useState({balance: 0, members : [], categories: []});
     const [error, setError]= useState([]);
     const [categories, setCategories] = useState([]);
     const [members, setMembers] = useState([]);
     const history = useHistory();
 
+    const auth = useContext(AuthContext);
+   
     
     function handleSubmit(evt){
         evt.preventDefault();
 
+        budget.categories = categories;
+
+        budget.members = members;
+
         fetch( "http://localhost:8080/api/budget", {
             method: "POST",
             headers: {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                Authorization : `Bearer ${auth.user.token}`,
+                Accept : "application/json"
             },
             body: JSON.stringify(budget)
         }).then ( response => {
@@ -30,11 +39,7 @@ function CreateBudget(){
             }
         })
         .catch (errors => {
-            if(errors instanceof TypeError){
-                setError(["Could not connect to api"]);
-            } else {
-                setError( errors );
-            }
+            console.log(errors);
 
         })
     }

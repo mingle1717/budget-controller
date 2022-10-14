@@ -20,6 +20,7 @@ public class Transaction {
 
     private int auto_Id;
 
+
     private String username;
     private int userId;
 
@@ -98,4 +99,12 @@ public class Transaction {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 }

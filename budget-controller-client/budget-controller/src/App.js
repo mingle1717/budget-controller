@@ -107,7 +107,7 @@ function App() {
             <Route path={Directories.CREATEBUDGET}>
               {user ? (user.userRoles[0].roleName === "Member" ? <CreateBudget/>:<Redirect to={Directories.OWNERDASHBOARD}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path={Directories.EDITBUDGET}>
+            <Route path={Directories.EDITBUDGET }>
               {user ?(user.userRoles[0].roleName === "Admin" ? <EditBudget/>:<Redirect to={Directories.MEMBERDASHBOARD}/> ): <Redirect to={Directories.LOGIN}/>}
             </Route>
             <Route path={Directories.MEMBERVIEW}>

@@ -4,7 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class RegisterRequest {
     String username;
-    String password = "";
+    String password;
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     String passhash = encoder.encode(password);
 

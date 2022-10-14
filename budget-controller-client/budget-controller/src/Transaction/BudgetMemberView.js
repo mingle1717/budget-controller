@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import Transaction from "./Transaction"
+import Directories from "../Directories"
 
 function BudgetMemberView(){
     return(
@@ -22,7 +23,7 @@ function BudgetMemberView(){
                 <Transaction category={"savings"} moneySpent={500} spender={"Cristian"} description={"ipsum adfasdfasdfasdfasdfa"}/>
                 </tbody>
                 </table>
-                <Link to="/addtransaction"> Add Transaction </Link>
+                <Link to={Directories.ADDTRANSACTION}> Add Transaction </Link>
         </div>
         )
 }

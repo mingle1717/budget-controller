@@ -26,7 +26,7 @@ function TransactionForm({onTransactionChange}){
         <div className="container">
             <FormInput
                 inputType={"text"} 
-                identifier={"name"} 
+                identifier={"transactionName"} 
                 labelText={"Name"} 
                 currVal={""} 
                 labelClass={"inputLabel"}
@@ -34,7 +34,7 @@ function TransactionForm({onTransactionChange}){
                 className={"form-control"}/>
             <FormInput 
                 inputType={"text"} 
-                identifier={"moneySpent"} 
+                identifier={"transactionAmount"} 
                 labelText={"Money Spent"} 
                 currVal={""} 
                 labelClass={"inputLabel"}
@@ -42,7 +42,7 @@ function TransactionForm({onTransactionChange}){
                 className={"form-control"}/>
             <FormInput 
                 inputType={"select"} 
-                identifier={"category"} 
+                identifier={"categoryName"} 
                 labelText={"Category"} 
                 currVal={""} 
                 labelClass={"inputLabel"}
@@ -51,7 +51,7 @@ function TransactionForm({onTransactionChange}){
 
             <FormInput 
                 inputType={"text"} 
-                identifier={"description"} 
+                identifier={"transacationDescription"} 
                 labelText={"Description of Transaction"} 
                 currVal={""} 
                 labelClass={"inputLabel"}

@@ -43,7 +43,7 @@ function Signup(){
                 })
             })
             .then( loginResponse => {
-                if( loginResponse.status === 200){
+                if( loginResponse.status === 201){
                     return loginResponse.json();
                 } else {
                     console.log(loginResponse);
