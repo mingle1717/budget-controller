@@ -1,6 +1,8 @@
 import {Link} from "react-router-dom"
 import shibe from "../Images/PieChart.jpg"
 import CategoriesPieChart from "../Budget/CategoriesPieChart"
+import TransactionsPieChart from "../Transaction/TransactionsPieChart";
+
 
 function BudgetMemberDashboard(){
     return(
@@ -12,9 +14,9 @@ function BudgetMemberDashboard(){
             </div>
             <Link> Click here for some advice! </Link>
             <div>
-                <img src={shibe} className="budgetPieChart" alt="..."/>
+                <CategoriesPieChart/>
             <Link to = "/budgetmemberview" className="spendingPieContainer" >
-                <img src={shibe} className="spendingPieChart" alt="..."/>
+                <TransactionsPieChart/>
             </Link>
             </div>
             <div className="manageTransactions">
