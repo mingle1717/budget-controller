@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom"
 import shibe from "../Images/PieChart.jpg"
+import CategoriesPieChart from "../Budget/CategoriesPieChart"
 
 function BudgetMemberDashboard(){
     return(
