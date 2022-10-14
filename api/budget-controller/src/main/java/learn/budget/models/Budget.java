@@ -11,14 +11,14 @@ public class Budget {
 
     private List<Category> categories;
 
-    private BigDecimal balance;
+    private BigDecimal startingBalance;
 
     private String budgetName;
 
-    public Budget(List<AppUser> appUsers, List<Category> categories, List<AutoTrigger> autoTriggers, List<Transaction> transactions, BigDecimal balance, String budgetName) {
+    public Budget(List<AppUser> appUsers, List<Category> categories, List<AutoTrigger> autoTriggers, List<Transaction> transactions, BigDecimal startingBalance, String budgetName) {
         this.appUsers = appUsers;
         this.categories = categories;
-        this.balance = balance;
+        this.startingBalance = startingBalance;
         this.budgetName = budgetName;
     }
     public Budget(){};
@@ -39,12 +39,12 @@ public class Budget {
         this.categories = categories;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public BigDecimal getStartingBalance() {
+        return startingBalance;
     }
 
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+    public void setStartingBalance(BigDecimal startingBalance) {
+        this.startingBalance = startingBalance;
     }
 
     public String getBudgetName() {

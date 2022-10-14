@@ -25,7 +25,7 @@ public class BudgetService {
     public Result<Budget> createBudget(Budget budget) {
         //this is to maybe create the budget name and validate the balance.
         Result<Budget> result = new Result();
-        if (budget.getBalance() == null || budget.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
+        if (budget.getStartingBalance() == null || budget.getStartingBalance().compareTo(BigDecimal.ZERO) <= 0) {
             result.addMessage("Please enter a balance greater than zero.", ResultType.INVALID);
         }
         if (budget.getAppUsers() == null || budget.getAppUsers().size() <= 0) { // unlikely to reach this validation
@@ -50,10 +50,10 @@ public class BudgetService {
 
 
         Category savings = new Category();
-        savings.setBudgetId(budget.getBudgetId());
+        savings.setBudgetId(budget.getBudgetId()); // don't do this yet, that's a primary key
         savings.setCategoryName("Savings");
         savings.setLowerLimit(BigDecimal.valueOf(0));
-        savings.setHigherLimit(budget.getBalance());
+        savings.setHigherLimit(budget.getStartingBalance());
         // set this later: savings.setCategoryPercent();
         BigDecimal sum = BigDecimal.ZERO;
 

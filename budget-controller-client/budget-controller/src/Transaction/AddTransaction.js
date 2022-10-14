@@ -22,7 +22,8 @@ function AddTransaction() {
         fetch("http://localhost:8080/api/transaction", {
             method: "POST",
             headers: {
-                "Content Type": "application/json"
+                Authorization : `Bearer ` + auth.user.token,
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(transaction)
         })

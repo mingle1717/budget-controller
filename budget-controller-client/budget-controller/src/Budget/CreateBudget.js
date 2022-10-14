@@ -2,7 +2,6 @@
 import {useState, useContext} from "react"
 import{useHistory} from "react-router-dom"
 import AuthContext from "../AuthContext";
-
 import FormInput from "../FormInput"
 import AddCategoryContainer from "./AddCategoryContainer"
 import AddMemberContainer from "./AddMemberContainer";
@@ -12,7 +11,7 @@ function CreateBudget(){
     const [budget, setBudget] = useState({balance: 0, members : [], categories: []});
     const [error, setError]= useState([]);
     const [categories, setCategories] = useState([]);
-    const [members, setMembers] = useState([]);
+    const [appUsers, setAppUsers] = useState([]);
     const history = useHistory();
 
     const auth = useContext(AuthContext);
@@ -61,9 +60,9 @@ function CreateBudget(){
         setCategories(...categoriesCopy);
     }
 
-    function membersChangeHandler(members) {
-        const membersCopy = [...members]
-        setMembers(...membersCopy);
+    function appUsersChangeHandler(appUsers) {
+        const appUsersCopy = [...appUsers]
+        setAppUsers(...appUsersCopy);
     }
 
     return(
@@ -83,7 +82,7 @@ function CreateBudget(){
                 <AddCategoryContainer onCategoriesChange={categoriesChangeHandler}/>
             </div>
             <div className="members">
-                <AddMemberContainer onMembersChange={membersChangeHandler}/>
+                <AddMemberContainer onMembersChange={appUsersChangeHandler}/>
             </div>
                 <button type="submit" className="btn btn-primary mySubmitButton">Submit</button>
             </form>

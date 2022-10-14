@@ -42,7 +42,7 @@ public class BudgetJdbcRepository implements BudgetRepository {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, toAdd.getBudgetId());
             ps.setString(2, toAdd.getBudgetName());
-            ps.setBigDecimal(3, toAdd.getBalance());
+            ps.setBigDecimal(3, toAdd.getStartingBalance());
             return ps;
         }, keyHolder);
 
