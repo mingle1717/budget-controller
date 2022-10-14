@@ -39,19 +39,18 @@ public class CategoryJdbcRepository implements CategoryRepository {
     public Category addCategory(Category category){
 
         final String sql = "INSERT INTO `calculator_test`.`Category` " +
-                "(`category_id`, `cat_name`, `cat_percent`, `higher_limit`, `lower_limit`, `goal`, `budget_id`)"
-                + "values (?, ?, ?, ?, ?, ?, ?);";
+                "(`cat_name`, `cat_percent`, `higher_limit`, `lower_limit`, `goal`, `budget_id`)"
+                + "values (?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, category.getCategoryId());
-            ps.setString(2, category.getCategoryName());
-            ps.setBigDecimal(3, category.getCategoryPercent());
-            ps.setBigDecimal(4, category.getHigherLimit());
-            ps.setBigDecimal(5, category.getLowerLimit());
-            ps.setBoolean(6, category.isGoal());
-            ps.setInt(7, category.getBudgetId());
+            ps.setString(1, category.getCategoryName());
+            ps.setBigDecimal(2, category.getCategoryPercent());
+            ps.setBigDecimal(3, category.getHigherLimit());
+            ps.setBigDecimal(4, category.getLowerLimit());
+            ps.setBoolean(5, category.isGoal());
+            ps.setInt(6, category.getBudgetId());
             return ps;
         }, keyHolder);
 

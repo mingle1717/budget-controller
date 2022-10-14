@@ -18,4 +18,6 @@ public class BudgetJdbcRepositoryTest {
         knownGoodState.set();
     }
 
+    // TODO: 10/13/2022 Write tests for getBridgeTableInfo, findById, and createBudget
+
 }

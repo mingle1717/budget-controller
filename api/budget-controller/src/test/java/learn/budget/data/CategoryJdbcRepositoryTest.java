@@ -8,4 +8,6 @@ public class CategoryJdbcRepositoryTest {
 
     @Autowired
     CategoryJdbcRepository repo;
+
+    // TODO: 10/13/2022 Write tests for findById, addCategory, editCategory, and findAllCategoriesForABudget.
 }

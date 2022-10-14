@@ -23,6 +23,8 @@ public class AppUserServiceTest {
     @MockBean
     UserJdbcRepo repo;
 
+    // TODO: 10/13/2022 Write tests for login method. Also, figure out the best way to write those tests.
+
     @Test
     void shouldRegisterValidUser() {
         RegisterRequest request = new RegisterRequest();

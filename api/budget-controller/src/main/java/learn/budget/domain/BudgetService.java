@@ -83,7 +83,7 @@ public class BudgetService {
         categories.add(savings); // ensures that savings has category_id 1 always
         categories.addAll(budget.getCategories());
         budget.setCategories(categories);
-        budget = budgetRepository.createBudget(budget);
+        budget.setBudgetId(budgetRepository.createBudget(budget).getBudgetId());
         for (Category c : budget.getCategories()) {
             categoryService.repository.addCategory(c);
         }
@@ -106,7 +106,6 @@ public class BudgetService {
             return null; // there is a user but they don't have/own a budget
         }
         result.addMessage("There was no user found in the database with this information.", ResultType.INVALID);
-        return result;
-        // Note: the above error should never appear.
+        return result; // Note: the above error should never appear.
     }
 }

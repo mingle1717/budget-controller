@@ -1,10 +1,8 @@
 package learn.budget.domain;
 
 import learn.budget.data.BudgetJdbcRepository;
-import learn.budget.models.AppUser;
-import learn.budget.models.Budget;
-import learn.budget.models.Category;
-import learn.budget.models.MyRole;
+import learn.budget.data.UserJdbcRepo;
+import learn.budget.models.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +22,8 @@ public class BudgetServiceTest {
 
     @MockBean
     BudgetJdbcRepository budgetRepo;
+    @MockBean
+    UserJdbcRepo userJdbcRepo;
 
     // TODO: 10/13/2022 Set when clauses for all these tests.
     @Test
@@ -638,5 +638,30 @@ public class BudgetServiceTest {
         assertFalse(validation.isSuccess());
         assertEquals(1, validation.getMessages().size());
         assertEquals("The categories must add up to be no greater than 100.", validation.getMessages().get(0));
+    }
+    // TODO: 10/13/2022 Write tests for viewBudgetDetails
+    @Test
+    void shouldViewBudgetDetailsForRegisteredUserWithABudget() {
+        UserBudget userBudget = new UserBudget(1, true, 1, 1);
+        when(userJdbcRepo.getUserByUsername("Kendy")).thenReturn(new AppUser(1, "Kendy", "kendy@email",
+                "sfksajfhio305483739", false, new ArrayList<>()));
+        when(budgetRepo.getBridgeTableInfo(1)).thenReturn(userBudget);
+        when(budgetRepo.findById(userBudget.getBudgetId())).thenReturn(new Budget());
+        assertTrue(service.viewBudgetDetails("Kendy").isSuccess());
+    }
+    @Test
+    void shouldNotViewBudgetDetailsForUnregisteredUser() {
+        Result<Budget> validation = service.viewBudgetDetails("Kedny");
+        assertFalse(validation.isSuccess());
+        assertEquals(1, validation.getMessages().size());
+        assertEquals("There was no user found in the database with this information.",
+                validation.getMessages().get(0));
+    }
+    @Test
+    void shouldNotViewBudgetDetailsForRegisteredUserWithNoBudget() {
+        when(userJdbcRepo.getUserByUsername("Kendy")).thenReturn(new AppUser(1, "Kendy", "kendy@email",
+                "sfksajfhio305483739", false, new ArrayList<>()));
+        when(budgetRepo.getBridgeTableInfo(1)).thenReturn(null);
+        assertNull(service.viewBudgetDetails("Kendy"));
     }
 }

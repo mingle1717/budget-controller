@@ -32,6 +32,10 @@ public class BudgetController {
     public Object viewBudgetDetails(@PathVariable String username) {
 
         Result<Budget> partiallyHydratedBudgetResult = budgetService.viewBudgetDetails(username);
+        if (partiallyHydratedBudgetResult == null) {
+            return ErrorResponse.build(partiallyHydratedBudgetResult);
+        }
+
         if (partiallyHydratedBudgetResult.isSuccess()) {
             Result<Budget> budgetResultWithCategories = categoryService.getBudgetCategoryDetails(partiallyHydratedBudgetResult.getPayload());
             if (budgetResultWithCategories.isSuccess()) {

@@ -5,6 +5,7 @@ import learn.budget.models.AppUser;
 import learn.budget.models.Budget;
 import learn.budget.models.Category;
 import learn.budget.models.MyRole;
+import org.assertj.core.util.VisibleForTesting;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -547,5 +548,30 @@ public class CategoryServiceTest {
         assertEquals(2, validation.getMessages().size());
         assertEquals("Category name must be provided.", validation.getMessages().get(0));
         assertEquals("The categories must add up to be no greater than 100.", validation.getMessages().get(1));
+    }
+    // TODO: 10/13/2022 Write tests for getBudgetCategoryDetails
+    @Test
+    void shouldGetBudgetCategoryDetailsForValidPartiallyHydratedBudget() {
+        fail();
+    }
+    @Test
+    void shouldNotGetBudgetCategoryDetailsForBudgetWithNullBalance() {
+        fail();
+    }
+    @Test
+    void shouldNotGetBudgetCategoryDetailsForBudgetWithBalanceOfZero() {
+        fail();
+    }
+    @Test
+    void shouldNotGetBudgetCategoryDetailsForBudgetWithNullBudgetName() {
+        fail();
+    }
+    @Test
+    void shouldNotGetBudgetCategoryDetailsForBudgetWithBlankBudgetName() {
+        fail();
+    }
+    @Test
+    void shouldNotGetBudgetCategoryDetailsForBudgetWithNullCategoryList() {
+        fail();
     }
 }
