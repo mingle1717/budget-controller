@@ -44,6 +44,6 @@ public class MyRole {
     }
 
     public GrantedAuthority getAuthority(){
-        return new SimpleGrantedAuthority(roleName);
+        return new SimpleGrantedAuthority("ROLE_" + roleName);
     }
 }

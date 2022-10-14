@@ -68,7 +68,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     private String readToken(String authorization) {
 
-        //we get a null if there is no Authorization header
         if (authorization != null) {
             if (authorization.startsWith("Bearer ")) {
                 return authorization.substring(7);

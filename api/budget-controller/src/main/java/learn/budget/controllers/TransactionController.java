@@ -11,15 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/transaction")
+@RequestMapping("/api/transaction")
+@CrossOrigin
 public class TransactionController {
 
     @Autowired
     TransactionService service;
 
-    @GetMapping("/{userId}")
-    public List<Transaction> viewAllTransactions(@PathVariable int userId) {
-        return service.viewAllTransactions(userId);
+    @GetMapping("/{username}")
+    public List<Transaction> viewAllTransactions(@PathVariable String username) {
+        return service.viewAllTransactions(username);
     }
     @PostMapping
     public ResponseEntity<Object> addTransaction(@RequestBody Transaction transaction) {

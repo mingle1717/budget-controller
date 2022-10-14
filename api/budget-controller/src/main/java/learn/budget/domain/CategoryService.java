@@ -88,7 +88,7 @@ public class CategoryService {
     public Result<Budget> getBudgetCategoryDetails(Budget budget) {
         // It is nearly impossible for the budget not to pass these validations, but you can never be too secure.
         Result<Budget> result = new Result<>();
-        if (budget.getBalance() == null || budget.getBalance().equals(BigDecimal.ZERO)) {
+        if (budget.getStartingBalance() == null || budget.getStartingBalance().equals(BigDecimal.ZERO)) {
             result.addMessage("The budget requested has no balance on record.", ResultType.INVALID);
         }
         if (budget.getBudgetName() == null || budget.getBudgetName().isBlank()) {

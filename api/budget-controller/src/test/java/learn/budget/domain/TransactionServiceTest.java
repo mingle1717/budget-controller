@@ -13,4 +13,5 @@ public class TransactionServiceTest {
 
     @MockBean
     TransactionJdbcRepository repository;
+    // TODO: 10/14/2022 Write tests for AddTransaction, validateTransaction and viewAllTransactions.
 }
