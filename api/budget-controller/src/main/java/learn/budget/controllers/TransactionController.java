@@ -14,11 +14,6 @@ import java.util.List;
 public class TransactionController {
 
     @Autowired
-
-    TransactionService transactionService;
-
-
-
     TransactionService service;
 
     @GetMapping("/{userId}")
