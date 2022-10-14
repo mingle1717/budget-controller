@@ -12,13 +12,18 @@ public class Transaction {
 
     private String transactionDescription;
 
+
+
+    private String categoryName;
+
     private int categoryId;
 
     private int auto_Id;
 
+    private String username;
     private int userId;
 
-    public Transaction(int transactionId, String transactionName, BigDecimal transactionAmount, String transactionDescription, int categoryId, int auto_Id,  int userId) {
+    public Transaction(String categoryName, String username, int transactionId, String transactionName, BigDecimal transactionAmount, String transactionDescription, int categoryId, int auto_Id,  int userId) {
         this.transactionId = transactionId;
         this.transactionName = transactionName;
         this.transactionAmount = transactionAmount;
@@ -26,6 +31,7 @@ public class Transaction {
         this.categoryId = categoryId;
         this.auto_Id = auto_Id;
         this.userId = userId;
+        this.categoryName = categoryName;
     }
 
     public Transaction(){}
@@ -84,5 +90,12 @@ public class Transaction {
 
     public void setAuto_Id(int auto_Id) {
         this.auto_Id = auto_Id;
+    }
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

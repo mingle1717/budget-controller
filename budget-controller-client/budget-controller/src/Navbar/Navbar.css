@@ -1,0 +1,53 @@
+.myNav{
+    background: #2442FF;
+background: -moz-linear-gradient(45deg, #3B58B2 0%, #2442FF 100%);
+background: -webkit-linear-gradient(45deg, #3B58B2 0%, #2442FF 100%);
+background: linear-gradient(45deg, #3B58B2 0%, #2442FF 100%);
+
+}
+
+.homeNav{
+    font-size: 32px;
+    display: inline-block;
+    margin-left: 5%;
+}
+.loginNav{
+    font-size: 32px;
+    display: inline-block;
+    margin-left: 25%;
+    vertical-align: top;
+}
+.contactNav{
+    font-size: 32px;
+    display: inline-block;
+    margin-left: 25%;
+}
+.homeLink{
+    color:black;
+    text-decoration: none;
+    display: inline-block;
+}
+.title{
+    font-size: 32px;
+    height: 3em;
+    padding-top: 1%;
+    padding-left: 5%;
+    margin-top: 1em;
+    background: #000000;
+background: -moz-linear-gradient(45deg, #000000 0%, #000000 100%);
+background: -webkit-linear-gradient(45deg, #000000 0%, #000000 100%);
+background: linear-gradient(45deg, #000000 0%, #000000 100%);
+color: azure;
+}
+.pageHeader{
+    color: black;
+}
+.navbarTop{
+    background: #000000;
+    background: -moz-linear-gradient(45deg, #000000 0%, #000000 100%);
+    background: -webkit-linear-gradient(45deg, #000000 0%, #000000 100%);
+    background: linear-gradient(45deg, #000000 0%, #000000 100%);
+}
+.logoutButton{
+    size: 32px;
+}

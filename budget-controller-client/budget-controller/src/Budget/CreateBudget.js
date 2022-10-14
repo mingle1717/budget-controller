@@ -1,17 +1,17 @@
-import CategoryForm from "./CategoryForm"
-import AddMemberForm from "./AddMemberForm"
+
 import {useState} from "react"
 import{useHistory} from "react-router-dom"
 
 import FormInput from "../FormInput"
-
+import AddCategoryContainer from "./AddCategoryContainer"
+import AddMemberContainer from "./AddMemberContainer";
 
 function CreateBudget(){
 
-    const [budget, setBudget] = useState(null);
+    const [budget, setBudget] = useState({startingBalance: 0, members : [], categories: []});
     const [error, setError]= useState([]);
     const [categories, setCategories] = useState([]);
-
+    const [members, setMembers] = useState([]);
     const history = useHistory();
 
     function handleSubmit(evt){
@@ -47,11 +47,20 @@ function CreateBudget(){
         budgetCopy[propertyName] = newValue;
 
         setBudget(budgetCopy);
+        
+    }
+
+    function handleCategories(category) {
+        setCategories(...categories);
+    }
+
+
+    function handleMembers(...members) {
+        setMembers(...members);
     }
 
     return(
         <div className="container">
-            <h1>Create Budget</h1>
             <form onSubmit={handleSubmit}>
             <FormInput 
                     inputType={"text"} 
@@ -63,9 +72,12 @@ function CreateBudget(){
                     className={"form-control"}/>
              
                     <div id="balanceHelp" className="form-text">What balance do you want to start with?</div>
-             
-                <CategoryForm category={categories}/>
-                <AddMemberForm/>
+             <div className="categories">
+                <AddCategoryContainer/>
+            </div>
+            <div className="members">
+                <AddMemberContainer />
+            </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>

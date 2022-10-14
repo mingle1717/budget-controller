@@ -1,7 +1,15 @@
+
+import TransactionForm from "./TransactionForm"
+import { Link } from "react-router-dom"
 function EditTransaction(){
     return(
         <div>
-            <h1>Edit Transaction</h1>
+            <form>
+                <TransactionForm/>
+                <button type="submit" className="btn btn-primary">Edit</button>
+                <Link to ="budgetmemberview" className="btn btn-danger">Cancel</Link>
+            </form>
+
         </div>
         )
 }

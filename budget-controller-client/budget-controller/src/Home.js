@@ -2,6 +2,8 @@
 import shibe from "./Images/shibe.jpg"
 import shibe2 from "./Images/shibe2.jpg"
 import shibe3 from "./Images/shibe3.jpg"
+import './Home.css'
+
 function Home(){
     return(
         <div>
@@ -9,13 +11,13 @@ function Home(){
             <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
   <div className="carousel-inner">
     <div className="carousel-item active">
-      <img src={shibe} className="d-block w-100" alt="..."/>
+      <img src={shibe} className="carouselImage" alt="..."/>
     </div>
     <div className="carousel-item">
-      <img src={shibe2} className="d-block w-100" alt="..."/>
+      <img src={shibe2} className="carouselImage" alt="..."/>
     </div>
     <div className="carousel-item">
-      <img src={shibe3} className="d-block w-100" alt="..."/>
+      <img src={shibe3} className="carouselImage" alt="..."/>
     </div>
   </div>
   <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">

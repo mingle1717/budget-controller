@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import Navbar from './Navbar';
+import Navbar from './Navbar/Navbar';
 import Home from './Home';
 import Contact from './Contact';
 import Login from './Authentication/Login';
@@ -10,7 +10,7 @@ import CreateBudget from './Budget/CreateBudget';
 import jwtDecode from "jwt-decode";
 import AuthContext from "./AuthContext";
 import EditBudget from "./Budget/EditBudget";
-import BudgetMemberDashboard from './Dashboard/BudgetMemberDashBoard';
+import BudgetMemberDashboard from './Dashboard/BudgetMemberDashboard';
 import BudgetMemberView from "./Transaction/BudgetMemberView";
 import BudgetOwnerView from "./Transaction/BudgetOwnerView";
 import BudgetOwnerDashboard from './Dashboard/BudgetOwnerDashboard';
@@ -18,6 +18,7 @@ import EditTransaction from './Transaction/EditTransaction';
 import './App.css';
 import BudgetMemberManageAuto from './AutoTransaction/BudgetMemberManageAuto';
 import BudgetOwnerManageAuto from './AutoTransaction/BudgetOwnerManageAuto';
+import Directories from './Directories';
 
 const LOCAL_STORAGE_TOKEN_KEY = "budgetCalcToken";
 
@@ -86,52 +87,52 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="darkMode">
       <AuthContext.Provider value={auth}>
       <BrowserRouter>
         <Navbar setUser={setUser}/>
           <Switch>
-            <Route path="/home">
-              {!user ? <Home/> : (user.userRoles[0].roleName === "Admin" ? <Redirect to = "/budgetownerdashboard"/> : <Redirect to ="budgetmemberdashboard"/>)}
+            <Route path={Directories.HOME}>
+              {!user ? <Home/> : (user.userRoles[0].roleName === "Admin" ? <Redirect to = {Directories.OWNERDASHBOARD}/> : <Redirect to ={Directories.MEMBERDASHBOARD}/>)}
             </Route>
-            <Route path="/contact">
+            <Route path={Directories.CONTACT}>
               <Contact/>
             </Route>
-            <Route path="/login">
-              {!user ? <Login setUser={setUser}/> : (user.userRoles[0].roleName === "Admin" ? <Redirect to="/budgetownerdashboard"/> : <Redirect to="/budgetmemberdashboard"/> )}
+            <Route path={Directories.LOGIN}>
+              {!user ? <Login setUser={setUser}/> : (user.userRoles[0].roleName === "Admin" ? <Redirect to={Directories.OWNERDASHBOARD}/> : <Redirect to={Directories.MEMBERDASHBOARD}/> )}
             </Route>
-            <Route path="/signup">
+            <Route path={Directories.SIGNUP}>
               <Signup/>
             </Route>
-            <Route path="/createbudget">
-              {user ? (user.userRoles[0].roleName === "Member" ? <CreateBudget/>:<Redirect to="/budgetownerdashboard"/> ) : <Redirect to="/login"/>}
+            <Route path={Directories.CREATEBUDGET}>
+              {user ? (user.userRoles[0].roleName === "Member" ? <CreateBudget/>:<Redirect to={Directories.OWNERDASHBOARD}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path="/editbudget">
-              {user ?(user.userRoles[0].roleName === "Admin" ? <EditBudget/>:<Redirect to="/budgetmemberdashboard"/> ): <Redirect to="/login"/>}
+            <Route path={Directories.EDITBUDGET}>
+              {user ?(user.userRoles[0].roleName === "Admin" ? <EditBudget/>:<Redirect to={Directories.MEMBERDASHBOARD}/> ): <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path="/budgetmemberview">
-              {user ? (user.userRoles[0].roleName === "Member" ? <BudgetMemberView/>:<Redirect to="/budgetownerview"/> ) : <Redirect to="/login"/>}
+            <Route path={Directories.MEMBERVIEW}>
+              {user ? (user.userRoles[0].roleName === "Member" ? <BudgetMemberView/>:<Redirect to={Directories.OWNERVIEW}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path="/budgetownerview">
-              {user ?(user.userRoles[0].roleName === "Admin" ? <BudgetOwnerView/>:<Redirect to="/budgetmemberview"/> ) : <Redirect to="/login"/>}
+            <Route path={Directories.OWNERVIEW}>
+              {user ?(user.userRoles[0].roleName === "Admin" ? <BudgetOwnerView/>:<Redirect to={Directories.MEMBERVIEW}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path="/addtransaction">
-              {user ? <AddTransaction/> : <Redirect to="/login"/>}
+            <Route path={Directories.ADDTRANSACTION}>
+              {user ? <AddTransaction/> : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path="/editTransaction">
-              {user ? <EditTransaction/> : <Redirect to="/login"/>}
+            <Route path={Directories.EDITTRANSACTION}>
+              {user ? <EditTransaction/> : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path="/budgetmemberdashboard">
-              {user ? (user.userRoles[0].roleName === "Member" ? <BudgetMemberDashboard/>:<Redirect to="/budgetownerdashboard"/> ): <Redirect to="/login"/>}
+            <Route path={Directories.MEMBERDASHBOARD}>
+              {user ? (user.userRoles[0].roleName === "Member" ? <BudgetMemberDashboard/>:<Redirect to={Directories.OWNERDASHBOARD}/> ): <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path="/budgetownerdashboard">
-              {user ? (user.userRoles[0].roleName === "Admin" ? <BudgetOwnerDashboard/>:<Redirect to="/budgetmemberdashboard"/> ) : <Redirect to="/login"/>}
+            <Route path={Directories.OWNERDASHBOARD}>
+              {user ? (user.userRoles[0].roleName === "Admin" ? <BudgetOwnerDashboard/>:<Redirect to={Directories.MEMBERDASHBOARD}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path="/budgetmembermanageauto">
-              {user ? (user.userRoles[0].roleName === "Member" ? <BudgetMemberManageAuto/>:<Redirect to="/budgetownermanageauto"/> ) : <Redirect to="/login"/>}
+            <Route path={Directories.MEMBERMANAGEAUTO}>
+              {user ? (user.userRoles[0].roleName === "Member" ? <BudgetMemberManageAuto/>:<Redirect to={Directories.OWNERMANAGEAUTO}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path="/budgetownermanageauto">
-              {user ? (user.userRoles[0].roleName === "Admin" ? <BudgetOwnerManageAuto/>:<Redirect to="/budgetmembermanageauto"/> ) : <Redirect to="/login"/>}
+            <Route path={Directories.OWNERMANAGEAUTO}>
+              {user ? (user.userRoles[0].roleName === "Admin" ? <BudgetOwnerManageAuto/>:<Redirect to={Directories.MEMBERMANAGEAUTO}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
 
 

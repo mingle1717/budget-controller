@@ -4,6 +4,7 @@ import React, {useState, useContext} from 'react';
 import jwtDecode from 'jwt-decode';
 import './Authentication.css'
 import AuthContext from '../AuthContext';
+import Directories from '../Directories';
 
 function Login(props){
     const [username,setUsername] = useState("");
@@ -44,7 +45,7 @@ function Login(props){
 
                
                 auth.login(jwt);
-                history.push("/budgetmemberdashboard");
+                history.push(Directories.MEMBERDASHBOARD);
             
             })
             .catch( error => {
@@ -55,8 +56,9 @@ function Login(props){
 
     return(
     <div className="container">
-        <h1 className="authHeader"> Login </h1>
-        <form onSubmit={handleSubmit}>
+      
+
+        <form className="loginForm"onSubmit={handleSubmit}>
             <div className="form-group fieldContainer">
                 <label htmlFor="username" className='usernameLabel'> Username</label>
                 <input 
@@ -72,14 +74,14 @@ function Login(props){
                 id="password" name="password" className="form-control passwordField"
                 />
             </div>
-            <div>
-                <button type="button " className="btn btn-primary submitButton">Submit</button>
-                <Link to = "/home" type="button " className="btn btn-danger cancelButton">Cancel</Link>
+            <div className='buttons'>
+                <button type="button " className="submitButton">Submit</button>
+                <Link to = {Directories.HOME} type="button " className="cancelButton">Cancel</Link>
             </div>
             </form>
             <div className='linkContainer'>
             <div>Not Signed Up?</div>
-            <Link to="/signup" className='container'>Click here!</Link>
+            <Link to={Directories.SIGNUP} className='container'>Click here!</Link>
             </div>
 
 

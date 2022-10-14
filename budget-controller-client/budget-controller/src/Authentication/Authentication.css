@@ -1,27 +1,78 @@
 .authHeader{
-    margin-top: 3em;
+    margin-top: 2em;
 }
 
+.buttons{
+    text-align: center;
+}
 .submitButton{
     margin-top: 2em;
     margin-right: 1em;
     margin-bottom: 3em;
-}
+    
+        color: rgb(255, 255, 255); 
+        font-size: 16px; 
+        line-height: 16px; 
+        padding: 6px; 
+        border-radius: 10px; 
+        font-family: Georgia, serif;
+        font-weight: normal; 
+        text-decoration: none; 
+        font-style: normal; 
+        font-variant: normal; 
+        text-transform: none; 
+        background-image: linear-gradient(45deg, rgb(0, 22, 164) 0%, rgb(82, 75, 117) 100%); 
+        box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+        border: 2px solid rgb(28, 48, 164); 
+        display: inline-block;
+    }
+        .submitButton:hover {
+        background: #0016A4; 
+    }
+        .submitButton:active {
+        background: #524B75; 
+    }
+
 .cancelButton{
     margin-top: 2em;
-    margin-left: 1em;
+    margin-left: 0em;
     margin-bottom: 3em;
-}
+   
+    color: rgb(255, 255, 255); 
+    font-size: 16px; 
+    line-height: 16px; 
+    padding: 6px; 
+    border-radius: 10px; 
+    font-family: Georgia, serif; 
+    font-weight: normal;
+     text-decoration: none; 
+     font-style: normal; 
+     font-variant: normal; 
+     text-transform: none; 
+     background-image: linear-gradient(45deg, rgb(164, 14, 59) 0%, rgb(117, 14, 22) 100%); 
+     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+     border: 2px solid rgb(194, 16, 16); 
+     display: inline-block;
+    }
+    .cancelButton:hover {
+            background: #A40E3B; 
+        }
+    .cancelButton:active {
+            background: #750E16; 
+        }
+
+
 .linkContainer{
-    outline: 4px double #2955A4;
+    outline: 6px solid #1c35a4;
     outline-offset: 0px;
-    margin-left: 10em;
+    margin-left: 1em;
     margin-right: 10em;
+    margin-top: 5em;
+    text-align: center;
     
 }
 .fieldContainer{
-    padding-left: 10em;
-    padding-right: 10em;
+    
 }
 .usernameField{
     margin-bottom: 1em;
@@ -43,4 +94,12 @@
 .emailLabel{
     margin-right: 77em;
     margin-bottom: 1em;
+}
+
+.loginForm{
+    outline: 6px double #1c25a4;
+    outline-offset: 0px;
+    padding: 1em;
+        margin-right: 10%;
+        margin-top: 3%;
 }

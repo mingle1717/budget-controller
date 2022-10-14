@@ -1,48 +1,39 @@
 import {useState} from "react";
 import FormInput from "../FormInput";
 import "./Budget.css"
-function CategoryForm(){
+function CategoryForm({ onCategoryChange , category}){
 
-    const [category, setCategory] = useState({categoryName : "" , categoryPercent : 0, higherLimit : 0 , lowerLimit : 0, goal : false})
-    const [categories, setCategories] = useState([]);
-    const [addedForm,setAddedForm] = useState(false);
-    const [addButton, setAddButton] = useState(true);
-    const [removeButton, setRemoveButton] = useState(true);
+    
+    
+ 
 
     function inputChangeHandler(inputChangeEvent){
+
         const propertyName = inputChangeEvent.target.name;
-        const newValue = inputChangeEvent.target.value;
+        let newValue = inputChangeEvent.target.value;
+
+        if(inputChangeEvent.target.type === "checkbox"){
+            newValue = inputChangeEvent.target.checked;
+        }
 
         const categoryCopy = {...category};
 
         categoryCopy[propertyName] = newValue;
 
-        setCategory(categoryCopy);
+        onCategoryChange(categoryCopy)
     }
 
+  
 
-
-
-    function showForm(){
-        setAddedForm(true);
-        setAddButton(false);
-        setRemoveButton(true);
-       
-    }
-
-    function hideForm(){
-        setAddedForm(false);
-        setAddButton(true);
-        setRemoveButton(false);
-    }
+    
     return(
         <div className="container">
       
                 <FormInput 
                     inputType={"text"} 
-                    identifier={"category"} 
+                    identifier={"categoryName"} 
                     labelText={"Category"} 
-                    currVal={""} 
+                    currVal={category.categoryName} 
                     labelClass={"inputLabel"}
                     onChangeHandler={inputChangeHandler}
                     className={"form-control"}/>
@@ -51,9 +42,9 @@ function CategoryForm(){
                 
                 <FormInput 
                     inputType={"text"} 
-                    identifier={"categoryPercentage"} 
+                    identifier={"categoryPercent"} 
                     labelText={"Category Percentage"} 
-                    currVal={""} 
+                    currVal={category.categoryPercent} 
                     labelClass={"inputLabel"}
                     onChangeHandler={inputChangeHandler}
                     className={"form-control"}/>
@@ -63,7 +54,7 @@ function CategoryForm(){
                     inputType={"text"} 
                     identifier={"higherLimit"} 
                     labelText={"Higher Limit"} 
-                    currVal={""} 
+                    currVal={category.higherLimit} 
                     labelClass={"inputLabel"}
                     onChangeHandler={inputChangeHandler} 
                     className={"form-control"}/>
@@ -73,7 +64,7 @@ function CategoryForm(){
                     inputType={"text"} 
                     identifier={"lowerLimit"} 
                     labelText={"Lower Limit"} 
-                    currVal={""} 
+                    currVal={category.lowerLimit} 
                     labelClass={"inputLabel"}
                     onChangeHandler={inputChangeHandler}
                     className={"form-control"}/>
@@ -81,23 +72,13 @@ function CategoryForm(){
                
                 <FormInput 
                     inputType={"checkbox"} 
-                    identifier={"financialGoal"} 
+                    identifier={"goal"} 
                     labelText={"Financial Goal?"} 
-                    currVal={""} 
+                    currVal={category.goal} 
                     labelClass={"financialCheckbox"}
                     onChangeHandler={inputChangeHandler}  
                     className={"form-check"}/>
-               {
-               addedForm === true ? 
-               <div>
-                <CategoryForm/>
-                {removeButton === true ? <button onClick = {hideForm} type="button" className="btn btn-primary addButton">-</button> : null} 
-                </div> : 
-                null
-                }
-                
-                {addButton === true ? <button onClick = {showForm} type="button" className="btn btn-primary addButton">+</button> : null}
-                
+               
         
             </div>
     )
