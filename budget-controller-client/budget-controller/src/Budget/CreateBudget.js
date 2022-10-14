@@ -14,10 +14,11 @@ function CreateBudget(){
     const [members, setMembers] = useState([]);
     const history = useHistory();
 
+    
     function handleSubmit(evt){
         evt.preventDefault();
 
-        fetch( "http://localhost:8080/api", {
+        fetch( "http://localhost:8080/api/budget", {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json"
@@ -50,17 +51,18 @@ function CreateBudget(){
         
     }
 
-    function handleCategories(category) {
-        setCategories(...categories);
+    function categoriesChangeHandler(categories){
+        const categoriesCopy = [...categories]
+        setCategories(...categoriesCopy);
     }
 
-
-    function handleMembers(...members) {
-        setMembers(...members);
+    function membersChangeHandler(members) {
+        const membersCopy = [...members]
+        setMembers(...membersCopy);
     }
 
     return(
-        <div className="container">
+        <div className="container createBudgetContainer">
             <form onSubmit={handleSubmit}>
             <FormInput 
                     inputType={"text"} 
@@ -73,12 +75,12 @@ function CreateBudget(){
              
                     <div id="balanceHelp" className="form-text">What balance do you want to start with?</div>
              <div className="categories">
-                <AddCategoryContainer/>
+                <AddCategoryContainer onCategoriesChange={categoriesChangeHandler}/>
             </div>
             <div className="members">
-                <AddMemberContainer />
+                <AddMemberContainer onMembersChange={membersChangeHandler}/>
             </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary mySubmitButton">Submit</button>
             </form>
         </div>
         )

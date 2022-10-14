@@ -49,5 +49,6 @@ color: azure;
     background: linear-gradient(45deg, #000000 0%, #000000 100%);
 }
 .logoutButton{
-    size: 32px;
+    display: inline-block;
+
 }

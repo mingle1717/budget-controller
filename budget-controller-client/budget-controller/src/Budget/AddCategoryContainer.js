@@ -1,8 +1,9 @@
 
 import {useState} from 'react';
 import CategoryForm from './CategoryForm';
+import "./Budget.css"
 
-function AddCategoryContainer(){
+function AddCategoryContainer({onCategoriesChange}){
     const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, higherLimit : 1000, lowerLimit : 500, goal : false }];
     const [categories, setCategories] = useState([startingCategories]);
 
@@ -12,6 +13,7 @@ function AddCategoryContainer(){
         const categoriesCopy = categories.map(c => c.categoryId === category.categoryId ? category : c );
 
         setCategories(categoriesCopy);
+        onCategoriesChange(categories);
 
     }
 
@@ -35,9 +37,11 @@ function AddCategoryContainer(){
     return(
         <div className='categoryContainer'>
             {categories.map( c => <CategoryForm category={c}  onCategoryChange={categoryChangeHandler} />)}
+
+            <div className='buttons'>
             <button className="btn btn-primary" onClick={addCategory}  > + </button>
-            {}
             <button className="btn btn-danger" onClick={removeCategory} > - </button>
+            </div>
         </div>
 
     )

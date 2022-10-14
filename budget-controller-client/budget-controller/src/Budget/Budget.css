@@ -4,12 +4,29 @@
 .form-control{
     text-align:left;
 }
-.financialCheckbox{
+.financialCheckboxLabel{
     margin-right: 93%;
+    width: 100%;
+    display: inline-block
+    
+}
+.financialCheckbox{
+    margin-left: 2em;
+    display: inline-block
 }
 .membersLabel{
     margin-right: 90%;
 }
 .addButton{
     margin-left: 90%;
+}
+.createBudgetContainer{
+    padding-top: 5%;
+    margin-bottom: 20%;
+}
+.buttons{
+    margin-left: 65%;
+}
+.mySubmitButton{
+    margin-left: 40%;
 }

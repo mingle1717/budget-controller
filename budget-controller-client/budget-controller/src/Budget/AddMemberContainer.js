@@ -1,16 +1,18 @@
 import {useState} from 'react';
 import AddMemberForm from './AddMemberForm';
+import "./Budget.css"
 
-function AddMemberContainer(){
+function AddMemberContainer(onMembersChange){
 
-    const startingMembers = [null]
 
-    const [members, setMembers] = useState([startingMembers]);
+
+    const [members, setMembers] = useState([]);
 
     function memberChangeHandler(member){
         const membersCopy = members.map(m => m.username === member.username ? member : m);
 
         setMembers(membersCopy);
+        onMembersChange(members);
 
 
     }
@@ -29,8 +31,10 @@ function AddMemberContainer(){
     return(
         <div className="memberContainer">
             {members.map( m => <AddMemberForm member={m} onMemberChange={memberChangeHandler} />)}
+            <div className='buttons'>
             <button className="btn btn-primary" onClick={addMember}  > + </button>
             <button className="btn btn-danger" onClick={removeMember} > - </button>
+            </div>
         </div>
     )
 
