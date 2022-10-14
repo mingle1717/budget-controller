@@ -21,7 +21,7 @@ public class JwtConverter {
                 .setIssuer("budget-controller")
                 .setSubject(user.getUsername())
                 .setIssuedAt( new Date())
-                .setExpiration( new Date( new Date().getTime() + 300000))
+                .setExpiration( new Date( new Date().getTime() + 3000000))
                 .signWith(signingKey)
                 .compact();
 

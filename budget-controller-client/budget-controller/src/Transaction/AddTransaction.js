@@ -1,7 +1,8 @@
 
 import TransactionForm from "./TransactionForm"
 import { Link } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import AuthContext from "../AuthContext";
 
 
 
@@ -9,7 +10,7 @@ import { useEffect, useState } from "react";
 function AddTransaction() {
 
     const [transaction, setTransaction] = useState(null);
-
+    const auth = useContext(AuthContext);
 
     function handleTransactionChange(transaction) {
         setTransaction(transaction);
@@ -22,7 +23,8 @@ function AddTransaction() {
         fetch("http://localhost:8080/api/transaction", {
             method: "POST",
             headers: {
-                "Content Type": "application/json"
+                Authorization : `Bearer ` + auth.user.token,
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(
                 transaction

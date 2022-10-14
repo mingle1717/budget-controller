@@ -5,7 +5,6 @@ import learn.budget.models.AppUser;
 import learn.budget.models.Budget;
 import learn.budget.models.Category;
 import learn.budget.models.MyRole;
-import org.assertj.core.util.VisibleForTesting;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -172,7 +171,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -207,7 +206,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -242,7 +241,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -278,7 +277,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -313,7 +312,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -348,7 +347,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -383,7 +382,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -418,7 +417,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -453,7 +452,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -488,7 +487,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -524,7 +523,7 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 

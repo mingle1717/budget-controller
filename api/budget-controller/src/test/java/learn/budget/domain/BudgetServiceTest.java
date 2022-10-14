@@ -42,7 +42,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -78,7 +78,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(null);
+        budget.setStartingBalance(null);
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -117,7 +117,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(-2000));
+        budget.setStartingBalance(BigDecimal.valueOf(-2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -150,7 +150,7 @@ public class BudgetServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(null);
         List<Category> categories = new ArrayList<>();
 
@@ -186,7 +186,7 @@ public class BudgetServiceTest {
         List<AppUser> budgetUsers = new ArrayList<>(); // leaving this list empty
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -223,7 +223,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         budget.setCategories(null);
         when(budgetRepo.createBudget(budget)).thenReturn(budget);
@@ -248,7 +248,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -285,7 +285,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -322,7 +322,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -359,7 +359,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -396,7 +396,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -433,7 +433,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -470,7 +470,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -507,7 +507,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -544,7 +544,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -581,7 +581,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
@@ -618,7 +618,7 @@ public class BudgetServiceTest {
         budgetUsers.add(benny);
 
         budget.setBudgetId(1);
-        budget.setBalance(BigDecimal.valueOf(2000));
+        budget.setStartingBalance(BigDecimal.valueOf(2000));
         budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 

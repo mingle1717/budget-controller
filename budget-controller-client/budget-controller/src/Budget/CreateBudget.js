@@ -1,27 +1,35 @@
 
-import {useState} from "react"
+import {useState, useContext} from "react"
 import{useHistory} from "react-router-dom"
-
+import AuthContext from "../AuthContext";
 import FormInput from "../FormInput"
 import AddCategoryContainer from "./AddCategoryContainer"
 import AddMemberContainer from "./AddMemberContainer";
 
 function CreateBudget(){
 
-    const [budget, setBudget] = useState({startingBalance: 0, members : [], categories: []});
+    const auth = useContext(AuthContext);
+    const [budget, setBudget] = useState({startingBalance: 0, appUsers : [], categories: []});
     const [error, setError]= useState([]);
     const [categories, setCategories] = useState([]);
-    const [members, setMembers] = useState([]);
+    const [appUsers, setAppUsers] = useState([]);
     const history = useHistory();
 
     
     function handleSubmit(evt){
         evt.preventDefault();
 
+        budget.categories = categories;
+        budget.appUsers = appUsers;
+        setBudget(budget);
+
         fetch( "http://localhost:8080/api/budget", {
             method: "POST",
             headers: {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                Accept : "application/json",
+                Authorization : `Bearer ${auth.user.token}`
+                
             },
             body: JSON.stringify(budget)
         }).then ( response => {
@@ -56,9 +64,9 @@ function CreateBudget(){
         setCategories(...categoriesCopy);
     }
 
-    function membersChangeHandler(members) {
-        const membersCopy = [...members]
-        setMembers(...membersCopy);
+    function appUsersChangeHandler(appUsers) {
+        const appUsersCopy = [...appUsers]
+        setAppUsers(...appUsersCopy);
     }
 
     return(
@@ -78,7 +86,7 @@ function CreateBudget(){
                 <AddCategoryContainer onCategoriesChange={categoriesChangeHandler}/>
             </div>
             <div className="members">
-                <AddMemberContainer onMembersChange={membersChangeHandler}/>
+                <AddMemberContainer onMembersChange={appUsersChangeHandler}/>
             </div>
                 <button type="submit" className="btn btn-primary mySubmitButton">Submit</button>
             </form>

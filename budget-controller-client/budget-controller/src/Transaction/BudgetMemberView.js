@@ -1,7 +1,14 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Transaction from "./Transaction"
 
 function BudgetMemberView(){
+
+    const {userId} = useParams();
+
+    function loadAllTransactions() {
+        fetch()
+    }
+
     return(
         <div>
             <table className="table container">
@@ -15,11 +22,7 @@ function BudgetMemberView(){
                     </tr>
                 </thead>
                 <tbody> 
-                <Transaction category={"savings"} moneySpent={500} spender={"Cristian"} description={"ipsum adfasdfasdfasdfasdfa"}/>
-                <Transaction category={"savings"} moneySpent={500} spender={"Ryan"}description={"ipsum adfasdfasdfasdfasdfa"}/>
-                <Transaction category={"savings"} moneySpent={500} spender={"Cristian"} description={"ipsum adfasdfasdfasdfasdfa"}/>
-                <Transaction category={"savings"} moneySpent={500} spender={"Kendy"} description={"ipsum adfasdfasdfasdfasdfa"}/>
-                <Transaction category={"savings"} moneySpent={500} spender={"Cristian"} description={"ipsum adfasdfasdfasdfasdfa"}/>
+                
                 </tbody>
                 </table>
                 <Link to="/addtransaction"> Add Transaction </Link>
