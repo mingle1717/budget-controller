@@ -2,16 +2,17 @@
 import {useState, useContext} from "react"
 import{useHistory} from "react-router-dom"
 import AuthContext from "../AuthContext";
+import Directories from "../Directories";
 import FormInput from "../FormInput"
 import AddCategoryContainer from "./AddCategoryContainer"
 import AddMemberContainer from "./AddMemberContainer";
 
 function CreateBudget(){
     const auth = useContext(AuthContext);
-    const [budget, setBudget] = useState({balance: 0, appUsers : [auth.user], categories: []});
+    const [budget, setBudget] = useState({balance: 0, appUsers : [], categories: []});
     const [error, setError]= useState([]);
     const [categories, setCategories] = useState([]);
-    const [appUsers, setAppUsers] = useState([]);
+    const [appUsers, setAppUsers] = useState([auth.user]);
     const history = useHistory();
 
     
@@ -20,20 +21,19 @@ function CreateBudget(){
     function handleSubmit(evt){
         evt.preventDefault();
 
-        const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
-        setBudget(budgetCopy)
+      
 
+        console.log(budget)
         fetch( "http://localhost:8080/api/budget", {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
-                Authorization : `Bearer ${auth.user.token}`,
-                Accept : "application/json"
+                Authorization : "Bearer " + auth.user.token,
             },
             body: JSON.stringify(budget)
         }).then ( response => {
             if ( response.status === 201){
-                history.push("/budgetownerdashboard")
+                history.push(Directories.OWNERDASHBOARD)
             }
         })
         .catch (errors => {
@@ -54,14 +54,18 @@ function CreateBudget(){
         
     }
 
-    function categoriesChangeHandler(categories){
-        const categoriesCopy = [...categories]
+    function categoriesChangeHandler(incomingCategories){
+        const categoriesCopy = [...incomingCategories]
         setCategories(...categoriesCopy);
+        const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
+        setBudget(budgetCopy)
     }
 
-    function appUsersChangeHandler(appUsers) {
-        const appUsersCopy = [...appUsers]
+    function appUsersChangeHandler(incomingAppUsers) {
+        const appUsersCopy = [...incomingAppUsers]
         setAppUsers(...appUsersCopy);
+        const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
+        setBudget(budgetCopy)
     }
 
     return(
@@ -69,7 +73,7 @@ function CreateBudget(){
             <form onSubmit={handleSubmit}>
             <FormInput 
                     inputType={"text"} 
-                    identifier={"startingBalance"} 
+                    identifier={"balance"} 
                     labelText={"Starting Balance"} 
                     currVal={""} 
                     labelClass={"balanceLabel"}
