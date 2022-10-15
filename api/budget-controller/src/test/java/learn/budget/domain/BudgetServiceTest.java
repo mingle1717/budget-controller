@@ -639,7 +639,6 @@ public class BudgetServiceTest {
         assertEquals(1, validation.getMessages().size());
         assertEquals("The categories must add up to be no greater than 100.", validation.getMessages().get(0));
     }
-    // TODO: 10/13/2022 Write tests for viewBudgetDetails
     @Test
     void shouldViewBudgetDetailsForRegisteredUserWithABudget() {
         UserBudget userBudget = new UserBudget(1, true, 1, 1);

@@ -20,7 +20,8 @@ public class TransactionController {
 
     @GetMapping("/{username}")
     public List<Transaction> viewAllTransactions(@PathVariable String username) {
-        return service.viewAllTransactions(username);
+        List<Transaction> allTransactions = service.viewAllTransactions(username);
+        return allTransactions;
     }
     @PostMapping
     public ResponseEntity<Object> addTransaction(@RequestBody Transaction transaction) {

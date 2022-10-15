@@ -23,8 +23,8 @@ public class TransactionJdbcRepository implements TransactionRepository {
     @Override
     public List<Transaction> findAll() {
         final String sql =
-                "SELECT `myTransaction`.`transaction_id`,`myTransaction`.`transaction_name`` myTransaction`.`transaction_amount`,`myTransaction`.`transaction_description`,`myTransaction`.`category_id`,`myTransaction`.`auto_id`,`myTransaction`.`user_id`"
-                        + "from `calculator_test`.`myTransaction`";
+                "SELECT `transaction_id`, `transaction_name`, `transaction_amount`, `transaction_description`, `category_id`, `auto_id`, `user_id` \n" +
+                        "from myTransaction";
         return jdbcTemplate.query(sql, new TransactionMapper());
     }
 
