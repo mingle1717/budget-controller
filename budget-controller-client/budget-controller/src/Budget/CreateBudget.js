@@ -27,8 +27,7 @@ function CreateBudget(){
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
-                Authorization : `Bearer ${auth.user.token}`,
-                Accept : "application/json"
+                Authorization : "Bearer " + auth.user.token,
             },
             body: JSON.stringify(budget)
         }).then ( response => {
