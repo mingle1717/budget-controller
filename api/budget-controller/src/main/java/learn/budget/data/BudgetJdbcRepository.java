@@ -33,7 +33,7 @@ public class BudgetJdbcRepository implements BudgetRepository {
 
     @Override
     public Budget createBudget(Budget toAdd) {
-        final String sql = "INSERT INTO `calculator_test`.`Budget`" +
+        final String sql = "INSERT INTO `Budget`" +
                 "(`budget_id`, `budget_name`, `balance`)" +
                 " VALUES (?, ?, ?);";
 
