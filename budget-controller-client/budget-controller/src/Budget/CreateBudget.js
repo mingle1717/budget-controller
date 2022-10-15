@@ -7,22 +7,21 @@ import AddCategoryContainer from "./AddCategoryContainer"
 import AddMemberContainer from "./AddMemberContainer";
 
 function CreateBudget(){
-
-    const [budget, setBudget] = useState({balance: 0, members : [], categories: []});
+    const auth = useContext(AuthContext);
+    const [budget, setBudget] = useState({balance: 0, appUsers : [auth.user], categories: []});
     const [error, setError]= useState([]);
     const [categories, setCategories] = useState([]);
     const [appUsers, setAppUsers] = useState([]);
     const history = useHistory();
 
-    const auth = useContext(AuthContext);
+    
    
     
     function handleSubmit(evt){
         evt.preventDefault();
 
-        budget.categories = categories;
-
-        budget.members = members;
+        const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
+        setBudget(budgetCopy)
 
         fetch( "http://localhost:8080/api/budget", {
             method: "POST",

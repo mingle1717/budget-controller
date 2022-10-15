@@ -1,13 +1,15 @@
 
 import TransactionForm from "./TransactionForm"
 import { Link } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Directories from "../Directories";
+import AuthContext from "../AuthContext";
 
 
 
 function AddTransaction() {
 
+    const auth = useContext(AuthContext)
     const [transaction, setTransaction] = useState({transactionName: "", transactionAmount: 0, transactionCategory: "", transacationDescription : ""});
 
 
