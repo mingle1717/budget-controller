@@ -13,7 +13,7 @@ public class CategoryMapper implements RowMapper<Category> {
 
         category.setCategoryId(rs.getInt("category_id"));
         category.setCategoryName(rs.getString("cat_name"));
-        category.setCategoryPercent(rs.getBigDecimal("cat_%"));
+        category.setCategoryPercent(rs.getBigDecimal("cat_percent"));
         category.setHigherLimit(rs.getBigDecimal("higher_limit"));
         category.setLowerLimit(rs.getBigDecimal("lower_limit"));
         category.setGoal(rs.getBoolean("goal"));
