@@ -16,6 +16,7 @@ public class TransactionService {
 
     @Autowired
     UserJdbcRepo userJdbcRepo;
+    @Autowired
     TransactionJdbcRepository repository;
 
     public List<Transaction> viewAllTransactions(String username) {
