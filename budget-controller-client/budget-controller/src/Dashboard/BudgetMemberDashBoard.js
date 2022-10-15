@@ -29,8 +29,8 @@ function BudgetMemberDashboard() {
             }
         })
         .then(budget => {
-            setCategoryData(budget.categories);
-            console.log(categoryData[1]);
+            setCategoryData(budget);
+            console.log(categoryData);
         })
         .catch(error => {
             console.log(error);
