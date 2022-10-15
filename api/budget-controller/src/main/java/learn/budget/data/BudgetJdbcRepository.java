@@ -23,8 +23,8 @@ public class BudgetJdbcRepository implements BudgetRepository {
     @Transactional
     public Budget findById(int budgetId) {
 
-        final String sql = "select `Budget`.`budget_id`, `Budget`.`budget_name`, `Budget`.`balance` "
-                + "from `calculator_test`.`Budget`"
+        final String sql = "select `budget_id`, `budget_name`, `balance` "
+                + "from `Budget`"
                 + "where budget_id = ?;";
 
         return jdbcTemplate.query(sql, new BudgetMapper(), budgetId).stream()
@@ -55,7 +55,7 @@ public class BudgetJdbcRepository implements BudgetRepository {
     }
 
     public UserBudget getBridgeTableInfo(int userId) {
-        final String sql = "select user_budget_id, isOwner, user_id, budget_id from User_Budget where user_id = ?;";
+        final String sql = "select userBudget_id, isOwner, user_id, budget_id from userBudget where user_id = ?;";
         return jdbcTemplate.query(
                 sql,
                 new UserBudgetMapper(),
