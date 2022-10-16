@@ -9,7 +9,7 @@ function AddMemberContainer({onMembersChange}){
     const auth = useContext(AuthContext)
 
     const startingMember = [{memberId : 0, username: auth.user.username}]
-    const [members, setMembers] = useState([startingMember]);
+    const [members, setMembers] = useState([...startingMember]);
 
     function memberChangeHandler(member){
         const membersCopy = members.map(m => m.username === member.username ? member : m);

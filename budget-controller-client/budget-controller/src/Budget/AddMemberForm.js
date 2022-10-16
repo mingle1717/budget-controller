@@ -8,13 +8,14 @@ function AddMemberForm({onMemberChange, member}){
 
 
 
-    function inputChangeHandler(inputChangeEvent){
+    function memberChangeHandler(inputChangeEvent){
         const propertyName = inputChangeEvent.target.name;
         const newValue = inputChangeEvent.target.value;
 
         const memberCopy = {...member};
 
         memberCopy[propertyName] = newValue;
+
 
         onMemberChange(memberCopy);
     }
@@ -27,9 +28,9 @@ function AddMemberForm({onMemberChange, member}){
                     inputType={"text"} 
                     identifier={"username"} 
                     labelText={"Add members"} 
-                    currVal={""} 
+                    currVal={member.username} 
                     labelClass={"membersLabel"}
-                    onChangeHandler={inputChangeHandler}  
+                    onChangeHandler={memberChangeHandler}  
                     className={"form-control"}/>
 
                 

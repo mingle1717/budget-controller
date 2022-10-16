@@ -58,15 +58,15 @@ function CreateBudget(){
     }
 
     function categoriesChangeHandler(incomingCategories){
-        const categoriesCopy = [...incomingCategories]
-        setCategories(...categoriesCopy);
+        const categoriesCopy = [incomingCategories]
+        setCategories(categoriesCopy);
         const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
         setBudget(budgetCopy)
     }
 
     function appUsersChangeHandler(incomingAppUsers) {
-        const appUsersCopy = [...incomingAppUsers]
-        setAppUsers(...appUsersCopy);
+        const appUsersCopy = [incomingAppUsers]
+        setAppUsers(appUsersCopy);
         const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
         setBudget(budgetCopy)
     }
@@ -75,7 +75,7 @@ function CreateBudget(){
         <div className="container createBudgetContainer">
             <form onSubmit={handleSubmit}>
             <FormInput 
-                    inputType={"text"} 
+                    inputType={"number"} 
                     identifier={"balance"} 
                     labelText={"Starting Balance"} 
                     currVal={""} 

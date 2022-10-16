@@ -41,7 +41,7 @@ function CategoryForm({ onCategoryChange , category}){
             
                 
                 <FormInput 
-                    inputType={"text"} 
+                    inputType={"number"} 
                     identifier={"categoryPercent"} 
                     labelText={"Category Percentage"} 
                     currVal={category.categoryPercent} 
@@ -51,7 +51,7 @@ function CategoryForm({ onCategoryChange , category}){
                     <div id="categoryHelp" className="form-text">How much of your budget do you want this category to use?</div>
               
                 <FormInput 
-                    inputType={"text"} 
+                    inputType={"number"} 
                     identifier={"higherLimit"} 
                     labelText={"Higher Limit"} 
                     currVal={category.higherLimit} 
@@ -61,7 +61,7 @@ function CategoryForm({ onCategoryChange , category}){
                     <div id="higherLimitHelp" className="form-text">We will alert you if you have more money than you expected!</div>
              
                 <FormInput 
-                    inputType={"text"} 
+                    inputType={"number"} 
                     identifier={"lowerLimit"} 
                     labelText={"Lower Limit"} 
                     currVal={category.lowerLimit} 

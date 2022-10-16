@@ -73,7 +73,7 @@ function BudgetMemberDashboard() {
                     <Link to={Directories.CREATEBUDGET}>Create Budget</Link>
                 </div>
             <div className="tipLink">
-                <Link> Click here for some advice! </Link>
+                <Link to="google.com"> Click here for some advice! </Link>
             </div>
         </div>
         :
