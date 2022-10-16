@@ -33,7 +33,7 @@ function BudgetMemberDashboard() {
         })
         .then(budget => {
             setCategoryData(budget);
-            console.log(categoryData);
+            
         })
         .catch(error => {
             console.log(error);
@@ -57,7 +57,7 @@ function BudgetMemberDashboard() {
             })
             .then(transactions => {
                 setTransactionData(transactions);
-                console.log(transactionData);
+                
             })
             .catch(error => {
                 console.log(error);

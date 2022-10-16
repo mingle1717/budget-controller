@@ -10,7 +10,7 @@ public class Transaction {
 
     private BigDecimal transactionAmount;
 
-    private String transactionDescription;
+    private String transacationDescription;
 
 
 
@@ -24,11 +24,11 @@ public class Transaction {
     private String username;
     private int userId;
 
-    public Transaction(String categoryName, String username, int transactionId, String transactionName, BigDecimal transactionAmount, String transactionDescription, int categoryId, int auto_Id,  int userId) {
+    public Transaction(String categoryName, String username, int transactionId, String transactionName, BigDecimal transactionAmount, String transacationDescription, int categoryId, int auto_Id, int userId) {
         this.transactionId = transactionId;
         this.transactionName = transactionName;
         this.transactionAmount = transactionAmount;
-        this.transactionDescription = transactionDescription;
+        this.transacationDescription = transacationDescription;
         this.categoryId = categoryId;
         this.auto_Id = auto_Id;
         this.userId = userId;
@@ -61,12 +61,12 @@ public class Transaction {
         this.transactionAmount = transactionAmount;
     }
 
-    public String getTransactionDescription() {
-        return transactionDescription;
+    public String getTransacationDescription() {
+        return transacationDescription;
     }
 
-    public void setTransactionDescription(String transactionDescription) {
-        this.transactionDescription = transactionDescription;
+    public void setTransacationDescription(String transacationDescription) {
+        this.transacationDescription = transacationDescription;
     }
 
     public int getUserId() {

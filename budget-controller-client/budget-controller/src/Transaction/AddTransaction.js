@@ -1,6 +1,6 @@
 
 import TransactionForm from "./TransactionForm"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { useContext, useEffect, useState } from "react";
 import Directories from "../Directories";
 import AuthContext from "../AuthContext";
@@ -11,7 +11,7 @@ function AddTransaction() {
 
     const auth = useContext(AuthContext)
     const [transaction, setTransaction] = useState({transactionName: "", transactionAmount: 0, transactionCategory: "", transacationDescription : ""});
-
+    const history = useHistory();
 
     function handleTransactionChange(updatedTransaction) {
         setTransaction(updatedTransaction);
@@ -31,7 +31,7 @@ function AddTransaction() {
         })
             .then(response => {
                 if (response.status === 201) {
-                    return response.json();
+                    history.push(Directories.OWNERDASHBOARD);
                 } else {
                     console.log(response);
                 }

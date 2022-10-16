@@ -48,7 +48,6 @@ function TransactionForm({onTransactionChange}){
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
-
             <FormInput 
                 inputType={"text"} 
                 identifier={"transacationDescription"} 

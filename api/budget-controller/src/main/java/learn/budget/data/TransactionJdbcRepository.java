@@ -41,19 +41,18 @@ public class TransactionJdbcRepository implements TransactionRepository {
 
     @Override
     public Transaction addTransaction(Transaction transaction) {
-        final String sql = " INSERT INTO `myTransaction`" +
-                " (`transaction_id`,`transaction_name`,`transaction_amount`,`transaction_description`,`category_id`, +`auto_id`, +`user_id`)" +
-                " VALUES (?, ?, ?, ?, ? ,?, ?);";
+        final String sql = "INSERT INTO `myTransaction` \n" +
+                " (`transaction_name`,`transaction_amount`,`transaction_description`,`category_id`, `auto_id`, `user_id`)\n" +
+                "VALUES (?, ?, ?, ?, ?, ?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, transaction.getTransactionId());
-            ps.setString(2, transaction.getTransactionName());
-            ps.setBigDecimal(3, transaction.getTransactionAmount());
-            ps.setString(4, transaction.getTransactionDescription());
-            ps.setInt(5, transaction.getCategoryId());
-            ps.setInt(6, transaction.getAuto_Id());
-            ps.setInt(7, transaction.getUserId());
+            ps.setString(1, transaction.getTransactionName());
+            ps.setBigDecimal(2, transaction.getTransactionAmount());
+            ps.setString(3, transaction.getTransacationDescription());
+            ps.setInt(4, transaction.getCategoryId());
+            ps.setInt(5, transaction.getAuto_Id());
+            ps.setInt(6, transaction.getUserId());
             return ps;
         }, keyHolder);
 
@@ -79,7 +78,7 @@ public class TransactionJdbcRepository implements TransactionRepository {
         return jdbcTemplate.update(sql,
                 transactionUpdate.getTransactionName(),
                 transactionUpdate.getTransactionAmount(),
-                transactionUpdate.getTransactionDescription(),
+                transactionUpdate.getTransacationDescription(),
                 transactionUpdate.getCategoryId(),
                 transactionUpdate.getAuto_Id(),
                 transactionUpdate.getUserId()) > 0;
