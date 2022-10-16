@@ -46,9 +46,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             //validate
             Jws<Claims> claims = converter.parseJwt(jwt);
 
-            String userName = claims.getBody().getSubject();
+            String username = claims.getBody().getSubject();
 
-            UserDetails matchingUser = service.loadUserByUsername(userName);
+            UserDetails matchingUser = service.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken rawToken =
                     new UsernamePasswordAuthenticationToken(

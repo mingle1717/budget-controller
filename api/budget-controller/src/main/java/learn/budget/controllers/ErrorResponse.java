@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 
 public class ErrorResponse {
 
+
+
     private final String s;
     public ErrorResponse(String s) {
         this.s = s;
@@ -21,5 +23,6 @@ public class ErrorResponse {
         }
         return new ResponseEntity<>(result.getMessages(), status);
     }
+
 }
 

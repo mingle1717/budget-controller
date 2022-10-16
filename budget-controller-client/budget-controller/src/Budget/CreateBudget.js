@@ -9,10 +9,12 @@ import AddMemberContainer from "./AddMemberContainer";
 
 function CreateBudget(){
     const auth = useContext(AuthContext);
-    const [budget, setBudget] = useState({balance: 0, appUsers : [], categories: []});
+    const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, higherLimit : 1000, lowerLimit : 500, goal : false }];
+    const [budget, setBudget] = useState({balance: 0, appUsers : [auth.user], categories: [startingCategories]});
+    const budgetAppUsers = budget.appUsers;
     const [error, setError]= useState([]);
     const [categories, setCategories] = useState([]);
-    const [appUsers, setAppUsers] = useState([auth.user]);
+    const [appUsers, setAppUsers] = useState(budgetAppUsers);
     const history = useHistory();
 
     
@@ -50,20 +52,21 @@ function CreateBudget(){
 
         budgetCopy[propertyName] = newValue;
 
+       
         setBudget(budgetCopy);
         
     }
 
     function categoriesChangeHandler(incomingCategories){
-        const categoriesCopy = [...incomingCategories]
-        setCategories(...categoriesCopy);
+        const categoriesCopy = [incomingCategories]
+        setCategories(categoriesCopy);
         const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
         setBudget(budgetCopy)
     }
 
     function appUsersChangeHandler(incomingAppUsers) {
-        const appUsersCopy = [...incomingAppUsers]
-        setAppUsers(...appUsersCopy);
+        const appUsersCopy = [incomingAppUsers]
+        setAppUsers(appUsersCopy);
         const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
         setBudget(budgetCopy)
     }
@@ -72,7 +75,7 @@ function CreateBudget(){
         <div className="container createBudgetContainer">
             <form onSubmit={handleSubmit}>
             <FormInput 
-                    inputType={"text"} 
+                    inputType={"number"} 
                     identifier={"balance"} 
                     labelText={"Starting Balance"} 
                     currVal={""} 

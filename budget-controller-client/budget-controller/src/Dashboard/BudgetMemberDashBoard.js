@@ -12,6 +12,7 @@ function BudgetMemberDashboard() {
     const [categoryData, setCategoryData] = useState([]);
     const [transactionData, setTransactionData] = useState([]);
     const auth = useContext(AuthContext);
+    const [hasBudget, setHasBudget] = useState(false);
 
     useEffect(() => {
         fetch("http://localhost:8080/api/budget/personal/" + auth.user.username, {
@@ -63,11 +64,17 @@ function BudgetMemberDashboard() {
 
     return (
         <div>
-
+            {hasBudget === false ?
             <div>
-                <Link to={Directories.CREATEBUDGET}>Create Budget</Link>
+                <div className="createBudgetLink">
+                    <Link to={Directories.CREATEBUDGET}>Create Budget</Link>
+                </div>
+            <div className="tipLink">
+                <Link to="google.com"> Click here for some advice! </Link>
             </div>
-            <Link> Click here for some advice! </Link>
+            </div>
+            :
+            <div>
             <div>
 
                 <PieChart width={400} height={400} >
@@ -81,8 +88,9 @@ function BudgetMemberDashboard() {
             <div className="manageTransactions">
                 <Link to={Directories.MEMBERMANAGEAUTO}> Manage auto transactions </Link>
             </div>
-
+            </div>
+            }
         </div>
     )
 }
-export default BudgetMemberDashboard
+export default BudgetMemberDashboard;
