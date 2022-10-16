@@ -12,7 +12,6 @@ function BudgetMemberDashboard() {
     const [categoryData, setCategoryData] = useState([]);
     const [transactionData, setTransactionData] = useState([]);
     const auth = useContext(AuthContext);
-    const [hasBudget, setHasBudget] = useState(false);
 
     useEffect(() => {
         fetch("http://localhost:8080/api/budget/personal/" + auth.user.username, {
@@ -24,16 +23,14 @@ function BudgetMemberDashboard() {
         })
         .then(response => {
             if (response.status === 200) {
-                setHasBudget(true);
                 return response.json();
             } else {
-                
                 console.log(response);
             }
         })
         .then(budget => {
             setCategoryData(budget);
-            
+            console.log(categoryData);
         })
         .catch(error => {
             console.log(error);
@@ -57,7 +54,7 @@ function BudgetMemberDashboard() {
             })
             .then(transactions => {
                 setTransactionData(transactions);
-                
+                console.log(transactionData);
             })
             .catch(error => {
                 console.log(error);
@@ -67,18 +64,12 @@ function BudgetMemberDashboard() {
     return (
         <div>
 
-        {hasBudget === false ?  
             <div>
-                <div className="createBudgetLink">
-                    <Link to={Directories.CREATEBUDGET}>Create Budget</Link>
-                </div>
-            <div className="tipLink">
-                <Link> Click here for some advice! </Link>
+                <Link to={Directories.CREATEBUDGET}>Create Budget</Link>
             </div>
-        </div>
-        :
-        <div>  
+            <Link> Click here for some advice! </Link>
             <div>
+
                 <PieChart width={400} height={400} >
                     <Pie dataKey="value" data={categoryData} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
                     <Tooltip />
@@ -87,15 +78,11 @@ function BudgetMemberDashboard() {
                     <PieChart data={transactionData} />
                 </Link>
             </div>
-     
-
             <div className="manageTransactions">
                 <Link to={Directories.MEMBERMANAGEAUTO}> Manage auto transactions </Link>
             </div>
 
-        </div>  
-}
         </div>
-        
-    ) } export default BudgetMemberDashboard;
-
+    )
+}
+export default BudgetMemberDashboard
