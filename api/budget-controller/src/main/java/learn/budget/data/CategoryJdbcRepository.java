@@ -88,9 +88,7 @@ public class CategoryJdbcRepository implements CategoryRepository {
     public Budget findAllCategoriesForABudget(Budget budget) {
 
         final String sql = "select `category_id`, `cat_name`, `cat_percent`, " +
-                "                \" `higher_limit`, `lower_limit`, `goal`, `budget_id` " +
-                "                + \"from `Category` " +
-                "                + \"where `budget_id`= ?;";
+                "`higher_limit`, `lower_limit`, `goal`, `budget_id` from `Category` where `budget_id`= ?;";
 
         List<Category> categories = jdbcTemplate.query(sql, new CategoryMapper(), budget.getBudgetId());
         budget.setCategories(categories);
