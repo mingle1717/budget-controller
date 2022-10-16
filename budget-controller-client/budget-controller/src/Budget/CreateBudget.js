@@ -10,7 +10,7 @@ import AddMemberContainer from "./AddMemberContainer";
 function CreateBudget(){
     const auth = useContext(AuthContext);
     const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, higherLimit : 1000, lowerLimit : 500, goal : false }];
-    const [budget, setBudget] = useState({balance: 0, appUsers : [auth.user], categories: [startingCategories]});
+    const [budget, setBudget] = useState({budgetName : auth.user.username, balance: 0, appUsers : [auth.user], categories: [startingCategories]});
     const budgetAppUsers = budget.appUsers;
     const [error, setError]= useState([]);
     const [categories, setCategories] = useState([]);
@@ -22,7 +22,7 @@ function CreateBudget(){
     
     function handleSubmit(evt){
         evt.preventDefault();
-
+    
       
 
         console.log(budget)

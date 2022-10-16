@@ -1,14 +1,15 @@
 
 import FormInput from "../FormInput"
 
-import {useState} from 'react';
+import {useState,useContext} from 'react';
+import AuthContext from "../AuthContext";
 
 
 
 
 function TransactionForm({onTransactionChange}){
-
-    const [transaction, setTransaction] = useState();
+    const auth = useContext(AuthContext);
+    const [transaction, setTransaction] = useState({username: auth.user.username, transactionName: "", transactionAmount: 0, categoryName: "", transacationDescription : ""});
 
     function inputChangeHandler(inputChangeEvent){
         const propertyName = inputChangeEvent.target.name;
@@ -33,7 +34,7 @@ function TransactionForm({onTransactionChange}){
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
             <FormInput 
-                inputType={"text"} 
+                inputType={"number"} 
                 identifier={"transactionAmount"} 
                 labelText={"Money Spent"} 
                 currVal={""} 
@@ -41,7 +42,7 @@ function TransactionForm({onTransactionChange}){
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
             <FormInput 
-                inputType={"select"} 
+                inputType={"text"} 
                 identifier={"categoryName"} 
                 labelText={"Category"} 
                 currVal={""} 

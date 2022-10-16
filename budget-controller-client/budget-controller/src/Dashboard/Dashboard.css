@@ -1,6 +1,6 @@
 .budgetPieContainer{
-    
-    
+   
+    margin-left: 5%;
 }
 .ownerDashboardHeader{
     margin-left: 40%;
@@ -13,14 +13,18 @@
 }
 
 .spendingPieContainer{
-    
+     margin-top: -23%;
+     margin-left: 25%;
 
 }
-.spendingPieChart {
-    size: 10%;
+.budgetPieHeader{
+    margin-left: 22%;
     margin-top: 5%;
 }
+.transactionPieHeader{
+    margin-left: 25%;
 
+}
 .manageTransactions{
     margin-left: 10%;
     margin-top : -10%;

@@ -10,8 +10,9 @@ import AuthContext from "../AuthContext";
 function AddTransaction() {
 
     const auth = useContext(AuthContext)
-    const [transaction, setTransaction] = useState({transactionName: "", transactionAmount: 0, transactionCategory: "", transacationDescription : ""});
+    const [transaction, setTransaction] = useState();
     const history = useHistory();
+    
 
     function handleTransactionChange(updatedTransaction) {
         setTransaction(updatedTransaction);
@@ -20,7 +21,7 @@ function AddTransaction() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        
+        console.log(transaction)
         fetch("http://localhost:8080/api/transaction", {
             method: "POST",
             headers: {

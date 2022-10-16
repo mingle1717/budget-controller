@@ -52,7 +52,8 @@ public class TransactionService {
 
     public Result<Transaction> addTransaction(Transaction transaction) {
         Result<Transaction> addedTransaction = new Result<>();
-
+        AppUser user = userJdbcRepo.getUserByUsername(transaction.getUsername());
+        transaction.setUserId(user.getUserId());
         if (validateTransaction(transaction).isSuccess()) {
 
             Transaction resultingTransactionFromRepo = repository.addTransaction(transaction);
