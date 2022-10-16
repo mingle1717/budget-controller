@@ -48,10 +48,9 @@ function TransactionForm({onTransactionChange}){
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
-
             <FormInput 
                 inputType={"text"} 
-                identifier={"transactionDescription"} 
+                identifier={"transacationDescription"} 
                 labelText={"Description of Transaction"} 
                 currVal={""} 
                 labelClass={"inputLabel"}

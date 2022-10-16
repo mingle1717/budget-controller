@@ -14,7 +14,7 @@ public class TransactionMapper implements RowMapper<Transaction> {
         transaction.setTransactionId(rs.getInt("transaction_id"));
         transaction.setTransactionName(rs.getString("transaction_name"));
         transaction.setTransactionAmount(rs.getBigDecimal("transaction_amount"));
-        transaction.setTransactionDescription(rs.getString("transaction_description"));
+        transaction.setTransacationDescription(rs.getString("transaction_description"));
         transaction.setCategoryId(rs.getInt("category_id"));
         transaction.setAuto_Id(rs.getInt("auto_id"));
         transaction.setUserId(rs.getInt("user_id"));

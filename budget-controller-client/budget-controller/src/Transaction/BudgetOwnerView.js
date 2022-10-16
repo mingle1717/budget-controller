@@ -4,11 +4,12 @@ import { Link } from "react-router-dom"
 import AuthContext from '../AuthContext';
 import { useContext, useState } from "react";
 import Transaction from "./Transaction";
+import Directories from "../Directories"
 function BudgetOwnerView(props){
 
     const auth = useContext(AuthContext);
 
-    const [transactions, setTransactions] = useState([]);
+    const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, transactionCategory: "", transacationDescription : ""}]);
 
     function loadAllTransactions(){
         fetch ( "http://localhost:8080/api/transaction" + props.userId)

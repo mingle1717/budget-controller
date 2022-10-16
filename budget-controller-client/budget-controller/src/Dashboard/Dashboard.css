@@ -25,3 +25,13 @@
     margin-left: 10%;
     margin-top : -10%;
 }
+.createBudgetLink{
+    margin-left: 40%;
+    font-size: 48px;
+    margin-top: 5%;
+}
+.tipLink{
+    margin-left: 38%;
+    margin-top: 5%;
+    font-size: 32px;
+}

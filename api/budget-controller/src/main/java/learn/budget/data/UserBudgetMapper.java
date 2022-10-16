@@ -12,7 +12,7 @@ public class UserBudgetMapper implements RowMapper<UserBudget> {
         UserBudget ub = new UserBudget();
         ub.setBudgetId(rs.getInt("budget_id"));
         ub.setUserId(rs.getInt("user_id"));
-        ub.setUserBudgetId(rs.getInt("user_budget_id"));
+        ub.setUserBudgetId(rs.getInt("userBudget_id"));
         ub.setOwner(rs.getBoolean("isOwner"));
 
         return ub;

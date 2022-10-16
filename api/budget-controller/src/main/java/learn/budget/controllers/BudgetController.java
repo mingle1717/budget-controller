@@ -10,15 +10,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/budget")
+@RequestMapping("/api/budget")
 @CrossOrigin
 public class BudgetController {
 
     @Autowired
     BudgetService budgetService;
+
+    @Autowired
     CategoryService categoryService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Object> createBudget(@RequestBody Budget budget) {
         Result<Budget> budgetResult = budgetService.createBudget(budget);
         Result<Budget> budgetCategoryResult = categoryService.editBudgetCategories(budget);

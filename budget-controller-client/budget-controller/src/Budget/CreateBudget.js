@@ -2,47 +2,44 @@
 import {useState, useContext} from "react"
 import{useHistory} from "react-router-dom"
 import AuthContext from "../AuthContext";
+import Directories from "../Directories";
 import FormInput from "../FormInput"
 import AddCategoryContainer from "./AddCategoryContainer"
 import AddMemberContainer from "./AddMemberContainer";
 
 function CreateBudget(){
-
     const auth = useContext(AuthContext);
-    const [budget, setBudget] = useState({startingBalance: 0, appUsers : [], categories: []});
+    const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, higherLimit : 1000, lowerLimit : 500, goal : false }];
+    const [budget, setBudget] = useState({balance: 0, appUsers : [auth.user], categories: [startingCategories]});
+    const budgetAppUsers = budget.appUsers;
     const [error, setError]= useState([]);
     const [categories, setCategories] = useState([]);
-    const [appUsers, setAppUsers] = useState([]);
+    const [appUsers, setAppUsers] = useState(budgetAppUsers);
     const history = useHistory();
 
+    
+   
     
     function handleSubmit(evt){
         evt.preventDefault();
 
-        budget.categories = categories;
-        budget.appUsers = appUsers;
-        setBudget(budget);
+      
 
+        console.log(budget)
         fetch( "http://localhost:8080/api/budget", {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
-                Accept : "application/json",
-                Authorization : `Bearer ${auth.user.token}`
-                
+                Authorization : "Bearer " + auth.user.token,
             },
             body: JSON.stringify(budget)
         }).then ( response => {
             if ( response.status === 201){
-                history.push("/budgetownerdashboard")
+                history.push(Directories.OWNERDASHBOARD)
             }
         })
         .catch (errors => {
-            if(errors instanceof TypeError){
-                setError(["Could not connect to api"]);
-            } else {
-                setError( errors );
-            }
+            console.log(errors);
 
         })
     }
@@ -55,26 +52,31 @@ function CreateBudget(){
 
         budgetCopy[propertyName] = newValue;
 
+       
         setBudget(budgetCopy);
         
     }
 
-    function categoriesChangeHandler(categories){
-        const categoriesCopy = [...categories]
-        setCategories(...categoriesCopy);
+    function categoriesChangeHandler(incomingCategories){
+        const categoriesCopy = [incomingCategories]
+        setCategories(categoriesCopy);
+        const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
+        setBudget(budgetCopy)
     }
 
-    function appUsersChangeHandler(appUsers) {
-        const appUsersCopy = [...appUsers]
-        setAppUsers(...appUsersCopy);
+    function appUsersChangeHandler(incomingAppUsers) {
+        const appUsersCopy = [incomingAppUsers]
+        setAppUsers(appUsersCopy);
+        const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
+        setBudget(budgetCopy)
     }
 
     return(
         <div className="container createBudgetContainer" key="createBudget">
             <form onSubmit={handleSubmit}>
             <FormInput 
-                    inputType={"text"} 
-                    identifier={"startingBalance"} 
+                    inputType={"number"} 
+                    identifier={"balance"} 
                     labelText={"Starting Balance"} 
                     currVal={""} 
                     labelClass={"balanceLabel"}

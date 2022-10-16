@@ -1,6 +1,6 @@
 drop database if exists calculator_test;
 create database calculator_test;
-USE calculator_test;
+use calculator_test;
 
 CREATE TABLE `appUser` (
     `user_id` INT AUTO_INCREMENT NOT NULL,
@@ -32,9 +32,13 @@ CREATE TABLE `Category` (
 
 CREATE TABLE `autoTrigger` (
     `auto_id` INT AUTO_INCREMENT NOT NULL,
-    `trigger_date` DATE NOT NULL,
+    `user_id` INT NOT NULL,
+    `cron_schedule` VARCHAR(100) NOT NULL,
     `payment_amount` INT NOT NULL,
+    `end_date` DATETIME NULL,
     `category_id` INT NOT NULL,
+    `creation_date` DATETIME NOT NULL,
+    `last_execution_date` DATETIME NULL,
     PRIMARY KEY (`auto_id`)
 );
 
@@ -62,6 +66,30 @@ CREATE TABLE `userBudget` (
     `budget_id` INT NOT NULL,
     PRIMARY KEY (`userBudget_id`)
 );
+
+ALTER TABLE `appUser` ADD CONSTRAINT `fk_appUser_role_id` FOREIGN KEY(`role_id`)
+REFERENCES `myRole` (`role_id`);
+
+ALTER TABLE `Category` ADD CONSTRAINT `fk_Category_budget_id` FOREIGN KEY(`budget_id`)
+REFERENCES `Budget` (`budget_id`);
+
+ALTER TABLE `autoTrigger` ADD CONSTRAINT `fk_autoTrigger_category_id` FOREIGN KEY(`category_id`)
+REFERENCES `Category` (`category_id`);
+
+ALTER TABLE `myTransaction` ADD CONSTRAINT `fk_myTransaction_category_id` FOREIGN KEY(`category_id`)
+REFERENCES `Category` (`category_id`);
+
+ALTER TABLE `myTransaction` ADD CONSTRAINT `fk_myTransaction_auto_id` FOREIGN KEY(`auto_id`)
+REFERENCES `autoTrigger` (`auto_id`);
+
+ALTER TABLE `myTransaction` ADD CONSTRAINT `fk_myTransaction_user_id` FOREIGN KEY(`user_id`)
+REFERENCES `appUser` (`user_id`);
+
+ALTER TABLE `userBudget` ADD CONSTRAINT `fk_userBudget_user_id` FOREIGN KEY(`user_id`)
+REFERENCES `appUser` (`user_id`);
+
+ALTER TABLE `userBudget` ADD CONSTRAINT `fk_userBudget_budget_id` FOREIGN KEY(`budget_id`)
+REFERENCES `Budget` (`budget_id`);
 ---------------------------------- #Above Is the Tables
 --------------------------------- #Below Is the Data being inserted
 
@@ -127,18 +155,17 @@ VALUES
 (False, '4', '2'),
 (False, '4', '1');
 
-INSERT INTO autoTrigger (trigger_date, payment_amount, category_id)
+INSERT INTO autoTrigger (cron_schedule, payment_amount, user_id, category_id, end_date, creation_date)
 VALUES
-('2022-11-01', 500, 1),
-('2022-12-15', 800, 2),
-('2021-10-31', 90.50, 3),
-('2021-11-01', 500, 1),
-('2021-12-15', 800, 2),
-('2021-10-31', 90.50, 3),
-('2021-11-01', 500, 1),
-('2022-12-15', 800, 2),
-('2022-10-31', 90.50, 3),
-('2022-10-15', 1000, 1);
+('0 0 12 1 1/1 ? *', 500, 1, 1, '2024-01-01', NOW()), # First of every month
+('0 0 12 15 1/1 ? *', 800, 1, 2, NULL, NOW()), # Day 15 of every month
+('0 0 12 1 1/1 ? *', 90.50, 2, 3, '2023-04-01', NOW()), # First day of the month
+('0 0 12 1 1/1 ? *', 500, 2, 1, '2024-02-15', NOW()), # First day of the month
+('0 0 12 15 1/1 ? *', 800, 2, 2, NULL, NOW()), # Day 15 of every month
+('0 0 12 1 1/1 ? *', 500, 3, 1, NULL, NOW()),  # First day of the month
+('0 0 12 15 1/1 ? *', 800, 3, 2, '2023-04-15', NOW()), # Day 15 of every month
+('0 0 12 1 1/1 ? *', 90.50, 4, 3, '2020-01-01', NOW()), # First day of the month
+('0 0 12 15 1/1 ? *', 1000, 4, 1, '2023-10-17', NOW()); # Day 15 of every month
 
 INSERT INTO myTransaction (transaction_name, transaction_amount, transaction_description, category_id, auto_id, user_id)
 VALUES

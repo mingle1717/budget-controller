@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom"
 import Transaction from "./Transaction"
+import Directories from "../Directories"
 
 function BudgetMemberView(){
 
@@ -25,7 +26,7 @@ function BudgetMemberView(){
                 
                 </tbody>
                 </table>
-                <Link to="/addtransaction"> Add Transaction </Link>
+                <Link to={Directories.ADDTRANSACTION}> Add Transaction </Link>
         </div>
         )
 }

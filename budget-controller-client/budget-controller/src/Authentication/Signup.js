@@ -18,10 +18,12 @@ function Signup(){
 
     function handleSubmit (event){
         event.preventDefault();
+        console.log(username, password, email);
         fetch("http://localhost:8080/api/security/register", {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
+                
             },
             body: JSON.stringify({
                 username,
@@ -46,7 +48,7 @@ function Signup(){
                 if( loginResponse.status === 200){
                     return loginResponse.json();
                 } else {
-                    console.log(loginResponse);
+                    console.log( "failed at login" + loginResponse);
                 }
             })
             .then(jwtContainer => {
@@ -60,16 +62,16 @@ function Signup(){
                 history.push(Directories.MEMBERDASHBOARD);
             })
             .catch(loginError => {
-                console.log( loginError );
+                console.log( "failed at login " + loginError );
             });
             return response.json();
         }
             
     
          else if (response.status === 403) {
-            setErrors(["Login failed."]);
+            console.log("not found")
         } else {
-            setErrors(["Unknown error."]);
+            console.log("reg issue" + response.json());
         }
         })
     };

@@ -28,10 +28,10 @@ public class BudgetService {
         if (budget.getStartingBalance() == null || budget.getStartingBalance().compareTo(BigDecimal.ZERO) <= 0) {
             result.addMessage("Please enter a balance greater than zero.", ResultType.INVALID);
         }
-        if (budget.getAppUsers() == null || budget.getAppUsers().size() <= 0) { // unlikely to reach this validation
+        if (budget.getAppUsers() == null || budget.getAppUsers().size() <= 0) {
             result.addMessage("There are no specified users for this budget.", ResultType.INVALID);
         }
-        if (budget.getCategories() == null) { // also unlikely
+        if (budget.getCategories() == null) {
             result.addMessage("The list of categories is null!", ResultType.INVALID);
         }
         List<Category> categories = new ArrayList<>();
@@ -48,13 +48,6 @@ public class BudgetService {
             }
         }
 
-
-        Category savings = new Category();
-        savings.setBudgetId(budget.getBudgetId()); // don't do this yet, that's a primary key
-        savings.setCategoryName("Savings");
-        savings.setLowerLimit(BigDecimal.valueOf(0));
-        savings.setHigherLimit(budget.getStartingBalance());
-        // set this later: savings.setCategoryPercent();
         BigDecimal sum = BigDecimal.ZERO;
 
         if (budget.getCategories() != null) {
@@ -64,15 +57,7 @@ public class BudgetService {
                 }
             }
         }
-        //checks that sum is equal to 100 percent
-        if (sum.compareTo(BigDecimal.valueOf(100)) == 0) {
-            // good to go! Set savings to 0 percent
-            savings.setCategoryPercent(BigDecimal.ZERO);
-        }
-        // the next line checks if the sum of all percentages is less than 100 percent and auto sets savings
-        if (sum.compareTo(BigDecimal.valueOf(100)) < 0) {
-            savings.setCategoryPercent(BigDecimal.valueOf(100).subtract(sum));
-        }
+
         // the next line checks if the total percentages are over 100 percent
         if (sum.compareTo(BigDecimal.valueOf(100)) > 0) {
             result.addMessage("The categories must add up to be no greater than 100.", ResultType.INVALID);
@@ -80,7 +65,6 @@ public class BudgetService {
         if (result.getMessages().size() > 0) {
             return result;
         }
-        categories.add(savings); // ensures that savings has category_id 1 always
         categories.addAll(budget.getCategories());
         budget.setCategories(categories);
         budget.setBudgetId(budgetRepository.createBudget(budget).getBudgetId());

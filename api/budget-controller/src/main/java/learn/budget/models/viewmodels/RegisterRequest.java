@@ -3,12 +3,12 @@ package learn.budget.models.viewmodels;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class RegisterRequest {
-    String username;
-    String password = "";
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    String passhash = encoder.encode(password);
+    private String username;
+    private String password = "";
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private String passhash = encoder.encode(password);
 
-    String email;
+    private String email;
 
     public String getUsername() {
         return username;

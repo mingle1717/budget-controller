@@ -25,9 +25,9 @@ public class CategoryJdbcRepository implements CategoryRepository {
     @Transactional
     public Category findById(int categoryId){
 
-        final String sql ="SELECT `Category`.`category_id`, `Category`.`cat_name`, `Category`.`cat_percent`," +
-                " `Category`.`higher_limit`, `Category`.`lower_limit`, `Category`.`goal`, `Category`.`budget_id`"
-                + "from `calculator_test`.`Category`"
+        final String sql ="SELECT `category_id`, `cat_name`, `cat_percent`," +
+                " `higher_limit`, `lower_limit`, `goal`, `budget_id`"
+                + "from `Category`"
                 + "where `category_id`= ?;";
 
         return jdbcTemplate.query(sql, new CategoryMapper(), categoryId).stream()
@@ -38,7 +38,7 @@ public class CategoryJdbcRepository implements CategoryRepository {
     @Transactional
     public Category addCategory(Category category){
 
-        final String sql = "INSERT INTO `calculator_test`.`Category` " +
+        final String sql = "INSERT INTO `Category` " +
                 "(`cat_name`, `cat_percent`, `higher_limit`, `lower_limit`, `goal`, `budget_id`)"
                 + "values (?, ?, ?, ?, ?, ?);";
 
@@ -66,7 +66,7 @@ public class CategoryJdbcRepository implements CategoryRepository {
     @Transactional
     public boolean editCategory(Category category) {
 
-        final String sql = " UPDATE `calculator_test`.`Category` SET"
+        final String sql = " UPDATE `Category` SET"
                 + "`cat_name` = ?, "
                 + "`cat_percent` = ?, "
                 + "`higher_limit` = ?, "
@@ -87,10 +87,8 @@ public class CategoryJdbcRepository implements CategoryRepository {
     @Transactional
     public Budget findAllCategoriesForABudget(Budget budget) {
 
-        final String sql = "select `Category`.`category_id`, `Category`.`cat_name`, `Category`.`cat_percent`,\" +\n" +
-                "                \" `Category`.`higher_limit`, `Category`.`lower_limit`, `Category`.`goal`, `Category`.`budget_id`\"\n" +
-                "                + \"from `calculator_test`.`Category`\"\n" +
-                "                + \"where `budget_id`= ?;";
+        final String sql = "select `category_id`, `cat_name`, `cat_percent`, " +
+                "`higher_limit`, `lower_limit`, `goal`, `budget_id` from `Category` where `budget_id`= ?;";
 
         List<Category> categories = jdbcTemplate.query(sql, new CategoryMapper(), budget.getBudgetId());
         budget.setCategories(categories);

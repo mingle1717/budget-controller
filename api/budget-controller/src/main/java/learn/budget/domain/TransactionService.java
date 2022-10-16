@@ -16,6 +16,7 @@ public class TransactionService {
 
     @Autowired
     UserJdbcRepo userJdbcRepo;
+    @Autowired
     TransactionJdbcRepository repository;
 
     public List<Transaction> viewAllTransactions(String username) {
@@ -42,7 +43,7 @@ public class TransactionService {
         if(transaction.getTransactionName() == null || transaction.getTransactionName().isBlank()) {
             result.addMessage("Transaction name must be provided.", ResultType.INVALID);
         }
-        if(transaction.getTransactionDescription() == null || transaction.getTransactionName().isBlank()) {
+        if(transaction.getTransacationDescription() == null || transaction.getTransactionName().isBlank()) {
             result.addMessage("Transaction description must be provided.", ResultType.INVALID);
         }
         result.setPayload(transaction);

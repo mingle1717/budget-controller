@@ -23,16 +23,16 @@ public class TransactionJdbcRepository implements TransactionRepository {
     @Override
     public List<Transaction> findAll() {
         final String sql =
-                "SELECT `myTransaction`.`transaction_id`,`myTransaction`.`transaction_name`` myTransaction`.`transaction_amount`,`myTransaction`.`transaction_description`,`myTransaction`.`category_id`,`myTransaction`.`auto_id`,`myTransaction`.`user_id`"
-                        + "from `calculator_test`.`myTransaction`";
+                "SELECT `transaction_id`, `transaction_name`, `transaction_amount`, `transaction_description`, `category_id`, `auto_id`, `user_id` \n" +
+                        "from myTransaction";
         return jdbcTemplate.query(sql, new TransactionMapper());
     }
 
     @Override
     @Transactional
     public Transaction findById(int transactionId){
-        final String sql = "SELECT `myTransaction`.`transaction_id`,`myTransaction`.`transaction_name`` myTransaction`.`transaction_amount`,`myTransaction`.`transaction_description`,`myTransaction`.`category_id`,`myTransaction`.`auto_id`,`myTransaction`.`user_id`"
-                + "from `calculator_test`.`myTransaction`"
+        final String sql = "SELECT `transaction_id`,`transaction_name`, `transaction_amount`, `transaction_description`, `category_id`, `auto_id`, `user_id`"
+                + "from `myTransaction`"
                 + " where `transaction_id` = ?;";
 
         return jdbcTemplate.query(sql, new TransactionMapper(), transactionId).stream()
@@ -41,19 +41,18 @@ public class TransactionJdbcRepository implements TransactionRepository {
 
     @Override
     public Transaction addTransaction(Transaction transaction) {
-        final String sql = " INSERT INTO `calculator_test`.`myTransaction`" +
-                " (`transaction_id`,`transaction_name`,`transaction_amount`,`transaction_description`,`category_id`, +`auto_id`, +`user_id`)" +
-                " VALUES (?, ?, ?, ?, ? ,?, ?);";
+        final String sql = "INSERT INTO `myTransaction` \n" +
+                " (`transaction_name`,`transaction_amount`,`transaction_description`,`category_id`, `auto_id`, `user_id`)\n" +
+                "VALUES (?, ?, ?, ?, ?, ?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, transaction.getTransactionId());
-            ps.setString(2, transaction.getTransactionName());
-            ps.setBigDecimal(3, transaction.getTransactionAmount());
-            ps.setString(4, transaction.getTransactionDescription());
-            ps.setInt(5, transaction.getCategoryId());
-            ps.setInt(6, transaction.getAuto_Id());
-            ps.setInt(7, transaction.getUserId());
+            ps.setString(1, transaction.getTransactionName());
+            ps.setBigDecimal(2, transaction.getTransactionAmount());
+            ps.setString(3, transaction.getTransacationDescription());
+            ps.setInt(4, transaction.getCategoryId());
+            ps.setInt(5, transaction.getAuto_Id());
+            ps.setInt(6, transaction.getUserId());
             return ps;
         }, keyHolder);
 
@@ -79,7 +78,7 @@ public class TransactionJdbcRepository implements TransactionRepository {
         return jdbcTemplate.update(sql,
                 transactionUpdate.getTransactionName(),
                 transactionUpdate.getTransactionAmount(),
-                transactionUpdate.getTransactionDescription(),
+                transactionUpdate.getTransacationDescription(),
                 transactionUpdate.getCategoryId(),
                 transactionUpdate.getAuto_Id(),
                 transactionUpdate.getUserId()) > 0;

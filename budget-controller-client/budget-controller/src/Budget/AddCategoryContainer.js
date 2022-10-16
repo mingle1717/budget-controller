@@ -5,7 +5,7 @@ import "./Budget.css"
 
 function AddCategoryContainer({onCategoriesChange}){
     const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, higherLimit : 1000, lowerLimit : 500, goal : false }];
-    const [categories, setCategories] = useState([startingCategories]);
+    const [categories, setCategories] = useState([...startingCategories]);
 
     function categoryChangeHandler(category){
 
@@ -29,7 +29,6 @@ function AddCategoryContainer({onCategoriesChange}){
             categoriesCopy.pop();
             setCategories(categoriesCopy);
         }
-
     }
 
 

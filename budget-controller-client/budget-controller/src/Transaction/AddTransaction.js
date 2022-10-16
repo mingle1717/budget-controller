@@ -1,19 +1,20 @@
 
 import TransactionForm from "./TransactionForm"
-import { Link } from "react-router-dom"
-import { useEffect, useState, useContext } from "react";
+import { Link, useHistory } from "react-router-dom"
+import { useContext, useEffect, useState } from "react";
+import Directories from "../Directories";
 import AuthContext from "../AuthContext";
-
 
 
 
 function AddTransaction() {
 
-    const [transaction, setTransaction] = useState(null);
-    const auth = useContext(AuthContext);
+    const auth = useContext(AuthContext)
+    const [transaction, setTransaction] = useState({transactionName: "", transactionAmount: 0, transactionCategory: "", transacationDescription : ""});
+    const history = useHistory();
 
-    function handleTransactionChange(transaction) {
-        setTransaction(transaction);
+    function handleTransactionChange(updatedTransaction) {
+        setTransaction(updatedTransaction);
     }
 
 
@@ -26,13 +27,11 @@ function AddTransaction() {
                 Authorization : `Bearer ` + auth.user.token,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(
-                transaction
-            )
+            body: JSON.stringify(transaction)
         })
             .then(response => {
-                if (response.status === 200) {
-                    return response.json();
+                if (response.status === 201) {
+                    history.push(Directories.OWNERDASHBOARD);
                 } else {
                     console.log(response);
                 }
@@ -48,7 +47,7 @@ function AddTransaction() {
                 <form onSubmit={handleSubmit}>
                     <TransactionForm onTransactionChange={handleTransactionChange} />
                     <button type="submit" className="btn btn-primary">Add</button>
-                    <Link to="budgetmemberview" className="btn btn-danger">Cancel</Link>
+                    <Link to={Directories.MEMBERVIEW} className="btn btn-danger">Cancel</Link>
                 </form>
             </div>
         )
