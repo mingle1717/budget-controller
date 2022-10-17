@@ -84,7 +84,7 @@ function Navbar(props){
                     <Link to ={Directories.HOME} className="homeLink">Home</Link>}
             
             </div>
-            <div className="contactNav">
+            <div className="addNav">
             <div>
                 {auth.user ? (auth.user.userRoles[0].roleName==="Admin" ?  <Link to ={Directories.HOME}  className="homeLink">Add members</Link>  : 
                 null) : null}
@@ -97,7 +97,7 @@ function Navbar(props){
 
 
 
-            <div className="contactNav">
+            <div className="loginNav">
                 {auth.user? 
                 <button className="btn btn-danger logoutButton" onClick={() => auth.logout()}>Logout</button>
             : <Link to ={Directories.LOGIN}  className="homeLink" >Login</Link> }
