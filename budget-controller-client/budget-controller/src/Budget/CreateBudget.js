@@ -65,17 +65,15 @@ function CreateBudget(){
     }
 
     function appUsersChangeHandler(incomingAppUsers) {
-        const appUsersCopy = [incomingAppUsers]
+        const appUsersCopy = incomingAppUsers;
         setAppUsers(appUsersCopy);
         const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
+        console.log(budgetCopy);
         setBudget(budgetCopy)
     }
 
     return(
-        <div className="container">
-        <h1 className="budgetHeader"> Customize your budget to fit your needs!</h1>
-        <div className="createBudgetContainer">
-           
+        <div className="container createBudgetContainer" key="createBudget">
             <form onSubmit={handleSubmit}>
             <FormInput 
                     inputType={"number"} 
@@ -96,7 +94,7 @@ function CreateBudget(){
                 <button type="submit" className="budgetSubmitButton mySubmitButton">Submit</button>
             </form>
         </div>
-        </div>
+        
 
         )
 }

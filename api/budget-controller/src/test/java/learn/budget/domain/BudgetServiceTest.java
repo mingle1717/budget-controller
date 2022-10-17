@@ -232,80 +232,83 @@ public class BudgetServiceTest {
         assertEquals(1, validation.getMessages().size());
         assertEquals("The list of categories is null!", validation.getMessages().get(0));
     }
-    @Test
-    void shouldCreateAValidBudgetWithAutomaticallyAddedSavingsCategoryOfSeventyFivePercent() {
-        Budget budget = new Budget();
-        List<MyRole> budgetRoles = new ArrayList<>();
-        AppUser benny = new AppUser(1, "Benny Bootstrap", "bb@benny.gov",
-                "DAFJKLHASKHFDI481248", false, budgetRoles);
 
-        List<AppUser> roleUsers = new ArrayList<>();
-        roleUsers.add(benny);
-        budgetRoles.add(new MyRole(1, "Admin", roleUsers));
+    // Note: The below tests are irrelevant since the front end auto-assigns the "savings" category.
 
-
-        List<AppUser> budgetUsers = new ArrayList<>();
-        budgetUsers.add(benny);
-
-        budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
-        List<Category> categories = new ArrayList<>();
-
-        Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
-                BigDecimal.valueOf(90), true, budget.getBudgetId());
-
-        categories.add(catOne);
-
-        Category catTwo = new Category(2, "Dog Food", BigDecimal.valueOf(5), BigDecimal.valueOf(40),
-                BigDecimal.valueOf(20), false, budget.getBudgetId());
-
-        categories.add(catTwo);
-
-        budget.setCategories(categories);
-        when(budgetRepo.createBudget(budget)).thenReturn(budget);
-        Result<Budget> validation = service.createBudget(budget);
-        assertTrue(validation.isSuccess());
-        assertEquals(0, validation.getMessages().size());
-        assertEquals(BigDecimal.valueOf(75), budget.getCategories().get(0).getCategoryPercent());
-    }
-    @Test
-    void shouldCreateAValidBudgetWithAutomaticallyAddedSavingsCategoryOfZeroPercent() {
-        Budget budget = new Budget();
-        List<MyRole> budgetRoles = new ArrayList<>();
-        AppUser benny = new AppUser(1, "Benny Bootstrap", "bb@benny.gov",
-                "DAFJKLHASKHFDI481248", false, budgetRoles);
-
-        List<AppUser> roleUsers = new ArrayList<>();
-        roleUsers.add(benny);
-        budgetRoles.add(new MyRole(1, "Admin", roleUsers));
-
-
-        List<AppUser> budgetUsers = new ArrayList<>();
-        budgetUsers.add(benny);
-
-        budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
-        List<Category> categories = new ArrayList<>();
-
-        Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
-                BigDecimal.valueOf(90), true, budget.getBudgetId());
-
-        categories.add(catOne);
-
-        Category catTwo = new Category(2, "Dog Food", BigDecimal.valueOf(80), BigDecimal.valueOf(40),
-                BigDecimal.valueOf(20), false, budget.getBudgetId());
-
-        categories.add(catTwo);
-
-        budget.setCategories(categories);
-        when(budgetRepo.createBudget(budget)).thenReturn(budget);
-        Result<Budget> validation = service.createBudget(budget);
-        assertTrue(validation.isSuccess());
-        assertEquals(0, validation.getMessages().size());
-        assertEquals(BigDecimal.ZERO, budget.getCategories().get(0).getCategoryPercent());
-    }
+//    @Test
+//    void shouldCreateAValidBudgetWithAutomaticallyAddedSavingsCategoryOfSeventyFivePercent() {
+//        Budget budget = new Budget();
+//        List<MyRole> budgetRoles = new ArrayList<>();
+//        AppUser benny = new AppUser(1, "Benny Bootstrap", "bb@benny.gov",
+//                "DAFJKLHASKHFDI481248", false, budgetRoles);
+//
+//        List<AppUser> roleUsers = new ArrayList<>();
+//        roleUsers.add(benny);
+//        budgetRoles.add(new MyRole(1, "Admin", roleUsers));
+//
+//
+//        List<AppUser> budgetUsers = new ArrayList<>();
+//        budgetUsers.add(benny);
+//
+//        budget.setBudgetId(1);
+//        budget.setStartingBalance(BigDecimal.valueOf(2000));
+//        budget.setAppUsers(budgetUsers);
+//        List<Category> categories = new ArrayList<>();
+//
+//        Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
+//                BigDecimal.valueOf(90), true, budget.getBudgetId());
+//
+//        categories.add(catOne);
+//
+//        Category catTwo = new Category(2, "Dog Food", BigDecimal.valueOf(5), BigDecimal.valueOf(40),
+//                BigDecimal.valueOf(20), false, budget.getBudgetId());
+//
+//        categories.add(catTwo);
+//
+//        budget.setCategories(categories);
+//        when(budgetRepo.createBudget(budget)).thenReturn(budget);
+//        Result<Budget> validation = service.createBudget(budget);
+//        assertTrue(validation.isSuccess());
+//        assertEquals(0, validation.getMessages().size());
+//        assertEquals(BigDecimal.valueOf(75), budget.getCategories().get(1).getCategoryPercent());
+//    }
+//    @Test
+//    void shouldCreateAValidBudgetWithAutomaticallyAddedSavingsCategoryOfZeroPercent() {
+//        Budget budget = new Budget();
+//        List<MyRole> budgetRoles = new ArrayList<>();
+//        AppUser benny = new AppUser(1, "Benny Bootstrap", "bb@benny.gov",
+//                "DAFJKLHASKHFDI481248", false, budgetRoles);
+//
+//        List<AppUser> roleUsers = new ArrayList<>();
+//        roleUsers.add(benny);
+//        budgetRoles.add(new MyRole(1, "Admin", roleUsers));
+//
+//
+//        List<AppUser> budgetUsers = new ArrayList<>();
+//        budgetUsers.add(benny);
+//
+//        budget.setBudgetId(1);
+//        budget.setStartingBalance(BigDecimal.valueOf(2000));
+//        budget.setAppUsers(budgetUsers);
+//        List<Category> categories = new ArrayList<>();
+//
+//        Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
+//                BigDecimal.valueOf(90), true, budget.getBudgetId());
+//
+//        categories.add(catOne);
+//
+//        Category catTwo = new Category(2, "Dog Food", BigDecimal.valueOf(80), BigDecimal.valueOf(40),
+//                BigDecimal.valueOf(20), false, budget.getBudgetId());
+//
+//        categories.add(catTwo);
+//
+//        budget.setCategories(categories);
+//        when(budgetRepo.createBudget(budget)).thenReturn(budget);
+//        Result<Budget> validation = service.createBudget(budget);
+//        assertTrue(validation.isSuccess());
+//        assertEquals(0, validation.getMessages().size());
+//        assertEquals(BigDecimal.ZERO, budget.getCategories().get(0).getCategoryPercent());
+//    }
     @Test
     void shouldNotCreateBudgetIfAnyCategoryHasNullName() {
         Budget budget = new Budget();
