@@ -71,6 +71,7 @@ public class BudgetService {
         for (Category c : budget.getCategories()) {
             categoryService.repository.addCategory(c);
         }
+        budget.setBudgetName(budget.getBudgetName() + "'s Budget");
         result.setPayload(budget);
 
         return result;
