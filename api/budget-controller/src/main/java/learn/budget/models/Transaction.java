@@ -6,32 +6,27 @@ public class Transaction {
 
     private int transactionId;
 
-    private String username;
+
     private String transactionName;
 
     private BigDecimal transactionAmount;
 
     private String transacationDescription;
 
-
-
-    private String categoryName;
-
-    private int categoryId;
+    private Category category;
 
     private int auto_Id;
 
-    private int userId;
+    private AppUser user;
 
-    public Transaction(String categoryName, String username, int transactionId, String transactionName, BigDecimal transactionAmount, String transacationDescription, int categoryId, int auto_Id, int userId) {
+    public Transaction(int transactionId, String transactionName, BigDecimal transactionAmount, String transacationDescription, Category category, int auto_Id, AppUser user) {
         this.transactionId = transactionId;
         this.transactionName = transactionName;
         this.transactionAmount = transactionAmount;
         this.transacationDescription = transacationDescription;
-        this.categoryId = categoryId;
         this.auto_Id = auto_Id;
-        this.userId = userId;
-        this.categoryName = categoryName;
+        this.user = user;
+        this.category = category;
     }
 
     public Transaction(){}
@@ -68,21 +63,6 @@ public class Transaction {
         this.transacationDescription = transacationDescription;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public int getAuto_Id() {
         return auto_Id;
@@ -91,21 +71,20 @@ public class Transaction {
     public void setAuto_Id(int auto_Id) {
         this.auto_Id = auto_Id;
     }
-    public String getCategoryName() {
-        return categoryName;
+
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-    public String getUsername() {
-        return username;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public AppUser getUser() {
+        return user;
     }
 
-
-
+    public void setUser(AppUser user) {
+        this.user = user;
+    }
 }

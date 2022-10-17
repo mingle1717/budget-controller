@@ -6,10 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface TransactionRepository {
-    List<Transaction> findAll();
-
-    @Transactional
-    Transaction findById(int transactionId);
 
     Transaction addTransaction(Transaction transaction);
 
@@ -17,4 +13,6 @@ public interface TransactionRepository {
 
     @Transactional
     boolean deleteById(int transactionId);
+
+    List<Transaction> findTransactionsByUser(int userId);
 }

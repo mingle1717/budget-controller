@@ -1,11 +1,13 @@
 package learn.budget.controllers;
 import learn.budget.domain.Result;
 import learn.budget.domain.TransactionService;
+import learn.budget.models.AppUser;
 import learn.budget.models.Budget;
 import org.springframework.beans.factory.annotation.Autowired;
 import learn.budget.models.Transaction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,14 +20,16 @@ public class TransactionController {
     @Autowired
     TransactionService service;
 
-    @GetMapping("/{username}")
-    public List<Transaction> viewAllTransactions(@PathVariable String username) {
-        List<Transaction> allTransactions = service.viewAllTransactions(username);
+    @GetMapping()
+    public List<Transaction> viewAllTransactions() {
+        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Transaction> allTransactions = service.viewAllTransactions(user);
         return allTransactions;
     }
     @GetMapping("/{transactionId}")
     public Object getTransactionById(@PathVariable int transactionId){
-        Transaction toReturn = service.getTransactionById(transactionId);
+        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Transaction toReturn = service.getTransactionById(transactionId, user);
         if (toReturn != null) {
             return toReturn;
         } else {

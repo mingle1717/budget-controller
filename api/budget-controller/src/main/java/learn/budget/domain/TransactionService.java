@@ -23,29 +23,8 @@ public class TransactionService {
     @Autowired
     CategoryJdbcRepository categoryJdbcRepo;
 
-    public List<Transaction> viewAllTransactions(String username) {
-        // TODO: 10/14/2022 validate that user is in database
-        List<Transaction> allTransactions = repository.findAll();
-        List<Transaction> transactionsForThisUser = new ArrayList<>();
-
-        Category category;
-        for (Transaction t : allTransactions) {
-            AppUser user = userJdbcRepo.getUserByUsername(username);
-            category = categoryJdbcRepo.getCategoryByCategoryId(t.getCategoryId());
-            if (t.getUserId() == user.getUserId()) {
-                if(category == null){
-                    category = categoryJdbcRepo.getCategoryByCategoryId(1);
-                }
-                else {
-                    t.setCategoryId(category.getCategoryId());
-                }
-
-                t.setCategoryName(category.getCategoryName());
-                t.setUsername(user.getUsername());
-                transactionsForThisUser.add(t);
-            }
-        }
-        return transactionsForThisUser;
+    public List<Transaction> viewAllTransactions(AppUser user) {
+        return repository.findTransactionsByUser(user.getUserId());
     }
 
     public Result<Transaction> validateTransaction(Transaction transaction){
@@ -62,14 +41,18 @@ public class TransactionService {
         if(transaction.getTransacationDescription() == null || transaction.getTransactionName().isBlank()) {
             result.addMessage("Transaction description must be provided.", ResultType.INVALID);
         }
+        if(transaction.getCategory().getCategoryId() == 0 || transaction.getCategory().getCategoryName() == null) {
+            result.addMessage("There is no category assigned to this transaction.", ResultType.INVALID);
+        }
         result.setPayload(transaction);
         return result;
     }
 
     public Result<Transaction> addTransaction(Transaction transaction) {
         Result<Transaction> addedTransaction = new Result<>();
-        AppUser user = userJdbcRepo.getUserByUsername(transaction.getUsername());
-        transaction.setUserId(user.getUserId());
+        AppUser user = userJdbcRepo.getUserByUsername(transaction.getUser().getUsername());
+        transaction.setUser(user);
+
         if (validateTransaction(transaction).isSuccess()) {
             Transaction resultingTransactionFromRepo = repository.addTransaction(transaction);
             addedTransaction.setPayload(resultingTransactionFromRepo);
@@ -104,7 +87,13 @@ public class TransactionService {
     }
     public boolean deleteById(int transactionId){ return repository.deleteById(transactionId);}
 
-    public Transaction getTransactionById(int transactionId) {
-        return repository.findById(transactionId);
+    public Transaction getTransactionById(int transactionId, AppUser user) {
+        List<Transaction> toFilter = repository.findTransactionsByUser(user.getUserId());
+        for (Transaction t : toFilter) {
+            if (t.getTransactionId() == transactionId) {
+                return t;
+            }
+        }
+        return null;
     }
 }
