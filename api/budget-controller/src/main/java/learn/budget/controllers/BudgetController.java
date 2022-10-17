@@ -49,8 +49,8 @@ public class BudgetController {
         return ErrorResponse.build(partiallyHydratedBudgetResult);
     }
 
-    @PutMapping("/personal/{username}")
-    public Object editBudget(@PathVariable String username, Budget budget) {
+    @PutMapping("/personal")
+    public Object editBudget(@RequestBody Budget budget) {
         Result<Budget> budgetResult = budgetService.updateBalanceOrName(budget);
 
         if (budgetResult.isSuccess()) {
