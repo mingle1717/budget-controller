@@ -9,7 +9,21 @@ function Transaction(props){
     const auth = useContext(AuthContext);
 
     function deleteTransaction(){
-        console.log(props);
+        if( window.confirm("Are you sure you want to delete " + props.transactionId + "?")){
+            fetch("http://localhost:8080/api/transaction/" + props.transactionId, {
+                headers: {
+                    Authorization: `Bearer ` + auth.user.token,
+                },
+                method: "DELETE"
+            }).then(response => {
+                if( response.status ===204){
+                    props.onTransactionDelete();
+                } else {
+                    console.log(response);
+                }
+            })
+            .catch(error => console.log(error));
+        }
     }
 
 

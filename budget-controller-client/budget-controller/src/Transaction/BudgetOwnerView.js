@@ -12,7 +12,12 @@ function BudgetOwnerView(){
 
     const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, transactionCategory: "", transacationDescription : ""}]);
 
-    useEffect(() => {
+    function onTransactionDelete(){
+        loadTransactions();
+    }
+
+    function loadTransactions(){
+    
         fetch("http://localhost:8080/api/transaction/" + auth.user.username, {
             method: "GET",
             headers: {
@@ -35,9 +40,13 @@ function BudgetOwnerView(){
             .catch(error => {
                 console.log(error);
             });
-    }, [])
+        }
 
-
+        useEffect(
+            () => {
+                loadTransactions();
+            },
+            []);
 
     return(
         <div className="container">
@@ -56,7 +65,7 @@ function BudgetOwnerView(){
                 </thead>
                 <tbody> 
                 <>
-                {transactions.map( t => <Transaction key={t.transactionId} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.categoryName} transacationDescription={t.transacationDescription} username={t.username}/>)}
+                {transactions.map( t => <Transaction key={t.transactionId} onTransactionDelete={onTransactionDelete} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.categoryName} transacationDescription={t.transacationDescription} username={t.username}/>)}
                 </>
                 
                 </tbody>

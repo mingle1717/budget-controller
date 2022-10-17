@@ -49,4 +49,24 @@ public class BudgetController {
         return ErrorResponse.build(partiallyHydratedBudgetResult);
     }
 
+    @PutMapping("/personal/{username}")
+    public Object editBudget(@PathVariable String username, Budget budget) {
+        Result<Budget> budgetResult = budgetService.updateBalanceOrName(budget);
+
+        if (budgetResult.isSuccess()) {
+
+            Result<Budget> budgetResultWithCategories = categoryService.editBudgetCategories(budget);
+
+            if (budgetResultWithCategories.isSuccess()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return ErrorResponse.build(budgetResultWithCategories);
+            }
+
+        } else {
+            return ErrorResponse.build(budgetResult);
+        }
+
+    }
+
 }

@@ -23,11 +23,15 @@ public class TransactionController {
         List<Transaction> allTransactions = service.viewAllTransactions(username);
         return allTransactions;
     }
-   // @GetMapping("/{transactionId}")
-   // public Transaction getTransactionById(@PathVariable int transactionId){
-        //Transaction toReturn = service.getTransactionById(transactionId);
-        //return toReturn;
-  //  }
+    @GetMapping("/{transactionId}")
+    public Object getTransactionById(@PathVariable int transactionId){
+        Transaction toReturn = service.getTransactionById(transactionId);
+        if (toReturn != null) {
+            return toReturn;
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @PostMapping
     public ResponseEntity<Object> addTransaction(@RequestBody Transaction transaction) {
         Result<Transaction> result = service.addTransaction(transaction);
@@ -44,5 +48,12 @@ public class TransactionController {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.NO_CONTENT);
         }
         return ErrorResponse.build(result);
+    }
+    @DeleteMapping("/{transactionId}")
+    public ResponseEntity<Object> deleteTransaction(@PathVariable int transactionId){
+        if(service.deleteById(transactionId)){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
