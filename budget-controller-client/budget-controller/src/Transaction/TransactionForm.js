@@ -83,7 +83,7 @@ function TransactionForm({onTransactionChange}){
                 value = {transaction.categoryId}
                 > 
                 
-                {budgetCategories ? budgetCategories.map(b => <option value={b.categoryId}> {b.categoryName}</option>) : null}</select>
+                {budgetCategories ? budgetCategories.map(b => <option key={b.categoryId} value={b.categoryId}> {b.categoryName}</option>) : null}</select>
             <FormInput 
                 inputType={"text"} 
                 identifier={"transacationDescription"} 

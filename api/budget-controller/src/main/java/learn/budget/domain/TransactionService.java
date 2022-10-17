@@ -34,14 +34,12 @@ public class TransactionService {
             category = categoryJdbcRepo.getCategoryByCategoryId(t.getCategoryId());
             if (t.getUserId() == user.getUserId()) {
                 if(category == null){
-                    t.setCategoryId(0);
+                    category = categoryJdbcRepo.getCategoryByCategoryId(1);
                 }
                 else {
                     t.setCategoryId(category.getCategoryId());
                 }
-                if (t.getCategoryId() == 0) {
-                    break; // temporary fix until addTransaction is fixed
-                }
+
                 t.setCategoryName(category.getCategoryName());
                 t.setUsername(user.getUsername());
                 transactionsForThisUser.add(t);
