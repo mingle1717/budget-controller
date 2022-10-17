@@ -45,4 +45,11 @@ public class TransactionController {
         }
         return ErrorResponse.build(result);
     }
+    @DeleteMapping("/{transactionId}")
+    public ResponseEntity<Object> deleteTransaction(@PathVariable int transactionId){
+        if(service.deleteById(transactionId)){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

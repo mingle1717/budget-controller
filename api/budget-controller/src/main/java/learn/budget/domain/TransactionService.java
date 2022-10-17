@@ -102,5 +102,6 @@ public class TransactionService {
             return editedTransaction;
         }
     }
+    public boolean deleteById(int transactionId){ return repository.deleteById(transactionId);}
 
 }
