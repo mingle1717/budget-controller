@@ -21,8 +21,7 @@ import java.util.Optional;
 import static com.cronutils.model.CronType.QUARTZ;
 
 
-@Configuration
-@EnableScheduling
+
 public class TransactionSchedule {
     //Every AutoTransaction has a Category
     //Every Category has a budget, but the budget split categories

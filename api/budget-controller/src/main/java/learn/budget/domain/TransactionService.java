@@ -23,8 +23,6 @@ public class TransactionService {
     @Autowired
     CategoryJdbcRepository categoryJdbcRepo;
 
-    @Autowired
-    CategoryJdbcRepository categoryRepo;
     public List<Transaction> viewAllTransactions(String username) {
         // TODO: 10/14/2022 validate that user is in database
         List<Transaction> allTransactions = repository.findAll();
@@ -35,7 +33,12 @@ public class TransactionService {
             AppUser user = userJdbcRepo.getUserByUsername(username);
             category = categoryJdbcRepo.getCategoryByCategoryId(t.getCategoryId());
             if (t.getUserId() == user.getUserId()) {
-                t.setCategoryId(category.getCategoryId());
+                if(category == null){
+                    t.setCategoryId(0);
+                }
+                else {
+                    t.setCategoryId(category.getCategoryId());
+                }
                 if (t.getCategoryId() == 0) {
                     break; // temporary fix until addTransaction is fixed
                 }
@@ -101,5 +104,5 @@ public class TransactionService {
             return editedTransaction;
         }
     }
-    public 
+
 }

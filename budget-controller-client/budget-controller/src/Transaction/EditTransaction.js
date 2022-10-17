@@ -17,7 +17,7 @@ function EditTransaction(){
         setTransaction(updatedTransaction);
     }
 
-    
+
     useEffect(() => {
         fetch("http://localhost:8080/api/transaction/" + auth.user.username, {
             method: "GET",
@@ -35,7 +35,7 @@ function EditTransaction(){
             })
             .then(transactions => {
             
-                setBudgetTransactions(transactions);
+                //setBudgetTransactions(transactions);
                 console.log(transactions)
             })
             .catch(error => {

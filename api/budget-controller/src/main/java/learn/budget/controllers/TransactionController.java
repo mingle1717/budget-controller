@@ -23,11 +23,11 @@ public class TransactionController {
         List<Transaction> allTransactions = service.viewAllTransactions(username);
         return allTransactions;
     }
-    @GetMapping("/{transactionId}")
-    public Transaction getTransactionById(@PathVariable int transactionId){
-        Transaction toReturn = service.getTransactionById(transactionId);
-        return toReturn;
-    }
+   // @GetMapping("/{transactionId}")
+   // public Transaction getTransactionById(@PathVariable int transactionId){
+        //Transaction toReturn = service.getTransactionById(transactionId);
+        //return toReturn;
+  //  }
     @PostMapping
     public ResponseEntity<Object> addTransaction(@RequestBody Transaction transaction) {
         Result<Transaction> result = service.addTransaction(transaction);
