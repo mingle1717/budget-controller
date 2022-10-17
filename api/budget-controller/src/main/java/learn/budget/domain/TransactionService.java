@@ -20,6 +20,8 @@ public class TransactionService {
     UserJdbcRepo userJdbcRepo;
     @Autowired
     TransactionJdbcRepository repository;
+    @Autowired
+    CategoryJdbcRepository categoryJdbcRepo;
 
     @Autowired
     CategoryJdbcRepository categoryRepo;
@@ -31,9 +33,10 @@ public class TransactionService {
         Category category;
         for (Transaction t : allTransactions) {
             AppUser user = userJdbcRepo.getUserByUsername(username);
-            //category = categoryJdbcRepo.getCategoryByCategoryId(t.getCategoryId());
+            category = categoryJdbcRepo.getCategoryByCategoryId(t.getCategoryId());
             if (t.getUserId() == user.getUserId()) {
-
+                t.setCategoryId(category.getCategoryId());
+                t.setCategoryName(category.getCategoryName());
                 t.setUsername(user.getUsername());
                 transactionsForThisUser.add(t);
             }

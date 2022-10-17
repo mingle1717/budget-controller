@@ -94,4 +94,12 @@ public class CategoryJdbcRepository implements CategoryRepository {
         budget.setCategories(categories);
         return budget;
     }
+
+    @Transactional
+    public Category getCategoryByCategoryId(int categoryId) {
+        final String sql = "select `category_id`, `cat_name`, `cat_percent`, " +
+                "`higher_limit`, `lower_limit`, `goal`, `budget_id` from `Category` where `category_id`= ?;";
+
+        return jdbcTemplate.query(sql, new CategoryMapper(), categoryId).stream().findFirst().orElse(null);
+    }
 }
