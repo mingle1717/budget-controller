@@ -79,4 +79,24 @@ public class TransactionService {
         }
 
     }
+    public Result<Transaction> editTransaction(Transaction transaction){
+        Result<Transaction> editedTransaction = new Result<>();
+        if(validateTransaction(transaction).isSuccess()){
+            boolean result = repository.update(transaction);
+            if(result) {
+                editedTransaction.setPayload(transaction);
+            }
+            else{
+                editedTransaction.addMessage("Update not successful", ResultType.INVALID);
+            }
+            return editedTransaction;
+        }
+        else{
+            for (String message : validateTransaction(transaction).getMessages()) {
+                editedTransaction.addMessage(message, ResultType.INVALID);
+            }
+            return editedTransaction;
+        }
+    }
+    public 
 }

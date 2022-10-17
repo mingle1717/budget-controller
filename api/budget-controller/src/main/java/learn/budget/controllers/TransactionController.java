@@ -23,6 +23,11 @@ public class TransactionController {
         List<Transaction> allTransactions = service.viewAllTransactions(username);
         return allTransactions;
     }
+    @GetMapping("/{transactionId}")
+    public Transaction getTransactionById(@PathVariable int transactionId){
+        Transaction toReturn = service.getTransactionById(transactionId);
+        return toReturn;
+    }
     @PostMapping
     public ResponseEntity<Object> addTransaction(@RequestBody Transaction transaction) {
         Result<Transaction> result = service.addTransaction(transaction);
@@ -31,5 +36,13 @@ public class TransactionController {
         }
         return ErrorResponse.build(result);
 
+    }
+    @PutMapping("/{transactionId}")
+    public ResponseEntity<Object> editTransaction(@RequestBody Transaction transaction){
+        Result<Transaction> result = service.editTransaction(transaction);
+        if(result.isSuccess()){
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
     }
 }
