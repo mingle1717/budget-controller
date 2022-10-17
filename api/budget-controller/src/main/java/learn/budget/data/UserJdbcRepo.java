@@ -29,6 +29,10 @@ public class UserJdbcRepo implements UserRepo {
                 username).stream().findFirst().orElse(null);
     }
 
+    public void setUserToAdmin(AppUser user) {
+        template.update("update appUser set role_id = '2' where user_id = ?;", user.getUserId());
+    }
+
     private List<MyRole> getRolesByUsername(String username) {
         String sql = "select r.role_id, r.role_name\n" +
                 "                from myRole as r\n" +
