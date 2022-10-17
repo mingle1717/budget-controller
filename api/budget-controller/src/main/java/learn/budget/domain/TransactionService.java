@@ -1,4 +1,5 @@
 package learn.budget.domain;
+import learn.budget.data.CategoryJdbcRepository;
 import learn.budget.data.TransactionJdbcRepository;
 import learn.budget.data.UserJdbcRepo;
 import learn.budget.models.AppUser;
@@ -19,6 +20,8 @@ public class TransactionService {
     UserJdbcRepo userJdbcRepo;
     @Autowired
     TransactionJdbcRepository repository;
+    @Autowired
+    CategoryJdbcRepository categoryJdbcRepo;
 
     public List<Transaction> viewAllTransactions(String username) {
         // TODO: 10/14/2022 validate that user is in database
@@ -28,9 +31,9 @@ public class TransactionService {
         Category category;
         for (Transaction t : allTransactions) {
             AppUser user = userJdbcRepo.getUserByUsername(username);
-            //category = categoryJdbcRepo.getCategoryByCategoryId(t.getCategoryId());
+            category = categoryJdbcRepo.getCategoryByCategoryId(t.getCategoryId());
             if (t.getUserId() == user.getUserId()) {
-
+                t.setCategoryId(category.getCategoryId());
                 t.setUsername(user.getUsername());
                 transactionsForThisUser.add(t);
             }
