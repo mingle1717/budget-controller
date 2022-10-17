@@ -119,7 +119,7 @@ function App() {
             <Route path={Directories.ADDTRANSACTION}>
               {user ? <AddTransaction/> : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path={Directories.EDITTRANSACTION}>
+            <Route path={Directories.EDITTRANSACTION + "/:transactionId"}>
               {user ? <EditTransaction/> : <Redirect to={Directories.LOGIN}/>}
             </Route>
             <Route path={Directories.MEMBERDASHBOARD}>
