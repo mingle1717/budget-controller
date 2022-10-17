@@ -34,6 +34,8 @@ public class AutoTrigger {
         this.lastExecutionDate = lastExecutionDate;
     }
 
+    public AutoTrigger(){}
+
     public int getAutoId() {
         return autoId;
     }

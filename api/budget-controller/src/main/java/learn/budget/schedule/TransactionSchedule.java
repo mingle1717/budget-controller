@@ -33,8 +33,9 @@ public class TransactionSchedule {
     @Autowired
     TransactionService transactionService;
 
-    // TODO: schedule ever minute? 5 minutes? 30? hour?
-    @Scheduled(fixedRate = 1000)
+
+    @Scheduled(fixedRate = 60 * 1000) //scheduled every 60 sec
+    // http://www.cronmaker.com/?1 < Use to generate Cron to specific timing
     public void schedule() {
         List<AutoTrigger> triggers = service.viewAllAutoTriggers();
         CronDefinition cronDefinition = CronDefinitionBuilder.instanceDefinitionFor(QUARTZ);
@@ -56,15 +57,13 @@ public class TransactionSchedule {
             // Database query should not return transaction where end_date is in the past
             var isOver = trigger.getEndDate() != null && now.toLocalDateTime().compareTo(trigger.getEndDate()) > 0;
             if (isOver) {
-                // TODO: better log message
-                System.out.println("is over");
+                System.out.println("The end date is in the past");
                 continue;
             }
 
             // do not execute transaction if the lastCronExecution is before the creation date
             if (trigger.getCreationDate().compareTo(lastCronExecution.get().toLocalDateTime()) > 0) {
-                // TODO: better log message
-                System.out.println("past");
+                System.out.println("In the past");
                 continue;
             }
 
@@ -82,14 +81,11 @@ public class TransactionSchedule {
                 transaction.setTransactionName("Automatic Transaction");
                 transactionService.addTransaction(transaction);
 
-                // TODO: update last execution date for auto trigger in the database
                 trigger.setLastExecutionDate(now.toLocalDateTime());
+                service.update(trigger);
 
-                // TODO: better log message? or remove log
-                System.out.println("execute");
+                System.out.println("Currently scheduling");
             }
-
         }
-
     }
 }
