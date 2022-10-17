@@ -29,7 +29,6 @@ public class TransactionJdbcRepository implements TransactionRepository {
     }
 
     @Override
-    @Transactional
     public Transaction findById(int transactionId){
         final String sql = "SELECT `transaction_id`,`transaction_name`, `transaction_amount`, `transaction_description`, `category_id`, `auto_id`, `user_id`"
                 + "from `myTransaction`"
@@ -40,6 +39,7 @@ public class TransactionJdbcRepository implements TransactionRepository {
     }
 
     @Override
+    @Transactional
     public Transaction addTransaction(Transaction transaction) {
         final String sql = "INSERT INTO `myTransaction` \n" +
                 " (`transaction_name`,`transaction_amount`,`transaction_description`,`category_id`, `auto_id`, `user_id`)\n" +
@@ -65,6 +65,7 @@ public class TransactionJdbcRepository implements TransactionRepository {
     }
 
     @Override
+    @Transactional
     public boolean update(Transaction transactionUpdate) {
         final String sql = "UPDATE `calculator_test`.`myTransaction`"
                 + "`transaction_name` = ?, "

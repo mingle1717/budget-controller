@@ -61,5 +61,13 @@ public class BudgetJdbcRepository implements BudgetRepository {
                 new UserBudgetMapper(),
                 userId).stream().findFirst().orElse(null);
     }
+
+    public boolean update(Budget budget) {
+        final String sql = "update budget set balance = ?,\n" +
+                "budget_name = ?\n" +
+                "where budget_id = ?;";
+        return jdbcTemplate.update(sql, budget.getStartingBalance(),
+                budget.getBudgetName(), budget.getBudgetId()) > 0;
+    }
 }
 

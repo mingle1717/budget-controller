@@ -54,7 +54,7 @@ public class AutoTriggerService {
         return addedAutoTrigger;
     }
 
-    // TODO:
+  
     public Result<AutoTrigger> update(AutoTrigger trigger) {
         Result<AutoTrigger> result = validate(trigger);
         if (!result.isSuccess()) {
