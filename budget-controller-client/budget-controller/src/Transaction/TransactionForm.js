@@ -20,7 +20,7 @@ function TransactionForm({onTransactionChange}){
         transactionCopy[propertyName] = newValue;
 
         setTransaction(transactionCopy);
-        onTransactionChange(transaction);
+        onTransactionChange(transactionCopy);
     
     }
     return(

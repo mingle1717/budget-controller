@@ -1,4 +1,5 @@
 package learn.budget.domain;
+import learn.budget.data.CategoryJdbcRepository;
 import learn.budget.data.TransactionJdbcRepository;
 import learn.budget.data.UserJdbcRepo;
 import learn.budget.models.AppUser;
@@ -20,6 +21,8 @@ public class TransactionService {
     @Autowired
     TransactionJdbcRepository repository;
 
+    @Autowired
+    CategoryJdbcRepository categoryRepo;
     public List<Transaction> viewAllTransactions(String username) {
         // TODO: 10/14/2022 validate that user is in database
         List<Transaction> allTransactions = repository.findAll();
@@ -61,7 +64,6 @@ public class TransactionService {
         AppUser user = userJdbcRepo.getUserByUsername(transaction.getUsername());
         transaction.setUserId(user.getUserId());
         if (validateTransaction(transaction).isSuccess()) {
-
             Transaction resultingTransactionFromRepo = repository.addTransaction(transaction);
             addedTransaction.setPayload(resultingTransactionFromRepo);
             return addedTransaction;
