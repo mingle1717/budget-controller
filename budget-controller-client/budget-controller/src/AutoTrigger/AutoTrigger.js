@@ -41,7 +41,10 @@ function AutoTrigger(){
 
     return(
         <div className="container">
-            
+            <table className="autotrigger container autotrigger">
+                
+            </table>
+
         </div>
     )
 
