@@ -45,7 +45,7 @@ function EditBudget(){
     function handleSubmit(evt){
         evt.preventDefault();
 
-        budget.categories = categories;
+        
 
         fetch( "http://localhost:8080/api/budget/" + auth.user.username, {
             method: "PUT",
@@ -86,7 +86,7 @@ function EditBudget(){
                     <div id="balanceHelp" className="form-text">What balance do you want to start with?</div>
                 </div>
                 <AddCategoryContainer onCategoriesChange={categoriesChangeHandler}/>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="budgetSubmitButton mySubmitButton">Submit</button>
             </form>
         </div>
         

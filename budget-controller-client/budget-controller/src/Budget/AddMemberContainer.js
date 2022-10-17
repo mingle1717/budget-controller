@@ -37,9 +37,9 @@ function AddMemberContainer({onMembersChange}){
     return(
         <div className="memberContainer">
             {members.map( m => <AddMemberForm member={m} onMemberChange={memberChangeHandler} />)}
-            <div className='buttons'>
-            <button className="btn btn-primary" onClick={addMember}  > + </button>
-            <button className="btn btn-danger" onClick={removeMember} > - </button>
+            <div className="budgetButtons">
+            <button className="budgetSubmitButton" onClick={addMember}  > + </button>
+            <button className="budgetCancelButton" onClick={removeMember} > - </button>
             </div>
         </div>
     )

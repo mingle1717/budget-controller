@@ -1,14 +1,17 @@
 
 import FormInput from "../FormInput"
 
-import {useState} from 'react';
+import {useState,useContext, useEffect} from 'react';
+import AuthContext from "../AuthContext";
 
 
 
 
 function TransactionForm({onTransactionChange}){
-
-    const [transaction, setTransaction] = useState();
+    const auth = useContext(AuthContext);
+    const [transaction, setTransaction] = useState({username: auth.user.username,  transactionName: "", transactionAmount: 0, categoryId: 0, transacationDescription : ""});
+    const [budgetCategories, setBudgetCategories] = useState();
+    const [categoryId, setCategoryId] = useState();
 
     function inputChangeHandler(inputChangeEvent){
         const propertyName = inputChangeEvent.target.name;
@@ -18,10 +21,42 @@ function TransactionForm({onTransactionChange}){
     
         transactionCopy[propertyName] = newValue;
 
+        
         setTransaction(transactionCopy);
-        onTransactionChange(transaction);
-    
+        onTransactionChange(transactionCopy);
+        console.log(transactionCopy.categoryId)
     }
+    
+    useEffect(() => {
+        fetch("http://localhost:8080/api/budget/personal/" + auth.user.username, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ` + auth.user.token,
+                "Content-Type": "application/json"
+            },
+        })
+        .then(response => {
+            if (response.status === 200) {
+             
+                return response.json();
+            } else {
+                
+                console.log(response);
+            }
+        })
+        .then(budget => {
+            const categories = budget.categories;
+            setBudgetCategories(categories);
+           
+            
+            
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }, [])
+
+
     return(
         <div className="container">
             <FormInput
@@ -33,21 +68,22 @@ function TransactionForm({onTransactionChange}){
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
             <FormInput 
-                inputType={"text"} 
+                inputType={"number"} 
                 identifier={"transactionAmount"} 
                 labelText={"Money Spent"} 
                 currVal={""} 
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
-            <FormInput 
-                inputType={"select"} 
-                identifier={"categoryName"} 
-                labelText={"Category"} 
-                currVal={""} 
-                labelClass={"inputLabel"}
-                onChangeHandler={inputChangeHandler}
-                className={"form-control"}/>
+            <select
+                name="categoryId"
+                id="categoryId"
+                onChange={(choice) => setCategoryId(choice)}
+                className="form-control"
+                value = {transaction.categoryId}
+                > 
+                
+                {budgetCategories ? budgetCategories.map(b => <option value={b.categoryId}> {b.categoryName}</option>) : null}</select>
             <FormInput 
                 inputType={"text"} 
                 identifier={"transacationDescription"} 

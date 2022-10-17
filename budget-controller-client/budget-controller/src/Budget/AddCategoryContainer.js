@@ -5,7 +5,7 @@ import "./Budget.css"
 
 function AddCategoryContainer({onCategoriesChange}){
     const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, higherLimit : 1000, lowerLimit : 500, goal : false }];
-    const [categories, setCategories] = useState([...startingCategories]);
+    const [categories, setCategories] = useState([startingCategories]);
 
     function categoryChangeHandler(category){
 
@@ -18,14 +18,14 @@ function AddCategoryContainer({onCategoriesChange}){
     }
 
     function addCategory(){
-        const categoriesCopy = [...categories];
+        const categoriesCopy = [categories];
         categoriesCopy.push({categoryId : categoriesCopy.length , categoryName : "" , categoryPercent : 0, higherLimit : 100, lowerLimit : 0, goal : false});
         setCategories(categoriesCopy);
     }
     function removeCategory(){
         
         if(categories.length > 1){
-            const categoriesCopy = [...categories];
+            const categoriesCopy = [categories];
             categoriesCopy.pop();
             setCategories(categoriesCopy);
         }
@@ -37,9 +37,9 @@ function AddCategoryContainer({onCategoriesChange}){
         <div className='categoryContainer' key='editBudget'>
             {categories.map( c => <CategoryForm category={c}  onCategoryChange={categoryChangeHandler} />)}
 
-            <div className='buttons'>
-            <button className="btn btn-primary" onClick={addCategory}  > + </button>
-            <button className="btn btn-danger" onClick={removeCategory} > - </button>
+            <div className='budgetButtons'>
+            <button className="budgetSubmitButton" onClick={addCategory}  > + </button>
+            <button className="budgetCancelButton" onClick={removeCategory} > - </button>
             </div>
         </div>
 

@@ -37,7 +37,7 @@ function CategoryForm({ onCategoryChange , category}){
                     labelClass={"inputLabel"}
                     onChangeHandler={inputChangeHandler}
                     className={"form-control"}/>
-                    <div id="categoryHelp" className="form-text">What balance do you want to start with?</div>
+                    <div id="categoryHelp" className="form-text">What would you like the category to be called?</div>
             
                 
                 <FormInput 

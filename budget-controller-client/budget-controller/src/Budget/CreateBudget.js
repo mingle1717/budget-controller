@@ -10,10 +10,10 @@ import AddMemberContainer from "./AddMemberContainer";
 function CreateBudget(){
     const auth = useContext(AuthContext);
     const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, higherLimit : 1000, lowerLimit : 500, goal : false }];
-    const [budget, setBudget] = useState({balance: 0, appUsers : [auth.user], categories: [startingCategories]});
+    const [budget, setBudget] = useState({budgetName : auth.user.username, balance: 0, appUsers : [auth.user], categories: [...startingCategories]});
     const budgetAppUsers = budget.appUsers;
     const [error, setError]= useState([]);
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState();
     const [appUsers, setAppUsers] = useState(budgetAppUsers);
     const history = useHistory();
 
@@ -22,7 +22,7 @@ function CreateBudget(){
     
     function handleSubmit(evt){
         evt.preventDefault();
-
+    
       
 
         console.log(budget)
@@ -72,7 +72,14 @@ function CreateBudget(){
     }
 
     return(
+<<<<<<< HEAD
         <div className="container createBudgetContainer" key="createBudget">
+=======
+        <div className="container">
+        <h1 className="budgetHeader"> Customize your budget to fit your needs!</h1>
+        <div className="createBudgetContainer">
+           
+>>>>>>> a5e867a8a4bbc3fc656b0922716f1e949dc274ab
             <form onSubmit={handleSubmit}>
             <FormInput 
                     inputType={"number"} 
@@ -90,9 +97,11 @@ function CreateBudget(){
             <div className="members">
                 <AddMemberContainer onMembersChange={appUsersChangeHandler}/>
             </div>
-                <button type="submit" className="btn btn-primary mySubmitButton">Submit</button>
+                <button type="submit" className="budgetSubmitButton mySubmitButton">Submit</button>
             </form>
         </div>
+        </div>
+
         )
 }
 export default CreateBudget

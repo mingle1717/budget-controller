@@ -1,5 +1,7 @@
 .budgetPieContainer{
-    
+    outline: 6px double #000000;
+    outline-offset: 0px;
+    margin-left: -3%;
     
 }
 .ownerDashboardHeader{
@@ -8,22 +10,32 @@
 .budgetPieChart {
     size: 10%;
     margin-right: 5%;
-    margin-top: 5%;
-    margin-left: 30%;
+    margin-top: -2%;
+    margin-left: -5%;
 }
 
 .spendingPieContainer{
-    
+     margin-top: -32.5%;
+     margin-left: 25%;
+     
 
 }
-.spendingPieChart {
-    size: 10%;
+.spendingPieChart{
+    margin-left: -10%;
+    margin-top: -2.5%;
+}
+.budgetPieHeader{
+    padding-top: 5%;
+    margin-left: 22%;
     margin-top: 5%;
 }
+.transactionPieHeader{
+    margin-left: 25%;
 
+}
 .manageTransactions{
-    margin-left: 10%;
-    margin-top : -10%;
+    margin-left: 35%;
+    margin-top : 8%;
 }
 .createBudgetLink{
     margin-left: 40%;
@@ -35,3 +47,35 @@
     margin-top: 5%;
     font-size: 32px;
 }
+.dashSubmitButton{
+    margin-top: .5em;
+    margin-right: 1em;
+    margin-bottom: 3em;
+    
+        color: rgb(255, 255, 255); 
+        font-size: 16px; 
+        line-height: 16px; 
+        padding: 6px; 
+        border-radius: 10px; 
+        font-family: Georgia, serif;
+        font-weight: normal; 
+        text-decoration: none; 
+        font-style: normal; 
+        font-variant: normal; 
+        text-transform: none; 
+        background-image: linear-gradient(45deg, rgb(0, 22, 164) 0%, rgb(82, 75, 117) 100%); 
+        box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+        border: 2px solid rgb(28, 48, 164); 
+        display: inline-block;
+    }
+        .dashSubmitButton:hover {
+        background: #0016A4; 
+    }
+        .dashSubmitButton:active {
+        background: #524B75; 
+    }
+    .dashboardHeader{
+        text-align: center;
+        margin-left: -5%;
+        margin-top: 2%;
+    }

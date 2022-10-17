@@ -10,8 +10,9 @@ import AuthContext from "../AuthContext";
 function AddTransaction() {
 
     const auth = useContext(AuthContext)
-    const [transaction, setTransaction] = useState({transactionName: "", transactionAmount: 0, transactionCategory: "", transacationDescription : ""});
+    const [transaction, setTransaction] = useState();
     const history = useHistory();
+    
 
     function handleTransactionChange(updatedTransaction) {
         setTransaction(updatedTransaction);
@@ -20,7 +21,7 @@ function AddTransaction() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        
+        console.log(transaction)
         fetch("http://localhost:8080/api/transaction", {
             method: "POST",
             headers: {
@@ -43,11 +44,13 @@ function AddTransaction() {
             
 
     return (
-            <div>
+            <div className="container addContainer">
                 <form onSubmit={handleSubmit}>
                     <TransactionForm onTransactionChange={handleTransactionChange} />
-                    <button type="submit" className="btn btn-primary">Add</button>
-                    <Link to={Directories.MEMBERVIEW} className="btn btn-danger">Cancel</Link>
+                    <div className="buttons">
+                    <button type="submit" className="tranSubmitButton ">Add</button>
+                    <Link to={Directories.MEMBERVIEW} className="tranCancelButton">Cancel</Link>
+                    </div>
                 </form>
             </div>
         )

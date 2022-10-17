@@ -21,12 +21,71 @@
     margin-left: 90%;
 }
 .createBudgetContainer{
-    padding-top: 5%;
+    margin-top: 5%;
+    padding: 3%;
     margin-bottom: 20%;
+    outline: 6px double #000000;
+    outline-offset: 0px;
 }
-.buttons{
-    margin-left: 65%;
+.budgetButtons{
+    margin-left: 85%;
 }
 .mySubmitButton{
     margin-left: 40%;
 }
+.budgetHeader{
+    text-align: center;
+    margin-top: 5%;
+}
+.budgetCancelButton{
+    
+    
+    color: rgb(255, 255, 255); 
+    font-size: 16px; 
+    line-height: 16px; 
+    padding: 8px; 
+    border-radius: 10px; 
+    font-family: Georgia, serif; 
+    font-weight: normal;
+     text-decoration: none; 
+     font-style: normal; 
+     font-variant: normal; 
+     text-transform: none; 
+     background-image: linear-gradient(45deg, rgb(164, 14, 59) 0%, rgb(117, 14, 22) 100%); 
+     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+     border: 2px solid rgb(194, 16, 16); 
+     display: inline-block;
+    }
+.cancelButton:hover {
+        background: #A40E3B; 
+    }
+.cancelButton:active {
+        background: #750E16; 
+    }
+.budgetSubmitButton{
+        margin-top: 1em;
+        
+        margin-bottom: 3em;
+        
+            color: rgb(255, 255, 255); 
+            font-size: 16px; 
+            line-height: 16px; 
+            padding: 8px; 
+            border-radius: 10px; 
+            font-family: Georgia, serif;
+            font-weight: normal; 
+            text-decoration: none; 
+            font-style: normal; 
+            font-variant: normal; 
+            text-transform: none; 
+            background-image: linear-gradient(45deg, rgb(0, 22, 164) 0%, rgb(82, 75, 117) 100%); 
+            box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+            border: 2px solid rgb(28, 48, 164); 
+            display: inline-block;
+        }
+        .submitButton:hover {
+            background: #0016A4; 
+        }
+        .submitButton:active {
+            background: #524B75; 
+        }

@@ -1,7 +1,7 @@
 
-import FormInput from "./FormInput";
+import FormInput from "../FormInput";
 import { useState } from "react";
-
+import "./Contact.css"
 function Contact(){
 
 
@@ -21,8 +21,8 @@ function Contact(){
 
     return(
     <div className="container">
-       
-        <form>
+       <h1 className="contactHeader"> Let us know what we can do to help you! Ryan is a great guy and would love to fix any problem you may have or even lend you any money you may need!!</h1>
+        <form className="contactForm">
         
         <FormInput 
                     inputType={"text"} 
@@ -48,7 +48,7 @@ function Contact(){
                     labelClass={"issueLabel"}
                     onChangeHandler={inputChangeHandler}  
                     className={"form-control"}/>
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className=" submitButton contactButton">Submit</button>
         </form>
     </div>
     )

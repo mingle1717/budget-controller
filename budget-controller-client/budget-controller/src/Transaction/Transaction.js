@@ -2,24 +2,28 @@
 import {useState, useContext} from 'react';
 import {Link} from 'react-router-dom';
 import AuthContext from '../AuthContext';
-
+import Directories from '../Directories';
 
 function Transaction(props){
 
     const auth = useContext(AuthContext);
 
-    function deleteTransaction(){}
+    function deleteTransaction(){
+        console.log(props);
+    }
 
 
     return(
 
         <tr>
-            <th scope="row"> {props.transactionAmount} </th>
+            <th scope="row" > {props.transactionName}</th>
+            <td> ${props.transactionAmount}  </td>
             <td> {props.transactionCategory} </td>
-            <td> {props.transactionDescription} </td>
+            <td> {props.transacationDescription} </td>
             {auth.user.userRoles[0].roleName === "Admin" ? <td>{props.username}</td>: null}
-            <td><button className='btn btn primary' > Edit </button>
-            <button className='btn btn danger' > Delete </button></td>
+            <td><Link to={Directories.EDITTRANSACTION + "/" + props.transactionId} className='tranSubmitButton' > Edit </Link>
+            <button onClick={deleteTransaction}className='tranCancelButton' > Delete </button></td>
+            
         </tr>
 
 

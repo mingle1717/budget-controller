@@ -2,7 +2,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import Navbar from './Navbar/Navbar';
 import Home from './Home';
-import Contact from './Contact';
+import Contact from './Contact/Contact';
 import Login from './Authentication/Login';
 import Signup from './Authentication/Signup';
 import AddTransaction from './Transaction/AddTransaction';
@@ -119,7 +119,7 @@ function App() {
             <Route path={Directories.ADDTRANSACTION}>
               {user ? <AddTransaction/> : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path={Directories.EDITTRANSACTION}>
+            <Route path={Directories.EDITTRANSACTION + "/:transactionId"}>
               {user ? <EditTransaction/> : <Redirect to={Directories.LOGIN}/>}
             </Route>
             <Route path={Directories.MEMBERDASHBOARD}>
