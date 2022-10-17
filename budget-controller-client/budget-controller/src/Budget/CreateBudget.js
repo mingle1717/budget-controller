@@ -73,10 +73,14 @@ function CreateBudget(){
     }
 
     return(
+<<<<<<< HEAD
+        <div className="container createBudgetContainer" key="createBudget">
+=======
         <div className="container">
         <h1 className="budgetHeader"> Customize your budget to fit your needs!</h1>
         <div className="createBudgetContainer">
            
+>>>>>>> a5e867a8a4bbc3fc656b0922716f1e949dc274ab
             <form onSubmit={handleSubmit}>
             <FormInput 
                     inputType={"number"} 

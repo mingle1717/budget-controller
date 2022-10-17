@@ -2,23 +2,39 @@ package learn.budget.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class AutoTrigger {
 
     private int autoId;
 
-    private LocalDate triggerDate;
+    private int userId;
+
+    private String cronSchedule;
 
     private BigDecimal paymentAmount;
 
+    private LocalDateTime endDate;
+
     private int categoryId;
 
-    public AutoTrigger(int autoId, LocalDate triggerDate, BigDecimal paymentAmount, int categoryId) {
+    private LocalDateTime creationDate;
+
+    private LocalDateTime lastExecutionDate;
+
+    public AutoTrigger(int autoId, int userId, String cronSchedule, BigDecimal paymentAmount, LocalDateTime endDate, int categoryId, LocalDateTime creationDate, LocalDateTime lastExecutionDate) {
         this.autoId = autoId;
-        this.triggerDate = triggerDate;
+        this.userId = userId;
+        this.cronSchedule = cronSchedule;
         this.paymentAmount = paymentAmount;
+        this.endDate = endDate;
         this.categoryId = categoryId;
+        this.creationDate = creationDate;
+        this.lastExecutionDate = lastExecutionDate;
     }
+
+    public AutoTrigger(){}
 
     public int getAutoId() {
         return autoId;
@@ -26,14 +42,6 @@ public class AutoTrigger {
 
     public void setAutoId(int autoId) {
         this.autoId = autoId;
-    }
-
-    public LocalDate getTriggerDate() {
-        return triggerDate;
-    }
-
-    public void setTriggerDate(LocalDate triggerDate) {
-        this.triggerDate = triggerDate;
     }
 
     public BigDecimal getPaymentAmount() {
@@ -50,5 +58,45 @@ public class AutoTrigger {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getCronSchedule() {
+        return cronSchedule;
+    }
+
+    public void setCronSchedule(String cronSchedule) {
+        this.cronSchedule = cronSchedule;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public LocalDateTime getLastExecutionDate() {
+        return lastExecutionDate;
+    }
+
+    public void setLastExecutionDate(LocalDateTime lastExecutionDate) {
+        this.lastExecutionDate = lastExecutionDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }

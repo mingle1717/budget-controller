@@ -32,9 +32,13 @@ CREATE TABLE `Category` (
 
 CREATE TABLE `autoTrigger` (
     `auto_id` INT AUTO_INCREMENT NOT NULL,
-    `trigger_date` DATE NOT NULL,
+    `user_id` INT NOT NULL,
+    `cron_schedule` VARCHAR(100) NOT NULL,
     `payment_amount` INT NOT NULL,
+    `end_date` DATETIME NULL,
     `category_id` INT NOT NULL,
+    `creation_date` DATETIME NOT NULL,
+    `last_execution_date` DATETIME NULL,
     PRIMARY KEY (`auto_id`)
 );
 
@@ -71,6 +75,9 @@ REFERENCES `Budget` (`budget_id`);
 
 ALTER TABLE `autoTrigger` ADD CONSTRAINT `fk_autoTrigger_category_id` FOREIGN KEY(`category_id`)
 REFERENCES `Category` (`category_id`);
+
+ALTER TABLE `autoTrigger` ADD CONSTRAINT `fk_autoTrigger_user_id` FOREIGN KEY(`user_id`)
+REFERENCES `appUser` (`user_id`);
 
 ALTER TABLE `myTransaction` ADD CONSTRAINT `fk_myTransaction_category_id` FOREIGN KEY(`category_id`)
 REFERENCES `Category` (`category_id`);
