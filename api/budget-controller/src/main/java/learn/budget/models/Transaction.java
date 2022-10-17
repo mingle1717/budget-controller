@@ -6,6 +6,7 @@ public class Transaction {
 
     private int transactionId;
 
+    private String username;
     private String transactionName;
 
     private BigDecimal transactionAmount;
@@ -20,8 +21,6 @@ public class Transaction {
 
     private int auto_Id;
 
-
-    private String username;
     private int userId;
 
     public Transaction(String categoryName, String username, int transactionId, String transactionName, BigDecimal transactionAmount, String transacationDescription, int categoryId, int auto_Id, int userId) {
@@ -106,5 +105,7 @@ public class Transaction {
     public void setUsername(String username) {
         this.username = username;
     }
+
+
 
 }
