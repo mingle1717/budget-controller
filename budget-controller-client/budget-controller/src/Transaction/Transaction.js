@@ -16,7 +16,8 @@ function Transaction(props){
     return(
 
         <tr>
-            <th scope="row" > {props.transactionAmount} </th>
+            <th scope="row" > {props.transactionName}</th>
+            <td> ${props.transactionAmount}  </td>
             <td> {props.transactionCategory} </td>
             <td> {props.transacationDescription} </td>
             {auth.user.userRoles[0].roleName === "Admin" ? <td>{props.username}</td>: null}

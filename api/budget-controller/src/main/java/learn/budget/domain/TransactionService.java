@@ -2,6 +2,7 @@ package learn.budget.domain;
 import learn.budget.data.TransactionJdbcRepository;
 import learn.budget.data.UserJdbcRepo;
 import learn.budget.models.AppUser;
+import learn.budget.models.Category;
 import learn.budget.models.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,14 @@ public class TransactionService {
         // TODO: 10/14/2022 validate that user is in database
         List<Transaction> allTransactions = repository.findAll();
         List<Transaction> transactionsForThisUser = new ArrayList<>();
-        AppUser user = userJdbcRepo.getUserByUsername(username);
+
+        Category category;
         for (Transaction t : allTransactions) {
+            AppUser user = userJdbcRepo.getUserByUsername(username);
+            //category = categoryJdbcRepo.getCategoryByCategoryId(t.getCategoryId());
             if (t.getUserId() == user.getUserId()) {
+
+                t.setUsername(user.getUsername());
                 transactionsForThisUser.add(t);
             }
         }

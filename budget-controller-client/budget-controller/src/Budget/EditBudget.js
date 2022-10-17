@@ -45,7 +45,7 @@ function EditBudget(){
     function handleSubmit(evt){
         evt.preventDefault();
 
-        budget.categories = categories;
+        
 
         fetch( "http://localhost:8080/api/budget/" + auth.user.username, {
             method: "PUT",

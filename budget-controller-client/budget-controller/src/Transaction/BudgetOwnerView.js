@@ -45,6 +45,7 @@ function BudgetOwnerView(){
             <table className="table container myTable">
                 <thead className="myTable">
                     <tr >
+                    <th className="myTable" scope="col"> Transaction name </th>
                     <th className="myTable" scope="col"> Money Spent </th>
                     <th className="myTable"scope="col"> Category </th>
                     <th className="myTable"scope="col"> Description </th>
@@ -55,7 +56,7 @@ function BudgetOwnerView(){
                 </thead>
                 <tbody> 
                 <>
-                {transactions.map( t => <Transaction transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.transactionCategory} transacationDescription={t.transacationDescription} username={t.username}/>)}
+                {transactions.map( t => <Transaction transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.transactionCategory} transacationDescription={t.transacationDescription} username={t.username}/>)}
                 </>
                 
                 </tbody>

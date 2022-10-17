@@ -61,7 +61,7 @@ function BudgetOwnerDashboard(){
             .then(transactions => {
             
                 setBudgetTransactions(transactions);
-                console.log(budgetTransactions)
+                console.log(transactions)
             })
             .catch(error => {
                 console.log(error);
