@@ -40,14 +40,14 @@ function BudgetOwnerView(){
 
 
     return(
-        <div>
+        <div className="container">
             
-            <table className="table container">
-                <thead>
-                    <tr>
-                    <th scope="col"> Money Spent </th>
-                    <th scope="col"> Category </th>
-                    <th scope="col"> Description </th>
+            <table className="table container myTable">
+                <thead className="myTable">
+                    <tr >
+                    <th className="myTable" scope="col"> Money Spent </th>
+                    <th className="myTable"scope="col"> Category </th>
+                    <th className="myTable"scope="col"> Description </th>
                     {auth.user.userRoles[0].roleName === "Admin" ? <th scope="col"> Spender </th> : null}
                     <th/>
                     
@@ -60,7 +60,7 @@ function BudgetOwnerView(){
                 
                 </tbody>
                 </table>
-                <Link to="/addtransaction" className="addLink"> Add Transaction </Link>
+                <Link to="/addtransaction" className="tranSubmitButton addLink"> Add Transaction </Link>
                 <table className="table container">
                     <tbody>
 

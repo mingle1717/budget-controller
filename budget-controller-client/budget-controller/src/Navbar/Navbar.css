@@ -1,4 +1,5 @@
 .myNav{
+    padding-top: 1%;
     background: #2442FF;
 background: -moz-linear-gradient(45deg, #3B58B2 0%, #2442FF 100%);
 background: -webkit-linear-gradient(45deg, #3B58B2 0%, #2442FF 100%);
@@ -60,3 +61,22 @@ color: azure;
 .homeLink:hover{
     color: red;
 }
+.navCancelButton{
+    
+    
+    color: rgb(255, 255, 255); 
+    font-size: 16px; 
+    line-height: 16px; 
+    padding: 6px; 
+    border-radius: 10px; 
+    font-family: Georgia, serif; 
+    font-weight: normal;
+     text-decoration: none; 
+     font-style: normal; 
+     font-variant: normal; 
+     text-transform: none; 
+     background-image: linear-gradient(45deg, rgb(164, 14, 59) 0%, rgb(117, 14, 22) 100%); 
+     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+     border: 2px solid rgb(194, 16, 16); 
+     display: inline-block;
+    }

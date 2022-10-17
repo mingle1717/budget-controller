@@ -16,12 +16,12 @@ function Transaction(props){
     return(
 
         <tr>
-            <th scope="row"> {props.transactionAmount} </th>
+            <th scope="row" > {props.transactionAmount} </th>
             <td> {props.transactionCategory} </td>
             <td> {props.transacationDescription} </td>
             {auth.user.userRoles[0].roleName === "Admin" ? <td>{props.username}</td>: null}
-            <td><Link to={Directories.EDITTRANSACTION + "/" + props.transactionId} className='btn btn-primary' > Edit </Link>
-            <button onClick={deleteTransaction}className='btn btn-danger' > Delete </button></td>
+            <td><Link to={Directories.EDITTRANSACTION + "/" + props.transactionId} className='tranSubmitButton' > Edit </Link>
+            <button onClick={deleteTransaction}className='tranCancelButton' > Delete </button></td>
             
         </tr>
 

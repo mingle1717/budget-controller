@@ -37,9 +37,9 @@ function AddCategoryContainer({onCategoriesChange}){
         <div className='categoryContainer'>
             {categories.map( c => <CategoryForm category={c}  onCategoryChange={categoryChangeHandler} />)}
 
-            <div className='buttons'>
-            <button className="btn btn-primary" onClick={addCategory}  > + </button>
-            <button className="btn btn-danger" onClick={removeCategory} > - </button>
+            <div className='budgetButtons'>
+            <button className="budgetSubmitButton" onClick={addCategory}  > + </button>
+            <button className="budgetCancelButton" onClick={removeCategory} > - </button>
             </div>
         </div>
 

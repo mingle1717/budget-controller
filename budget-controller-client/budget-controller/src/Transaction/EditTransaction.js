@@ -5,12 +5,12 @@ import Directories from "../Directories";
 import "./Transaction.css"
 function EditTransaction(){
     return(
-        <div className="editTransaction">
+        <div className="container addContainer">
             <form>
                 <TransactionForm/>
-                <div className="editButtons">
-                <button type="submit" className="btn btn-primary">Edit</button>
-                <Link to ={Directories.MEMBERVIEW} className="btn btn-danger">Cancel</Link>
+                <div className="buttons">
+                <button type="submit" className="tranSubmitButton">Edit</button>
+                <Link to ={Directories.MEMBERVIEW} className="tranCancelButton">Cancel</Link>
                 </div>
             </form>
 

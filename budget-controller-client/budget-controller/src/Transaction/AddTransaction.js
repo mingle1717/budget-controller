@@ -44,11 +44,13 @@ function AddTransaction() {
             
 
     return (
-            <div>
+            <div className="container addContainer">
                 <form onSubmit={handleSubmit}>
                     <TransactionForm onTransactionChange={handleTransactionChange} />
-                    <button type="submit" className="btn btn-primary">Add</button>
-                    <Link to={Directories.MEMBERVIEW} className="btn btn-danger">Cancel</Link>
+                    <div className="buttons">
+                    <button type="submit" className="tranSubmitButton ">Add</button>
+                    <Link to={Directories.MEMBERVIEW} className="tranCancelButton">Cancel</Link>
+                    </div>
                 </form>
             </div>
         )

@@ -72,7 +72,10 @@ function CreateBudget(){
     }
 
     return(
-        <div className="container createBudgetContainer">
+        <div className="container">
+        <h1 className="budgetHeader"> Customize your budget to fit your needs!</h1>
+        <div className="createBudgetContainer">
+           
             <form onSubmit={handleSubmit}>
             <FormInput 
                     inputType={"number"} 
@@ -90,9 +93,11 @@ function CreateBudget(){
             <div className="members">
                 <AddMemberContainer onMembersChange={appUsersChangeHandler}/>
             </div>
-                <button type="submit" className="btn btn-primary mySubmitButton">Submit</button>
+                <button type="submit" className="budgetSubmitButton mySubmitButton">Submit</button>
             </form>
         </div>
+        </div>
+
         )
 }
 export default CreateBudget

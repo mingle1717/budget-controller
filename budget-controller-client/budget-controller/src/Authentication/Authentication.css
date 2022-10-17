@@ -63,7 +63,7 @@
 
 
 .linkContainer{
-    outline: 6px solid #1c35a4;
+    outline: 6px solid #000000;
     outline-offset: 0px;
     margin-left: 1em;
     margin-right: 10em;
@@ -97,9 +97,9 @@
 }
 
 .loginForm{
-    outline: 6px double #1c25a4;
+    outline: 6px double #000000;
     outline-offset: 0px;
     padding: 1em;
         margin-right: 10%;
-        margin-top: 3%;
+        margin-top: 10%;
 }

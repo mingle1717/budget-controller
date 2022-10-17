@@ -12,8 +12,7 @@ function BudgetOwnerDashboard(){
     const [hasBudget, setHasBudget] = useState(false);
     const [budgetCategories, setBudgetCategories] = useState();
     const [budgetTransactions,setBudgetTransactions] = useState();
-    let budgetCategoriesName = "";
-    let budgetCategoriesPercent = "";
+   
     
     useEffect(() => {
         fetch("http://localhost:8080/api/budget/personal/" + auth.user.username, {
@@ -60,8 +59,8 @@ function BudgetOwnerDashboard(){
                 }
             })
             .then(transactions => {
-                const transactionsCopy = transactions;
-                setBudgetTransactions(transactionsCopy);
+            
+                setBudgetTransactions(transactions);
                 console.log(budgetTransactions)
             })
             .catch(error => {
@@ -70,13 +69,13 @@ function BudgetOwnerDashboard(){
     }, [])
 
     return(
-        <div>
-
-            <div>  
+        <div className="container">
+            <h1 className="dashboardHeader">Click on a chart to view details!</h1>
+   
            
-                <div className="budgetPieContainer"> 
+                <div className=" container budgetPieContainer"> 
                 <h2 className="budgetPieHeader">Budget Pie Chart</h2>
-                <PieChart width={1000} height={400}>
+                <PieChart className="budgetPieChart" width={1000} height={400}>
                     <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
                     <Tooltip />
                 </PieChart>
@@ -85,8 +84,8 @@ function BudgetOwnerDashboard(){
              
                <div className="spendingPieContainer" >
                  <h2 className="transactionPieHeader" >Transaction Pie Chart</h2>
-                <Link to={Directories.OWNERVIEW} c>
-                    <PieChart width={1000} height={400} >
+                <Link to={Directories.OWNERVIEW}>
+                    <PieChart className="spendingPieChart" width={1000} height={400} >
                     <Pie data={budgetTransactions} dataKey="transactionAmount" nameKey="transactionName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
                     <Tooltip /> 
                      </PieChart>
@@ -95,10 +94,10 @@ function BudgetOwnerDashboard(){
      
 
             <div className="manageTransactions">
-                <Link to={Directories.OWNERMANAGEAUTO}> Manage auto transactions </Link>
+                <Link to={Directories.OWNERMANAGEAUTO} className="dashSubmitButton"> Manage auto transactions </Link>
             </div>
 
-        </div>  
+      
             
         </div>
         )

@@ -1,5 +1,5 @@
 .addLink{
-    margin-left: 70%;
+    margin-left: 80%;
 }
 .editButtons{
     margin-left: 75%;
@@ -7,4 +7,74 @@
 }
 .editTransaction{
     margin-top: 5%;
+}
+.tranSubmitButton{
+    margin-top: .5em;
+    margin-right: 1em;
+    margin-bottom: .5em;
+    
+        color: rgb(255, 255, 255); 
+        font-size: 16px; 
+        line-height: 16px; 
+        padding: 6px; 
+        border-radius: 10px; 
+        font-family: Georgia, serif;
+        font-weight: normal; 
+        text-decoration: none; 
+        font-style: normal; 
+        font-variant: normal; 
+        text-transform: none; 
+        background-image: linear-gradient(45deg, rgb(0, 22, 164) 0%, rgb(82, 75, 117) 100%); 
+        box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+        border: 2px solid rgb(28, 48, 164); 
+        display: inline-block;
+    }
+        .tranSubmitButton:hover {
+        background: #0016A4; 
+    }
+        .tranSubmitButton:active {
+        background: #524B75; 
+    }
+    .tranCancelButton{
+        margin-top: .5em;
+        margin-left: 0em;
+    
+       
+        color: rgb(255, 255, 255); 
+        font-size: 16px; 
+        line-height: 16px; 
+        padding: 6px; 
+        border-radius: 10px; 
+        font-family: Georgia, serif; 
+        font-weight: normal;
+         text-decoration: none; 
+         font-style: normal; 
+         font-variant: normal; 
+         text-transform: none; 
+         background-image: linear-gradient(45deg, rgb(164, 14, 59) 0%, rgb(117, 14, 22) 100%); 
+         box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+         border: 2px solid rgb(194, 16, 16); 
+         display: inline-block;
+        }
+        .tranCancelButton:hover {
+                background: #A40E3B; 
+            }
+        .tranCancelButton:active {
+                background: #750E16; 
+            }
+.myTable{
+    outline: 6px double #000000;
+    outline-offset: 0px;
+    margin-top: 5%;
+    
+}
+.buttons{
+    margin-top: 5%;
+    margin-left: 1%;
+}
+.addContainer{
+    outline: 6px double #000000;
+    outline-offset: 0px;
+    margin-top: 5%;
+    padding: 3%;
 }

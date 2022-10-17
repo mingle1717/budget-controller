@@ -6,7 +6,7 @@ import "./Navbar.css"
 
 import Directories, {PageTitles} from "../Directories";
 
-function Navbar(props){
+function Navbar(){
 
 
     const auth = useContext(AuthContext);
@@ -99,7 +99,7 @@ function Navbar(props){
 
             <div className="loginNav">
                 {auth.user? 
-                <button className="btn btn-danger logoutButton" onClick={() => auth.logout()}>Logout</button>
+                <button className="navCancelButton" onClick={() => auth.logout()}>Logout</button>
             : <Link to ={Directories.LOGIN}  className="homeLink" >Login</Link> }
             </div>
         

@@ -37,13 +37,13 @@ function BudgetMemberView(){
     }, [])
 
     return(
-        <div>
-            <table className="table container">
-                <thead>
+        <div className="container">
+            <table className="table container myTable">
+                <thead className="myTable">
                     <tr>
-                    <th scope="col"> Money Spent </th>
-                    <th scope="col"> Category </th>
-                    <th scope="col"> Description </th>
+                    <th className="myTable" scope="col"> Money Spent </th>
+                    <th className="myTable" scope="col"> Category </th>
+                    <th className="myTable" scope="col"> Description </th>
                     <th/>
                     
                     </tr>
@@ -54,7 +54,7 @@ function BudgetMemberView(){
                 </>
                 </tbody>
                 </table>
-                <Link to={Directories.ADDTRANSACTION} className="addLink"> Add Transaction </Link>
+                <Link to={Directories.ADDTRANSACTION} className="addLink tranSubmitButton"> Add Transaction </Link>
         </div>
         )
 }
