@@ -12,7 +12,12 @@ function BudgetOwnerDashboard(){
     const [hasBudget, setHasBudget] = useState(false);
     const [budgetCategories, setBudgetCategories] = useState();
     const [budgetTransactions,setBudgetTransactions] = useState();
-   
+    const [categoryTotals, setCategoryTotals] = useState();
+
+    function calculateCategoryTotals(){
+    
+      
+    }
     
     useEffect(() => {
         fetch("http://localhost:8080/api/budget/personal/" + auth.user.username, {
@@ -73,20 +78,22 @@ function BudgetOwnerDashboard(){
             <h1 className="dashboardHeader">Click on a chart to view details!</h1>
    
            
-                <div className=" container budgetPieContainer"> 
-                <h2 className="budgetPieHeader">Budget Pie Chart</h2>
-                <PieChart className="budgetPieChart" width={1000} height={400}>
+                <div > 
+                <h2 >Budget Pie Chart</h2>
+                { budgetCategories ?
+                <PieChart  width={1000} height={400}>
                     <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
                     <Tooltip />
-                </PieChart>
-                
+                </PieChart> : null
+}
                </div> 
              
-               <div className="spendingPieContainer" >
-                 <h2 className="transactionPieHeader" >Transaction Pie Chart</h2>
+               <div  >
+                 <h2  >Transaction Pie Chart</h2>
                 <Link to={Directories.OWNERVIEW}>
-                    <PieChart className="spendingPieChart" width={1000} height={400} >
+                    <PieChart  width={1010} height={410} >
                     <Pie data={budgetTransactions} dataKey="transactionAmount" nameKey="transactionName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
+                    <Pie data={budgetTransactions} dataKey="categoryId" nameKey="categoryName" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#000000" label />
                     <Tooltip /> 
                      </PieChart>
                 </Link>

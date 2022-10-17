@@ -23,10 +23,10 @@ public class TransactionService {
     @Autowired
     CategoryJdbcRepository categoryJdbcRepo;
 
+
     public List<Transaction> viewAllTransactions(AppUser user) {
         return repository.findTransactionsByUser(user.getUserId());
     }
-
     public Result<Transaction> validateTransaction(Transaction transaction){
         Result<Transaction> result = new Result<>();
 
