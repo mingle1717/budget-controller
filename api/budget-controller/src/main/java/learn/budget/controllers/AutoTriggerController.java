@@ -39,5 +39,6 @@ public class AutoTriggerController {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.NO_CONTENT);
         }
         return ErrorResponse.build(result);
+        //Test comment to see if updated to Git
     }
 }
