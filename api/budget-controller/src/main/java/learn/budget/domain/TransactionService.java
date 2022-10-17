@@ -34,6 +34,7 @@ public class TransactionService {
             category = categoryJdbcRepo.getCategoryByCategoryId(t.getCategoryId());
             if (t.getUserId() == user.getUserId()) {
                 t.setCategoryId(category.getCategoryId());
+                t.setCategoryName(category.getCategoryName());
                 t.setUsername(user.getUsername());
                 transactionsForThisUser.add(t);
             }
