@@ -90,4 +90,5 @@ public class TransactionJdbcRepository implements TransactionRepository {
         return jdbcTemplate.update("delete from `calculator_test`.`myTransaction` where `transaction_id` = ?;", transactionId) > 0;
     }
 
+
 }

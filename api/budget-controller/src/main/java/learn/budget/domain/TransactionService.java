@@ -23,8 +23,6 @@ public class TransactionService {
     @Autowired
     CategoryJdbcRepository categoryJdbcRepo;
 
-    @Autowired
-    CategoryJdbcRepository categoryRepo;
     public List<Transaction> viewAllTransactions(String username) {
         // TODO: 10/14/2022 validate that user is in database
         List<Transaction> allTransactions = repository.findAll();
@@ -35,7 +33,15 @@ public class TransactionService {
             AppUser user = userJdbcRepo.getUserByUsername(username);
             category = categoryJdbcRepo.getCategoryByCategoryId(t.getCategoryId());
             if (t.getUserId() == user.getUserId()) {
-                t.setCategoryId(category.getCategoryId());
+                if(category == null){
+                    t.setCategoryId(0);
+                }
+                else {
+                    t.setCategoryId(category.getCategoryId());
+                }
+                if (t.getCategoryId() == 0) {
+                    break; // temporary fix until addTransaction is fixed
+                }
                 t.setCategoryName(category.getCategoryName());
                 t.setUsername(user.getUsername());
                 transactionsForThisUser.add(t);
@@ -79,4 +85,24 @@ public class TransactionService {
         }
 
     }
+    public Result<Transaction> editTransaction(Transaction transaction){
+        Result<Transaction> editedTransaction = new Result<>();
+        if(validateTransaction(transaction).isSuccess()){
+            boolean result = repository.update(transaction);
+            if(result) {
+                editedTransaction.setPayload(transaction);
+            }
+            else{
+                editedTransaction.addMessage("Update not successful", ResultType.INVALID);
+            }
+            return editedTransaction;
+        }
+        else{
+            for (String message : validateTransaction(transaction).getMessages()) {
+                editedTransaction.addMessage(message, ResultType.INVALID);
+            }
+            return editedTransaction;
+        }
+    }
+
 }

@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -551,26 +552,66 @@ public class CategoryServiceTest {
     // TODO: 10/13/2022 Write tests for getBudgetCategoryDetails
     @Test
     void shouldGetBudgetCategoryDetailsForValidPartiallyHydratedBudget() {
-        fail();
+        Budget budget = new Budget();
+        Budget mockBudget = new Budget();
+        mockBudget.setCategories(new ArrayList<>());
+        when(repository.findAllCategoriesForABudget(budget)).thenReturn(mockBudget);
+        budget.setBudgetName("Benny Bootstrap's Budget");
+        budget.setStartingBalance(BigDecimal.TEN);
+        Result<Budget> validation = service.getBudgetCategoryDetails(budget);
+        assertTrue(validation.isSuccess());
+        assertEquals(0, validation.getMessages().size());
     }
     @Test
     void shouldNotGetBudgetCategoryDetailsForBudgetWithNullBalance() {
-        fail();
+        Budget budget = new Budget();
+        when(repository.findAllCategoriesForABudget(budget)).thenReturn(new Budget());
+        budget.setBudgetName("Benny Bootstrap's Budget");
+        budget.setStartingBalance(null);
+        Result<Budget> validation = service.getBudgetCategoryDetails(budget);
+        assertFalse(validation.isSuccess());
+        assertEquals(1, validation.getMessages().size());
     }
     @Test
     void shouldNotGetBudgetCategoryDetailsForBudgetWithBalanceOfZero() {
-        fail();
+        Budget budget = new Budget();
+        when(repository.findAllCategoriesForABudget(budget)).thenReturn(new Budget());
+        budget.setBudgetName("Benny Bootstrap's Budget");
+        budget.setStartingBalance(BigDecimal.ZERO);
+        Result<Budget> validation = service.getBudgetCategoryDetails(budget);
+        assertFalse(validation.isSuccess());
+        assertEquals(1, validation.getMessages().size());
     }
     @Test
     void shouldNotGetBudgetCategoryDetailsForBudgetWithNullBudgetName() {
-        fail();
+        Budget budget = new Budget();
+        when(repository.findAllCategoriesForABudget(budget)).thenReturn(new Budget());
+        budget.setBudgetName(null);
+        budget.setStartingBalance(BigDecimal.TEN);
+        Result<Budget> validation = service.getBudgetCategoryDetails(budget);
+        assertFalse(validation.isSuccess());
+        assertEquals(1, validation.getMessages().size());
     }
     @Test
     void shouldNotGetBudgetCategoryDetailsForBudgetWithBlankBudgetName() {
-        fail();
+        Budget budget = new Budget();
+        when(repository.findAllCategoriesForABudget(budget)).thenReturn(new Budget());
+        budget.setBudgetName(" ");
+        budget.setStartingBalance(BigDecimal.TEN);
+        Result<Budget> validation = service.getBudgetCategoryDetails(budget);
+        assertFalse(validation.isSuccess());
+        assertEquals(1, validation.getMessages().size());
     }
     @Test
     void shouldNotGetBudgetCategoryDetailsForBudgetWithNullCategoryList() {
-        fail();
+        Budget budget = new Budget();
+        Budget mockBudget = new Budget();
+        mockBudget.setCategories(null);
+        when(repository.findAllCategoriesForABudget(budget)).thenReturn(mockBudget);
+        budget.setBudgetName("Benny Bootstrap's Budget");
+        budget.setStartingBalance(BigDecimal.TEN);
+        Result<Budget> validation = service.getBudgetCategoryDetails(budget);
+        assertFalse(validation.isSuccess());
+        assertEquals(1, validation.getMessages().size());
     }
 }
