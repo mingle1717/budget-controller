@@ -65,9 +65,10 @@ function CreateBudget(){
     }
 
     function appUsersChangeHandler(incomingAppUsers) {
-        const appUsersCopy = [incomingAppUsers]
+        const appUsersCopy = incomingAppUsers;
         setAppUsers(appUsersCopy);
         const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
+        console.log(budgetCopy);
         setBudget(budgetCopy)
     }
 
