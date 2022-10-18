@@ -98,8 +98,8 @@ public class TransactionJdbcRepository implements TransactionRepository {
                         "c.category_id, c.cat_name, c.cat_percent, c.higher_limit,\n" +
                         "c.lower_limit, c.goal, c.budget_id, auto_id, a.user_id, a.username, a.email, a.isDeleted, " +
                         "r.role_id, r.role_name  \n" +
-                        "from mytransaction m inner join AppUser a on m.user_id = a.user_id " +
-                        "inner join category c on m.category_id = c.category_id " +
+                        "from myTransaction m inner join appUser a on m.user_id = a.user_id " +
+                        "inner join Category c on m.category_id = c.category_id " +
                         "inner join myRole r on a.role_id = r.role_id where a.user_id = ?;", new TransactionMapper(),
                 userId);
     }
