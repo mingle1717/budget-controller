@@ -20,7 +20,7 @@ public class TransactionController {
     @Autowired
     TransactionService service;
 
-    @GetMapping()
+    @GetMapping
     public List<Transaction> viewAllTransactions() {
         AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Transaction> allTransactions = service.viewAllTransactions(user);
