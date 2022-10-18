@@ -13,6 +13,7 @@ function EditTransaction() {
 
   function handleTransactionChange(updatedTransaction) {
     setTransaction(updatedTransaction);
+    
   }
 
   useEffect(() => {
@@ -34,7 +35,10 @@ function EditTransaction() {
         }
       })
       .then((incomingTransaction) => {
-        setTransaction(incomingTransaction);
+
+        const transactionCopy = {...incomingTransaction};
+        setTransaction(transactionCopy);
+       
       })
       .catch((error) => {
         console.log(error);
@@ -70,7 +74,7 @@ function EditTransaction() {
   return (
     <div className="container addContainer" key="editTransaction">
       <form onSubmit={handleSubmit}>
-        <TransactionForm id={editTransactionId.transactionId}
+        <TransactionForm editedTransaction={transaction} id={editTransactionId.transactionId}
           onTransactionChange={handleTransactionChange}
         />
         <div className="buttons">

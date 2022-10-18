@@ -7,7 +7,7 @@ import AuthContext from "../AuthContext";
 
 
 
-function TransactionForm({onTransactionChange, id}){
+function TransactionForm({onTransactionChange, id, editedTransaction}){
     const auth = useContext(AuthContext);
     const [transaction, setTransaction] = useState({username: auth.user.username, transactionId : id,  transactionName: "", transactionAmount: 0, category : {categoryId : 1}, transacationDescription : ""});
     const [budgetCategories, setBudgetCategories] = useState();
@@ -25,11 +25,13 @@ function TransactionForm({onTransactionChange, id}){
         
         setTransaction(transactionCopy);
         onTransactionChange(transactionCopy);
+        console.log(editedTransaction)
         console.log(transactionCopy)
         console.log(categoryId)
     }
     
     useEffect(() => {
+        console.log(editedTransaction)
         fetch("http://localhost:8080/api/budget/personal/" + auth.user.username, {
             method: "GET",
             headers: {
@@ -67,7 +69,7 @@ function TransactionForm({onTransactionChange, id}){
                 inputType={"text"} 
                 identifier={"transactionName"} 
                 labelText={"Name"} 
-                currVal={""} 
+                currVal={editedTransaction ? editedTransaction.transactionName : null}
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
@@ -75,7 +77,7 @@ function TransactionForm({onTransactionChange, id}){
                 inputType={"number"} 
                 identifier={"transactionAmount"} 
                 labelText={"Money Spent"} 
-                currVal={""} 
+                currVal={editedTransaction ? editedTransaction.transactionAmount : null}
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
@@ -84,7 +86,7 @@ function TransactionForm({onTransactionChange, id}){
                 id="categoryId"
                 onChange={(event) => setCategoryId(event.target.value)}
                 className="form-control"
-                defaultValue={budgetCategories ? budgetCategories[0] : ""}
+                defaultValue={editedTransaction ? editedTransaction.category.categoryId : null}
                 > 
                 
                 {budgetCategories ? budgetCategories.map(b => <option key={b.categoryId} value={b.categoryId}> {b.categoryName}</option>) : null}</select>
@@ -92,7 +94,7 @@ function TransactionForm({onTransactionChange, id}){
                 inputType={"text"} 
                 identifier={"transacationDescription"} 
                 labelText={"Description of Transaction"} 
-                currVal={""} 
+                currVal={editedTransaction ? editedTransaction.transacationDescription : null}
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>

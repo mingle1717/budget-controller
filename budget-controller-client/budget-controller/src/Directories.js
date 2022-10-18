@@ -12,7 +12,8 @@ const Directories = {
     ADDTRANSACTION: "/addtransaction",
     EDITTRANSACTION: "/edittransaction",
     OWNERMANAGEAUTO: "/ownermanageauto",
-    MEMBERMANAGEAUTO: "/membermanageauto"
+    MEMBERMANAGEAUTO: "/membermanageauto",
+    ADDMEMBERS: "/addmembers"
 };
 
 export const PageTitles = {
@@ -28,6 +29,7 @@ export const PageTitles = {
     ADDTRANSACTION: "Add a transaction",
     EDITTRANSACTION: "Edit a transaction",
     OWNERMANAGEAUTO: "Manage all auto transactions",
-    MEMBERMANAGEAUTO: "Manage your auto transactions"
+    MEMBERMANAGEAUTO: "Manage your auto transactions",
+    ADDMEMBERS: "Add members to your budget!"
 }
     export default Directories;

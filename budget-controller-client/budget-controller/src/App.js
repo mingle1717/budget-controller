@@ -20,6 +20,7 @@ import BudgetMemberManageAuto from './AutoTransaction/BudgetMemberManageAuto';
 import BudgetOwnerManageAuto from './AutoTransaction/BudgetOwnerManageAuto';
 import Directories from './Directories';
 import AutoTrigger from './AutoTrigger/AutoTrigger';
+import AddMembers from './AddMembers/AddMembers';
 
 const LOCAL_STORAGE_TOKEN_KEY = "budgetCalcToken";
 
@@ -134,6 +135,9 @@ function App() {
             </Route>
             <Route path={Directories.OWNERMANAGEAUTO}>
               {user ? (user.userRoles[0].roleName === "Admin" ? <AutoTrigger/>:<Redirect to={Directories.MEMBERMANAGEAUTO}/> ) : <Redirect to={Directories.LOGIN}/>}
+            </Route>
+            <Route path={Directories.ADDMEMBERS}>
+              {user ? (user.userRoles[0].roleName === "Admin" ? <AddMembers/>:<Redirect to={Directories.MEMBERDASHBOARD}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
 
 

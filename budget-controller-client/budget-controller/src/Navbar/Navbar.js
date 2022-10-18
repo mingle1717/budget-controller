@@ -82,7 +82,7 @@ function Navbar(){
             </div>
             <div className="addNav">
                 <div>
-                    {auth.user ? (auth.user.userRoles[0].roleName==="Admin" ?  <Link to ={Directories.HOME}  className="homeLink">Add members</Link>  : 
+                    {auth.user ? (auth.user.userRoles[0].roleName==="Admin" ?  <Link to ={Directories.ADDMEMBERS}  className="homeLink">Add members</Link>  : 
                     null) : null}
                 
                 </div >
