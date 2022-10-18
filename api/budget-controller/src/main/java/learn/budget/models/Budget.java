@@ -1,6 +1,7 @@
 package learn.budget.models;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 public class Budget {
@@ -13,13 +14,16 @@ public class Budget {
 
     private BigDecimal balance;
 
+    private HashMap<Category, BigDecimal> categoryBalance;
+
     private String budgetName;
 
-    public Budget(List<AppUser> appUsers, List<Category> categories, List<AutoTrigger> autoTriggers, List<Transaction> transactions, BigDecimal startingBalance, String budgetName) {
+    public Budget(List<AppUser> appUsers, List<Category> categories, List<AutoTrigger> autoTriggers, List<Transaction> transactions, BigDecimal startingBalance, String budgetName,  HashMap<Category, BigDecimal> categoryBalance) {
         this.appUsers = appUsers;
         this.categories = categories;
         this.balance = startingBalance;
         this.budgetName = budgetName;
+        this.categoryBalance = categoryBalance;
     }
     public Budget(){};
 
@@ -61,5 +65,13 @@ public class Budget {
 
     public void setBudgetId(int budgetId) {
         this.budgetId = budgetId;
+    }
+
+    public HashMap<Category, BigDecimal> getCategoryBalance() {
+        return categoryBalance;
+    }
+
+    public void setCategoryBalance(HashMap<Category, BigDecimal> categoryBalance) {
+        this.categoryBalance = categoryBalance;
     }
 }

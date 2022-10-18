@@ -7,6 +7,7 @@ import learn.budget.models.Budget;
 import learn.budget.models.Category;
 import learn.budget.models.UserBudget;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -82,13 +83,18 @@ public class BudgetService {
     }
 
     public Result<Budget> viewBudgetDetails(String username) {
+        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         // validate that user_id is in the database before having the repo retrieve the existing budget
         Result<Budget> result = new Result<>();
-        AppUser user = userJdbcRepo.getUserByUsername(username);
         if (user != null) {
             UserBudget bridge = budgetRepository.getBridgeTableInfo(user.getUserId());
             if (bridge != null) {
                 Budget budget = budgetRepository.findById(bridge.getBudgetId());
+                // temporary fix, only owner is visible
+                List<AppUser> appUsers = new ArrayList<>();
+                appUsers.add(user);
+                budget.setAppUsers(appUsers);
+                //
                     result.setPayload(budget);
                     return result;
             }
