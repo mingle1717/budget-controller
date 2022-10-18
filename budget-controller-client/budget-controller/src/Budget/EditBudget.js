@@ -114,7 +114,7 @@ function EditBudget(){
                     }
              
                     <div id="balanceHelp" className="form-text">What balance do you want to start with?</div>
-                
+                    <AddCategoryContainer onCategoriesChange={categoriesChangeHandler}/>
                 {categories ? categories.map( c => <CategoryForm category={c}  onCategoryChange={categoriesChangeHandler} />) : null}
                 <button type="submit" className="budgetSubmitButton mySubmitButton">Submit</button>
             </form>

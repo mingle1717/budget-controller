@@ -50,7 +50,7 @@ function CreateBudget(){
 
         const budgetCopy = {...budget};
 
-        budgetCopy[propertyName] = parseInt(newValue);
+        budgetCopy[propertyName] = newValue;
 
        
         setBudget(budgetCopy);
@@ -59,14 +59,14 @@ function CreateBudget(){
 
     function categoriesChangeHandler(incomingCategories){
         const categoriesCopy = [...incomingCategories];
-        setCategories(categoriesCopy);
+       
         const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categoriesCopy};
         setBudget(budgetCopy)
     }
 
     function appUsersChangeHandler(incomingAppUsers) {
         const appUsersCopy = [...incomingAppUsers];
-        setAppUsers(appUsersCopy);
+     
         const budgetCopy = {balance : budget.balance, appUsers : appUsersCopy, categories : categories};
         console.log(budgetCopy);
         setBudget(budgetCopy)
@@ -87,9 +87,6 @@ function CreateBudget(){
                     <div id="balanceHelp" className="form-text">What balance do you want to start with?</div>
              <div className="categories">
                 <AddCategoryContainer onCategoriesChange={categoriesChangeHandler}/>
-            </div>
-            <div className="members">
-                <AddMemberContainer onMembersChange={appUsersChangeHandler}/>
             </div>
                 <button type="submit" className="budgetSubmitButton mySubmitButton">Submit</button>
             </form>
