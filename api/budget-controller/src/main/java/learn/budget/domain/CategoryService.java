@@ -33,6 +33,7 @@ public class CategoryService {
         }
         // Still need to validate that percentages aren't changed to add up over 100%
         //checks that sum is equal to 100 percent
+
        // if (sum.compareTo(BigDecimal.valueOf(100)) == 0) {
             // good to go! Set savings to 0 percent
         //    budget.getCategories().get(1).setCategoryPercent(BigDecimal.ZERO);
@@ -41,6 +42,7 @@ public class CategoryService {
        // if (sum.compareTo(BigDecimal.valueOf(100)) < 0) {
        //     budget.getCategories().get(1).setCategoryPercent(BigDecimal.valueOf(100).subtract(sum));
        // }
+
         // the next line checks if the total percentages are over 100 percent
         if (sum.compareTo(BigDecimal.valueOf(100)) > 0){
             result.addMessage("The categories must add up to be no greater than 100.", ResultType.INVALID);
