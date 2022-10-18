@@ -15,7 +15,8 @@ function Transaction(props){
                     Authorization: `Bearer ` + auth.user.token,
                 },
                 method: "DELETE"
-            }).then(response => {
+            })
+            .then(response => {
                 if( response.status ===204){
                     props.onTransactionDelete();
                 } else {
@@ -31,18 +32,12 @@ function Transaction(props){
 
         <tr>
             <th scope="row" > {props.transactionName}</th>
-            <td> ${props.transactionAmount}  </td>
-            <td> {props.transactionCategory} </td>
-            <td> {props.transacationDescription} </td>
-            {auth.user.userRoles[0].roleName === "Admin" ? <td>{props.username}</td>: null}
-            <td><Link to={Directories.EDITTRANSACTION + "/" + props.transactionId} className='tranSubmitButton' > Edit </Link>
-            <button onClick={deleteTransaction}className='tranCancelButton' > Delete </button></td>
-            
+                <td> ${props.transactionAmount}  </td>
+                <td> {props.transactionCategory} </td>
+                <td> {props.transacationDescription} </td>
+                {auth.user.userRoles[0].roleName === "Admin" ? <td>{props.username}</td>: null}
+                <td><Link to={Directories.EDITTRANSACTION + "/" + props.transactionId} className='tranSubmitButton' > Edit </Link>
+                <button onClick={deleteTransaction}className='tranCancelButton' > Delete </button></td>
         </tr>
-
-
     )
-
-
-
 } export default Transaction;

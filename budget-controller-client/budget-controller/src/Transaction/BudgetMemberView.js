@@ -41,20 +41,20 @@ function BudgetMemberView(){
             <table className="table container myTable">
                 <thead className="myTable">
                     <tr>
-                    <th className="myTable" scope="col"> Money Spent </th>
-                    <th className="myTable" scope="col"> Category </th>
-                    <th className="myTable" scope="col"> Description </th>
-                    <th/>
+                        <th className="myTable" scope="col"> Money Spent </th>
+                        <th className="myTable" scope="col"> Category </th>
+                        <th className="myTable" scope="col"> Description </th>
+                        <th/>
                     
                     </tr>
                 </thead>
                 <tbody> 
-                <>
-                {transactions.map( t => <Transaction transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.transactionCategory} transacationDescription={t.transacationDescription} username={t.username}/>)}
-                </>
+                    <>
+                    {transactions.map( t => <Transaction transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.transactionCategory} transacationDescription={t.transacationDescription} username={t.username}/>)}
+                    </>
                 </tbody>
-                </table>
-                <Link to={Directories.ADDTRANSACTION} className="addLink tranSubmitButton"> Add Transaction </Link>
+            </table>
+            <Link to={Directories.ADDTRANSACTION} className="addLink tranSubmitButton"> Add Transaction </Link>
         </div>
         )
 }

@@ -17,7 +17,6 @@ function AddMemberContainer({onMembersChange}){
         setMembers(membersCopy);
         onMembersChange(members);
 
-
     }
 
     function addMember(){
@@ -25,8 +24,9 @@ function AddMemberContainer({onMembersChange}){
         membersCopy.push({memberId : membersCopy.length , username : ""});
         setMembers(membersCopy);
     }
+
+
     function removeMember(){
-        
         if(members.length > 1){
             const membersCopy = [...members];
             membersCopy.pop();
@@ -38,14 +38,10 @@ function AddMemberContainer({onMembersChange}){
         <div className="memberContainer">
             {members.map( m => <AddMemberForm member={m} onMemberChange={memberChangeHandler} />)}
             <div className="budgetButtons">
-            <button className="budgetSubmitButton" onClick={addMember}  > + </button>
-            <button className="budgetCancelButton" onClick={removeMember} > - </button>
+                <button className="budgetSubmitButton" onClick={addMember}  > + </button>
+                <button className="budgetCancelButton" onClick={removeMember} > - </button>
             </div>
         </div>
     )
-
-
-
-
 }
 export default AddMemberContainer;

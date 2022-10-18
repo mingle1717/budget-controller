@@ -4,9 +4,6 @@ import "./Budget.css"
 function CategoryForm({ onCategoryChange , category}){
 
     
-    
- 
-
     function inputChangeHandler(inputChangeEvent){
 
         const propertyName = inputChangeEvent.target.name;

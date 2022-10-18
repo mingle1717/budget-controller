@@ -9,7 +9,6 @@ function AddCategoryContainer({onCategoriesChange}){
 
     function categoryChangeHandler(category){
 
-
         const categoriesCopy = categories.map(c => c.categoryId === category.categoryId ? category : c );
 
         setCategories(categoriesCopy);
@@ -22,8 +21,9 @@ function AddCategoryContainer({onCategoriesChange}){
         categoriesCopy.push({categoryId : categoriesCopy.length , categoryName : "" , categoryPercent : 0, higherLimit : 100, lowerLimit : 0, goal : false});
         setCategories(categoriesCopy);
     }
+
+
     function removeCategory(){
-        
         if(categories.length > 1){
             const categoriesCopy = [categories];
             categoriesCopy.pop();
@@ -38,12 +38,10 @@ function AddCategoryContainer({onCategoriesChange}){
             {categories.map( c => <CategoryForm category={c}  onCategoryChange={categoryChangeHandler} />)}
 
             <div className='budgetButtons'>
-            <button className="budgetSubmitButton" onClick={addCategory}  > + </button>
-            <button className="budgetCancelButton" onClick={removeCategory} > - </button>
+                <button className="budgetSubmitButton" onClick={addCategory}  > + </button>
+                <button className="budgetCancelButton" onClick={removeCategory} > - </button>
             </div>
         </div>
-
-    )
-
+        )
     }
 export default AddCategoryContainer;

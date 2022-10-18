@@ -30,17 +30,17 @@ function AddTransaction() {
             },
             body: JSON.stringify(transaction)
         })
-            .then(response => {
-                if (response.status === 201) {
-                    history.push(Directories.OWNERDASHBOARD);
-                } else {
-                    console.log(response);
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        }
+        .then(response => {
+        if (response.status === 201) {
+            history.push(Directories.OWNERDASHBOARD);
+            } else {
+            console.log(response);
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
             
 
     return (
@@ -48,8 +48,8 @@ function AddTransaction() {
                 <form onSubmit={handleSubmit}>
                     <TransactionForm onTransactionChange={handleTransactionChange} />
                     <div className="buttons">
-                    <button type="submit" className="tranSubmitButton ">Add</button>
-                    <Link to={Directories.MEMBERVIEW} className="tranCancelButton">Cancel</Link>
+                        <button type="submit" className="tranSubmitButton ">Add</button>
+                        <Link to={Directories.MEMBERVIEW} className="tranCancelButton">Cancel</Link>
                     </div>
                 </form>
             </div>

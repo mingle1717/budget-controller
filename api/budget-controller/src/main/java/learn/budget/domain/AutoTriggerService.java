@@ -18,7 +18,7 @@ import java.util.List;
 import static com.cronutils.model.CronType.QUARTZ;
 
 
-
+@Service
 public class AutoTriggerService {
 
     @Autowired

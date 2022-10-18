@@ -19,7 +19,7 @@ function EditTransaction(){
 
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/transaction/" + auth.user.username, {
+        fetch("http://localhost:8080/api/transaction/" + transactionId, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,
@@ -33,10 +33,11 @@ function EditTransaction(){
                     console.log(response);
                 }
             })
-            .then(transactions => {
+            .then(incomingTransaction => {
             
                 //setBudgetTransactions(transactions);
-                console.log(transactions)
+                setTransaction(incomingTransaction);
+                console.log(incomingTransaction)
             })
             .catch(error => {
                 console.log(error);
@@ -47,7 +48,7 @@ function EditTransaction(){
     return(
         <div className="container addContainer">
             <form>
-                <TransactionForm onTransactionChange={handleTransactionChange} />
+                <TransactionForm parentTransaction={transaction} onTransactionChange={handleTransactionChange} />
                 <div className="buttons">
                 <button type="submit" className="tranSubmitButton">Edit</button>
                 <Link to ={Directories.MEMBERVIEW} className="tranCancelButton">Cancel</Link>

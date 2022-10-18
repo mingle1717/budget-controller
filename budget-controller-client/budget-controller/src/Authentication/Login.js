@@ -36,22 +36,22 @@ function Login(props){
                 console.log(response);
             }
         })
-            .then( jwtContainer => {
-                const jwt = jwtContainer.jwt_token;
-                const claimsObject = jwtDecode(jwt);
+        .then( jwtContainer => {
+            const jwt = jwtContainer.jwt_token;
+            const claimsObject = jwtDecode(jwt);
 
-                console.log( jwt );
-                console.log(claimsObject);
+            console.log( jwt );
+            console.log(claimsObject);
 
                
-                auth.login(jwt);
-                history.push(Directories.MEMBERDASHBOARD);
-            
-            })
-            .catch( error => {
-                console.log( error );
-            });
-        }
+            auth.login(jwt);
+            history.push(Directories.MEMBERDASHBOARD);
+        
+        })
+        .catch( error => {
+            console.log( error );
+        });
+    }
 
 
     return(
@@ -60,12 +60,16 @@ function Login(props){
 
         <form className="loginForm"onSubmit={handleSubmit}>
             <div className="form-group fieldContainer">
+
                 <label htmlFor="username" className='usernameLabel'> Username</label>
+
                 <input 
                 onChange={(event) => setUsername(event.target.value)} 
                 id="username" name="username" className="form-control usernameField"
                 />
+
             </div>
+
             <div className="form-group fieldContainer">
                 <label htmlFor="password" className='passwordLabel'> Password</label>
                 <input 
@@ -74,18 +78,17 @@ function Login(props){
                 id="password" name="password" className="form-control passwordField"
                 />
             </div>
+
             <div className='buttons'>
                 <button type="button " className="submitButton">Submit</button>
                 <Link to = {Directories.HOME} type="button " className="cancelButton">Cancel</Link>
             </div>
-            </form>
-            <div className='linkContainer'>
+
+        </form>
+        <div className='linkContainer'>
             <div>Not Signed Up?</div>
             <Link to={Directories.SIGNUP} className='container'>Click here!</Link>
-            </div>
-
-
-       
+        </div> 
         
     </div>
         )

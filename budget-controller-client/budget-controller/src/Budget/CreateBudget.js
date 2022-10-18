@@ -23,9 +23,8 @@ function CreateBudget(){
     function handleSubmit(evt){
         evt.preventDefault();
     
-      
-
         console.log(budget)
+
         fetch( "http://localhost:8080/api/budget", {
             method: "POST",
             headers: {
@@ -33,7 +32,8 @@ function CreateBudget(){
                 Authorization : "Bearer " + auth.user.token,
             },
             body: JSON.stringify(budget)
-        }).then ( response => {
+        })
+        .then ( response => {
             if ( response.status === 201){
                 history.push(Directories.OWNERDASHBOARD)
             }

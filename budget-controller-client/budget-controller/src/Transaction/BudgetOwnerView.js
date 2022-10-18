@@ -54,29 +54,28 @@ function BudgetOwnerView(){
             <table className="table container myTable">
                 <thead className="myTable">
                     <tr >
-                    <th className="myTable" scope="col"> Transaction name </th>
-                    <th className="myTable" scope="col"> Money Spent </th>
-                    <th className="myTable"scope="col"> Category </th>
-                    <th className="myTable"scope="col"> Description </th>
-                    {auth.user.userRoles[0].roleName === "Admin" ? <th scope="col"> Spender </th> : null}
+                        <th className="myTable" scope="col"> Transaction name </th>
+                        <th className="myTable" scope="col"> Money Spent </th>
+                        <th className="myTable"scope="col"> Category </th>
+                        <th className="myTable"scope="col"> Description </th>
+                        {auth.user.userRoles[0].roleName === "Admin" ? <th scope="col"> Spender </th> : null}
                     <th/>
                     
                     </tr>
                 </thead>
                 <tbody> 
-                <>
-                {transactions.map( t => <Transaction key={t.transactionId} onTransactionDelete={onTransactionDelete} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.categoryName} transacationDescription={t.transacationDescription} username={t.username}/>)}
-                </>
-                
+                    <>
+                    {transactions.map( t => <Transaction key={t.transactionId} onTransactionDelete={onTransactionDelete} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.categoryName} transacationDescription={t.transacationDescription} username={t.username}/>)}
+                    </>  
                 </tbody>
-                </table>
-                <Link to="/addtransaction" className="tranSubmitButton addLink"> Add Transaction </Link>
-                <table className="table container">
-                    <tbody>
+            </table>
+            <Link to="/addtransaction" className="tranSubmitButton addLink"> Add Transaction </Link>
+            <table className="table container">
+                <tbody>
 
 
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
         </div>
         )
 }

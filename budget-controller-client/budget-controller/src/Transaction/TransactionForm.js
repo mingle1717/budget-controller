@@ -7,11 +7,11 @@ import AuthContext from "../AuthContext";
 
 
 
-function TransactionForm({onTransactionChange}){
+function TransactionForm({onTransactionChange, parentTransaction}){
     const auth = useContext(AuthContext);
-    const [transaction, setTransaction] = useState({username: auth.user.username,  transactionName: "", transactionAmount: 0, categoryId: 0, transacationDescription : ""});
+    const [transaction, setTransaction] = useState({username: auth.user.username,  transactionName: "", transactionAmount: 0, categoryId: 1, transacationDescription : ""});
     const [budgetCategories, setBudgetCategories] = useState();
-    const [categoryId, setCategoryId] = useState();
+    
 
     function inputChangeHandler(inputChangeEvent){
         const propertyName = inputChangeEvent.target.name;
@@ -20,11 +20,12 @@ function TransactionForm({onTransactionChange}){
         const transactionCopy = {...transaction};
     
         transactionCopy[propertyName] = newValue;
+        
 
         
         setTransaction(transactionCopy);
         onTransactionChange(transactionCopy);
-        console.log(transactionCopy.categoryId)
+        console.log(transaction)
     }
     
     useEffect(() => {
@@ -56,6 +57,12 @@ function TransactionForm({onTransactionChange}){
         });
     }, [])
 
+    useEffect(() => {
+        if(parentTransaction){
+            setTransaction(parentTransaction);
+        }
+    },[])
+
 
     return(
         <div className="container">
@@ -78,9 +85,9 @@ function TransactionForm({onTransactionChange}){
             <select
                 name="categoryId"
                 id="categoryId"
-                onChange={(choice) => setCategoryId(choice)}
+                onChange={inputChangeHandler}
                 className="form-control"
-                value = {transaction.categoryId}
+                defaultValue={budgetCategories ? budgetCategories[0].categoryId : ""}
                 > 
                 
                 {budgetCategories ? budgetCategories.map(b => <option key={b.categoryId} value={b.categoryId}> {b.categoryName}</option>) : null}</select>

@@ -14,6 +14,8 @@ function BudgetMemberDashboard() {
     const [hasBudget, setHasBudget] = useState(false);
     const [budgetCategories, setBudgetCategories] = useState();
     const [budgetTransactions,setBudgetTransactions] = useState();
+
+
     useEffect(() => {
         fetch("http://localhost:8080/api/budget/personal/" + auth.user.username, {
             method: "GET",
@@ -71,31 +73,31 @@ function BudgetMemberDashboard() {
                 <div className="createBudgetLink">
                     <Link to={Directories.CREATEBUDGET}>Create Budget</Link>
                 </div>
-            <div className="tipLink">
-                <Link to="google.com"> Click here for some advice! </Link>
-            </div>
+                <div className="tipLink">
+                    <Link to="google.com"> Click here for some advice! </Link>
+                </div>
             </div>
             :
             <div>
-            <div className="container budgetPieContainer">
-            <h2 className="budgetPieHeader">Budget Pie Chart</h2>
-            <PieChart className="budgetPieChart" width={1000} height={400}>
-                    <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
-                    <Tooltip />
-                </PieChart>
-                </div> 
+                <div className="container budgetPieContainer">
+                    <h2 className="budgetPieHeader">Budget Pie Chart</h2>
+                    <PieChart className="budgetPieChart" width={1000} height={400}>
+                        <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
+                        <Tooltip />
+                    </PieChart>
+                    </div> 
                 <div className="spendingPieContainer">
-                <h2 className="transactionPieHeader" >Transaction Pie Chart</h2>
-                <Link to={Directories.MEMBERVIEW}  >
-                <PieChart className="spendingPieChart" width={1000} height={400} >
-                    <Pie data={budgetTransactions} dataKey="transactionAmount" nameKey="transactionName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
-                    <Tooltip /> 
-                </PieChart>
-                </Link>
-            </div>
-            <div className="manageTransactions">
-                <Link to={Directories.MEMBERMANAGEAUTO} className="dashSubmitButton"> Manage auto transactions </Link>
-            </div>
+                    <h2 className="transactionPieHeader" >Transaction Pie Chart</h2>
+                    <Link to={Directories.MEMBERVIEW} >
+                        <PieChart className="spendingPieChart" width={1000} height={400} >
+                            <Pie data={budgetTransactions} dataKey="transactionAmount" nameKey="transactionName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
+                            <Tooltip /> 
+                        </PieChart>
+                    </Link>
+                </div>
+                <div className="manageTransactions">
+                    <Link to={Directories.MEMBERMANAGEAUTO} className="dashSubmitButton"> Manage auto transactions </Link>
+                </div>
             </div>
             }
         </div>

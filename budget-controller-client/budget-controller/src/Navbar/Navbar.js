@@ -68,52 +68,51 @@ function Navbar(){
 
     return(
 
-        <div className="navbarTop">
+    <div className="navbarTop">
             
      hi
-          
         <nav className="myNav">
             
-        
             <div className="homeNav">
-                
                 {auth.user ? 
                     (auth.user.userRoles[0].roleName==="Admin" ? 
                     <Link to ={Directories.OWNERDASHBOARD} className="homeLink">{auth.user.username} Dashboard</Link> : 
                     <Link to ={Directories.MEMBERDASHBOARD} className="homeLink">Member Dashboard</Link> ) : 
                     <Link to ={Directories.HOME} className="homeLink">Home</Link>}
-            
             </div>
             <div className="addNav">
-            <div>
-                {auth.user ? (auth.user.userRoles[0].roleName==="Admin" ?  <Link to ={Directories.HOME}  className="homeLink">Add members</Link>  : 
-                null) : null}
-            
-            </div >
-                    </div>
-            <div className="contactNav">
-                <Link to ={Directories.CONTACT}  className="homeLink" >Contact</Link>
-            </div>
+                <div>
+                    {auth.user ? (auth.user.userRoles[0].roleName==="Admin" ?  <Link to ={Directories.HOME}  className="homeLink">Add members</Link>  : 
+                    null) : null}
+                
+                </div >
+                        </div>
+                <div className="contactNav">
+                    <Link to ={Directories.CONTACT}  className="homeLink" >Contact</Link>
+                </div>
 
 
 
-            <div className="loginNav">
-                {auth.user? 
-                <button className="navCancelButton" onClick={() => auth.logout()}>Logout</button>
-            : <Link to ={Directories.LOGIN}  className="homeLink" >Login</Link> }
-            </div>
+                <div className="loginNav">
+                    {
+                    auth.user ? 
+                    <button className="navCancelButton" onClick={() => auth.logout()}>Logout</button>
+                    : 
+                    <Link to ={Directories.LOGIN}  className="homeLink" >Login</Link> 
+                    }
+                </div>
         
             {
                 (savedLocationPath !== Directories.HOME) && (
-                                <div  className={"pageHeaderContainer"}>
-                                    <div className={"pageHeader"}>
-                                        <div className="title">{pageTitle}</div>
-                                    </div>
-                                </div>
+                    <div  className={"pageHeaderContainer"}>
+                        <div className={"pageHeader"}>
+                            <div className="title">{pageTitle}</div>
+                        </div>
+                    </div>
                 )
             }
-            </nav>
-        </div>
+        </nav>
+    </div>
     )
 }
 export default Navbar;
