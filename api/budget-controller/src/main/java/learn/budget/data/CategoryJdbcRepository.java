@@ -36,7 +36,7 @@ public class CategoryJdbcRepository implements CategoryRepository {
 
     @Override
     @Transactional
-    public Category addCategory(Category category){
+    public Category addCategory(Category category, int budgetId){
 
         final String sql = "INSERT INTO `Category` " +
                 "(`cat_name`, `cat_percent`, `higher_limit`, `lower_limit`, `goal`, `budget_id`)"
@@ -50,7 +50,7 @@ public class CategoryJdbcRepository implements CategoryRepository {
             ps.setBigDecimal(3, category.getHigherLimit());
             ps.setBigDecimal(4, category.getLowerLimit());
             ps.setBoolean(5, category.isGoal());
-            ps.setInt(6, category.getBudgetId());
+            ps.setInt(6, budgetId);
             return ps;
         }, keyHolder);
 

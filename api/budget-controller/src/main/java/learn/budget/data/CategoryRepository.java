@@ -7,7 +7,7 @@ public interface CategoryRepository {
     @Transactional
     Category findById(int categoryId);
 
-    Category addCategory(Category category);
+    Category addCategory(Category category, int budgetId);
 
     boolean editCategory(Category category);
 }

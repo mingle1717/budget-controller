@@ -51,6 +51,15 @@ public class BudgetJdbcRepository implements BudgetRepository {
         }
 
         toAdd.setBudgetId(keyHolder.getKey().intValue());
+
+        final String moreSql = "insert into userBudget (isOwner, user_id, budget_id) values (true, ?, ?);";
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(moreSql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, toAdd.getAppUsers().get(0).getUserId());
+            ps.setInt(2, toAdd.getBudgetId());
+            return ps;
+        }, keyHolder);
+
         return toAdd;
     }
 

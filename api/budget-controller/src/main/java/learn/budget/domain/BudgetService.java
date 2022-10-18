@@ -68,7 +68,7 @@ public class BudgetService {
         budget.setCategories(categories);
         budget.setBudgetId(budgetRepository.createBudget(budget).getBudgetId());
         for (Category c : budget.getCategories()) {
-            categoryService.repository.addCategory(c);
+            categoryService.repository.addCategory(c, budget.getBudgetId());
         }
         budget.setBudgetName(budget.getBudgetName() + "'s Budget");
         AppUser user = budget.getAppUsers().get(0);
@@ -144,7 +144,7 @@ public class BudgetService {
             return result;
         }
         for (Category c : budget.getCategories()) {
-            categoryService.repository.addCategory(c);
+            categoryService.repository.addCategory(c, budget.getBudgetId());
         }
         result.setPayload(budget);
 
