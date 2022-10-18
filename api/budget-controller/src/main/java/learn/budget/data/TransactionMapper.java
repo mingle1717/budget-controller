@@ -1,6 +1,7 @@
 package learn.budget.data;
 
 import learn.budget.models.AppUser;
+import learn.budget.models.Category;
 import learn.budget.models.Transaction;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -31,6 +32,11 @@ public class TransactionMapper implements RowMapper<Transaction> {
         BigDecimal lowerLimit = rs.getBigDecimal("lower_limit");
         boolean goal = rs.getBoolean("goal");
         int budgetId = rs.getInt("budget_id");
+
+        Category category = new Category(categoryId, categoryName, categoryPercent, higherLimit, lowerLimit, goal, budgetId);
+
+        transaction.setCategory(category);
+
 
         int userId = rs.getInt("user_id");
         String username = rs.getString("username");

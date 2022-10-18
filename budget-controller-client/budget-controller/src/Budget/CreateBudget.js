@@ -23,7 +23,7 @@ function CreateBudget(){
     function handleSubmit(evt){
         evt.preventDefault();
     
-        console.log(budget)
+        console.log( budget)
 
         fetch( "http://localhost:8080/api/budget", {
             method: "POST",
@@ -50,7 +50,7 @@ function CreateBudget(){
 
         const budgetCopy = {...budget};
 
-        budgetCopy[propertyName] = newValue;
+        budgetCopy[propertyName] = parseInt(newValue);
 
        
         setBudget(budgetCopy);

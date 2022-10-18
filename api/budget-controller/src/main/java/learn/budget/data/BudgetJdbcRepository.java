@@ -42,7 +42,7 @@ public class BudgetJdbcRepository implements BudgetRepository {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, toAdd.getBudgetId());
             ps.setString(2, toAdd.getBudgetName());
-            ps.setBigDecimal(3, toAdd.getStartingBalance());
+            ps.setBigDecimal(3, toAdd.getBalance());
             return ps;
         }, keyHolder);
 
@@ -66,7 +66,7 @@ public class BudgetJdbcRepository implements BudgetRepository {
         final String sql = "update budget set balance = ?,\n" +
                 "budget_name = ?\n" +
                 "where budget_id = ?;";
-        return jdbcTemplate.update(sql, budget.getStartingBalance(),
+        return jdbcTemplate.update(sql, budget.getBalance(),
                 budget.getBudgetName(), budget.getBudgetId()) > 0;
     }
 }

@@ -33,14 +33,14 @@ public class CategoryService {
         }
         // Still need to validate that percentages aren't changed to add up over 100%
         //checks that sum is equal to 100 percent
-        if (sum.compareTo(BigDecimal.valueOf(100)) == 0) {
+       // if (sum.compareTo(BigDecimal.valueOf(100)) == 0) {
             // good to go! Set savings to 0 percent
-            budget.getCategories().get(1).setCategoryPercent(BigDecimal.ZERO);
-        }
+        //    budget.getCategories().get(1).setCategoryPercent(BigDecimal.ZERO);
+       // }
         // the next line checks if the sum of all percentages is less than 100 percent and auto sets savings
-        if (sum.compareTo(BigDecimal.valueOf(100)) < 0) {
-            budget.getCategories().get(1).setCategoryPercent(BigDecimal.valueOf(100).subtract(sum));
-        }
+       // if (sum.compareTo(BigDecimal.valueOf(100)) < 0) {
+       //     budget.getCategories().get(1).setCategoryPercent(BigDecimal.valueOf(100).subtract(sum));
+       // }
         // the next line checks if the total percentages are over 100 percent
         if (sum.compareTo(BigDecimal.valueOf(100)) > 0){
             result.addMessage("The categories must add up to be no greater than 100.", ResultType.INVALID);
@@ -88,7 +88,7 @@ public class CategoryService {
     public Result<Budget> getBudgetCategoryDetails(Budget budget) {
         // It is nearly impossible for the budget not to pass these validations, but you can never be too secure.
         Result<Budget> result = new Result<>();
-        if (budget.getStartingBalance() == null || budget.getStartingBalance().equals(BigDecimal.ZERO)) {
+        if (budget.getBalance() == null || budget.getBalance().equals(BigDecimal.ZERO)) {
             result.addMessage("The budget requested has no balance on record.", ResultType.INVALID);
         }
         if (budget.getBudgetName() == null || budget.getBudgetName().isBlank()) {
