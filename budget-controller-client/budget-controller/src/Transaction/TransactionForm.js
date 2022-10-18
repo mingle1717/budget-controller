@@ -7,7 +7,7 @@ import AuthContext from "../AuthContext";
 
 
 
-function TransactionForm({onTransactionChange, parentTransaction}){
+function TransactionForm({onTransactionChange}){
     const auth = useContext(AuthContext);
     const [transaction, setTransaction] = useState({username: auth.user.username,  transactionName: "", transactionAmount: 0, categoryId: 1, transacationDescription : ""});
     const [budgetCategories, setBudgetCategories] = useState();
@@ -57,11 +57,7 @@ function TransactionForm({onTransactionChange, parentTransaction}){
         });
     }, [])
 
-    useEffect(() => {
-        if(parentTransaction){
-            setTransaction(parentTransaction);
-        }
-    },[])
+    
 
 
     return(

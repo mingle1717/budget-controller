@@ -73,13 +73,16 @@ function BudgetOwnerDashboard(){
                 <div> 
                     <h2 >Budget Pie Chart</h2>
                     { budgetCategories ?
-                    <PieChart  width={1000} height={400}>
-                        <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
-                        <Tooltip />
-                    </PieChart> : null
-}
+                    <Link to={Directories.EDITBUDGET}>
+                        <PieChart  width={1000} height={400}>
+                            <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
+                            <Tooltip />
+                        </PieChart> 
+                    </Link>
+: null
+                    }
                </div> 
-             
+                    
                <div>
                  <h2  >Transaction Pie Chart</h2>
                 <Link to={Directories.OWNERVIEW}>

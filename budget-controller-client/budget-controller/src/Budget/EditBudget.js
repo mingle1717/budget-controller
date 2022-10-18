@@ -4,6 +4,9 @@ import { useHistory, useParams } from "react-router-dom"
 import { useContext, useEffect, useState } from "react";
 import Directories from "../Directories";
 import AuthContext from "../AuthContext";
+import FormInput from "../FormInput";
+
+
 function EditBudget(){
 
     const {budgetId} = useParams();
@@ -19,39 +22,58 @@ function EditBudget(){
 
 
 
-    useEffect( () =>
-        fetch( "http://localhost:8080/api/budget/" + budgetId)
-            .then(response => {
-                if(response.status===200){
-                    return response.json();
-                } else {
-                    console.log(response)
-                }
+    useEffect( () =>{
+        fetch( "http://localhost:8080/api/budget/personal/" + auth.user.username,{
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ` + auth.user.token,
+                "Content-Type": "application/json"
+            },
+        })
+        .then(response => {
+            if(response.status===200){
+                return response.json();
+            } else {
+                console.log(response)
             }
-        )
+        })
         .then(selectedBudget => {
+            const incomingCategories = selectedBudget.categories;
+            setCategories(incomingCategories);
             setBudget(selectedBudget);
+            console.log(selectedBudget);
         })
-            .catch(error => {
-                if(error instanceof TypeError){
-                    setErrors( ["Could not connect to API"] );
-
-                } else { 
-                    setErrors(error)
+        .catch(error => {
+            if(error instanceof TypeError){
+                setErrors( ["Could not connect to API"] );
+            } else { 
+               setErrors(error)
             }
-        })
-    ,[]);
+        });
+},[]);
     
+    function inputChangeHandler(inputChangeEvent){
+        const propertyName = inputChangeEvent.target.name;
+        const newValue = inputChangeEvent.target.value;
+
+        const budgetCopy = {...budget};
+
+        budgetCopy[propertyName] = newValue;
+
+    
+        setBudget(budgetCopy);
+        
+    }
+
     function handleSubmit(evt){
         evt.preventDefault();
 
-        
-
-        fetch( "http://localhost:8080/api/budget/" + auth.user.username, {
+        console.log(budget);
+        fetch( "http://localhost:8080/api/budget/personal/" + auth.user.username, {
             method: "PUT",
             headers: {
                 "Content-Type" : "application/json",
-                Authorization : `Bearer ${auth.user.token}`,
+                Authorization: `Bearer ` + auth.user.token,
                 Accept : "application/json"
             },
             body: JSON.stringify(budget)
@@ -66,32 +88,39 @@ function EditBudget(){
         })
     }
 
-    function categoriesChangeHandler(categories){
-        const categoriesCopy = [...categories]
-        setCategories(...categoriesCopy);
+    function categoriesChangeHandler(incomingCategories){
+        const categoriesCopy = [incomingCategories]
+        setCategories(categoriesCopy);
     }
 
 
     return(
-        <div> 
+       
             
             <div className="container">
            
       
            
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="startingBalance" className="form-label">Starting Balance</label>
-                    <input type="number" className="form-control" id="startingBalance" aria-describedby="balanceHelp"/>
+            {budget ? 
+            <FormInput 
+                    inputType={"number"} 
+                    identifier={"balance"} 
+                    labelText={"Starting Balance"} 
+                    currVal={budget.startingBalance} 
+                    labelClass={"balanceLabel"}
+                    onChangeHandler={inputChangeHandler}  
+                    className={"form-control"}/> : null
+                    }
+             
                     <div id="balanceHelp" className="form-text">What balance do you want to start with?</div>
-                </div>
-                <AddCategoryContainer onCategoriesChange={categoriesChangeHandler}/>
+                
+                {categories ? categories.map( c => <CategoryForm category={c}  onCategoryChange={categoriesChangeHandler} />) : null}
                 <button type="submit" className="budgetSubmitButton mySubmitButton">Submit</button>
             </form>
         </div>
         
 
-        </div>
         )
 }
 export default EditBudget
