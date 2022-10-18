@@ -7,9 +7,9 @@ import AuthContext from "../AuthContext";
 
 
 
-function TransactionForm({onTransactionChange}){
+function TransactionForm({onTransactionChange, id}){
     const auth = useContext(AuthContext);
-    const [transaction, setTransaction] = useState({username: auth.user.username,  transactionName: "", transactionAmount: 0, category : {categoryId : 1}, transacationDescription : ""});
+    const [transaction, setTransaction] = useState({username: auth.user.username, transactionId : id,  transactionName: "", transactionAmount: 0, category : {categoryId : 1}, transacationDescription : ""});
     const [budgetCategories, setBudgetCategories] = useState();
     const [categoryId, setCategoryId] = useState({categoryId : 1});
 

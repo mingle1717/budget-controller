@@ -95,8 +95,10 @@ public class TransactionService {
         }
 
     }
-    public Result<Transaction> editTransaction(Transaction transaction){
+    public Result<Transaction> editTransaction(Transaction transaction , AppUser user){
         Result<Transaction> editedTransaction = new Result<>();
+        transaction.setCategory(categoryJdbcRepo.getCategoryByCategoryId(transaction.getCategory().getCategoryId()));
+        transaction.setUser(user);
         if(validateTransaction(transaction).isSuccess()){
             boolean result = repository.update(transaction);
             if(result) {

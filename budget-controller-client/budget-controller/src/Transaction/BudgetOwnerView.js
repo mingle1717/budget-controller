@@ -10,7 +10,7 @@ function BudgetOwnerView(){
 
     const auth = useContext(AuthContext);
 
-    const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, transactionCategory: "", transacationDescription : ""}]);
+    const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, category:{}, transacationDescription : ""}]);
 
     function onTransactionDelete(){
         loadTransactions();
@@ -33,9 +33,10 @@ function BudgetOwnerView(){
                 }
             })
             .then(transactions => {
-                const transactionsCopy = transactions;
+                const transactionsCopy = [...transactions];
                 setTransactions(transactionsCopy);
-                console.log(transactions)
+                console.log(transactionsCopy)
+                
             })
             .catch(error => {
                 console.log(error);
@@ -45,6 +46,7 @@ function BudgetOwnerView(){
         useEffect(
             () => {
                 loadTransactions();
+                
             },
             []);
 
@@ -65,7 +67,7 @@ function BudgetOwnerView(){
                 </thead>
                 <tbody> 
                     <>
-                    {transactions.map( t => t.category ? <Transaction key={t.transactionId} onTransactionDelete={onTransactionDelete} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.category.categoryName} transacationDescription={t.transacationDescription} username={t.username}/> : null)}
+                    {transactions.map( t => <Transaction key={t.transactionId} onTransactionDelete={onTransactionDelete} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.category.categoryName} transacationDescription={t.transacationDescription} username={t.username}/> )}
                     </>  
                 </tbody>
             </table>
