@@ -81,7 +81,8 @@ public class CategoryJdbcRepository implements CategoryRepository {
                 category.getHigherLimit(),
                 category.getLowerLimit(),
                 category.isGoal(),
-                category.getBudgetId()) > 0;
+                category.getBudgetId(),
+                category.getCategoryId()) > 0;
     }
 
     @Transactional

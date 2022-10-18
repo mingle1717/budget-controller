@@ -39,11 +39,11 @@ public class Budget {
         this.categories = categories;
     }
 
-    public BigDecimal getStartingBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setStartingBalance(BigDecimal startingBalance) {
+    public void setBalance(BigDecimal startingBalance) {
         this.balance = startingBalance;
     }
 

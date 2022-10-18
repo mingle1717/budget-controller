@@ -65,7 +65,7 @@ function BudgetOwnerView(){
                 </thead>
                 <tbody> 
                     <>
-                    {transactions.map( t => <Transaction key={t.transactionId} onTransactionDelete={onTransactionDelete} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.categoryName} transacationDescription={t.transacationDescription} username={t.username}/>)}
+                    {transactions.map( t => t.category ? <Transaction key={t.transactionId} onTransactionDelete={onTransactionDelete} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.category.categoryName} transacationDescription={t.transacationDescription} username={t.username}/> : null)}
                     </>  
                 </tbody>
             </table>

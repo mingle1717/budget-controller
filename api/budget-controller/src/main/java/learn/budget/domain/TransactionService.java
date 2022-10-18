@@ -51,6 +51,7 @@ public class TransactionService {
     public Result<Transaction> addTransaction(Transaction transaction, AppUser user) {
         Result<Transaction> addedTransaction = new Result<>();
         transaction.setUser(user);
+        transaction.setCategory(categoryJdbcRepo.getCategoryByCategoryId(transaction.getCategory().getCategoryId()));
 
         if (validateTransaction(transaction).isSuccess()) {
             Transaction resultingTransactionFromRepo = repository.addTransaction(transaction);

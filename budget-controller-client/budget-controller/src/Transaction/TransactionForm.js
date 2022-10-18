@@ -9,9 +9,9 @@ import AuthContext from "../AuthContext";
 
 function TransactionForm({onTransactionChange}){
     const auth = useContext(AuthContext);
-    const [transaction, setTransaction] = useState({username: auth.user.username,  transactionName: "", transactionAmount: 0, category: 1, transacationDescription : ""});
+    const [transaction, setTransaction] = useState({username: auth.user.username,  transactionName: "", transactionAmount: 0, category : {categoryId : 1}, transacationDescription : ""});
     const [budgetCategories, setBudgetCategories] = useState();
-    
+    const [categoryId, setCategoryId] = useState({categoryId : 1});
 
     function inputChangeHandler(inputChangeEvent){
         const propertyName = inputChangeEvent.target.name;
@@ -20,12 +20,13 @@ function TransactionForm({onTransactionChange}){
         const transactionCopy = {...transaction};
     
         transactionCopy[propertyName] = newValue;
-        
+        transactionCopy["category"] = {categoryId};
 
         
         setTransaction(transactionCopy);
         onTransactionChange(transactionCopy);
-        console.log(transaction)
+        console.log(transactionCopy)
+        console.log(categoryId)
     }
     
     useEffect(() => {
@@ -79,11 +80,11 @@ function TransactionForm({onTransactionChange}){
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
             <select
-                name="category"
-                id="category"
-                onChange={inputChangeHandler}
+                name="categoryId"
+                id="categoryId"
+                onChange={(event) => setCategoryId(event.target.value)}
                 className="form-control"
-                defaultValue={budgetCategories ? budgetCategories[0].categoryId : ""}
+                defaultValue={budgetCategories ? budgetCategories[0] : ""}
                 > 
                 
                 {budgetCategories ? budgetCategories.map(b => <option key={b.categoryId} value={b.categoryId}> {b.categoryName}</option>) : null}</select>

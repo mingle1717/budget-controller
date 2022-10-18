@@ -13,7 +13,7 @@ public class BudgetMapper implements RowMapper<Budget> {
 
         budget.setBudgetName(rs.getString("budget_name"));
         budget.setBudgetId(rs.getInt("budget_id"));
-        budget.setStartingBalance(rs.getBigDecimal("balance"));
+        budget.setBalance(rs.getBigDecimal("balance"));
 
         return budget;
     }

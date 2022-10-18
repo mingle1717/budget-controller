@@ -24,7 +24,7 @@ public class BudgetService {
 
     public Result<Budget> createBudget(Budget budget) {
         Result<Budget> result = new Result();
-        if (budget.getStartingBalance() == null || budget.getStartingBalance().compareTo(BigDecimal.ZERO) <= 0) {
+        if (budget.getBalance() == null || budget.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
             result.addMessage("Please enter a balance greater than zero.", ResultType.INVALID);
         }
         if (budget.getAppUsers() == null || budget.getAppUsers().size() <= 0) {
@@ -65,12 +65,14 @@ public class BudgetService {
             return result;
         }
         categories.addAll(budget.getCategories());
-        budget.setCategories(categories);
+        //budget.setCategories(categories);
+        budget.setBudgetName(budget.getBudgetName() + "'s Budget");
         budget.setBudgetId(budgetRepository.createBudget(budget).getBudgetId());
+
         for (Category c : budget.getCategories()) {
             categoryService.repository.addCategory(c, budget.getBudgetId());
         }
-        budget.setBudgetName(budget.getBudgetName() + "'s Budget");
+
         AppUser user = budget.getAppUsers().get(0);
         userJdbcRepo.setUserToAdmin(user);
         result.setPayload(budget);
@@ -97,7 +99,7 @@ public class BudgetService {
 
     public Result<Budget> updateBalanceOrName(Budget budget) {
         Result<Budget> result = new Result();
-        if (budget.getStartingBalance() == null || budget.getStartingBalance().compareTo(BigDecimal.ZERO) <= 0) {
+        if (budget.getBalance() == null || budget.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
             result.addMessage("Please enter a balance greater than zero.", ResultType.INVALID);
         }
         if (budget.getAppUsers() == null || budget.getAppUsers().size() <= 0) {
