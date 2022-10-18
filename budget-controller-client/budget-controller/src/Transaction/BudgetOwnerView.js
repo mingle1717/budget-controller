@@ -69,7 +69,7 @@ function BudgetOwnerView(){
                     </>  
                 </tbody>
             </table>
-            <Link to="/addtransaction" className="tranSubmitButton addLink"> Add Transaction </Link>
+            <Link to={Directories.ADDTRANSACTION} className="tranSubmitButton addLink"> Add Transaction </Link>
             <table className="table container">
                 <tbody>
 
