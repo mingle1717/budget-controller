@@ -12,7 +12,7 @@ function BudgetMemberView(){
     const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, transactionCategory: "", transacationDescription : ""}]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/transaction/" + auth.user.username, {
+        fetch("http://localhost:8080/api/transaction/", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,

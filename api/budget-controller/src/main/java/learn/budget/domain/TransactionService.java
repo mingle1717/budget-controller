@@ -41,16 +41,15 @@ public class TransactionService {
         if(transaction.getTransacationDescription() == null || transaction.getTransactionName().isBlank()) {
             result.addMessage("Transaction description must be provided.", ResultType.INVALID);
         }
-        if(transaction.getCategory().getCategoryId() == 0 || transaction.getCategory().getCategoryName() == null) {
+        if(transaction.getCategory() == null || transaction.getCategory().getCategoryId() == 0 || transaction.getCategory().getCategoryName() == null) {
             result.addMessage("There is no category assigned to this transaction.", ResultType.INVALID);
         }
         result.setPayload(transaction);
         return result;
     }
 
-    public Result<Transaction> addTransaction(Transaction transaction) {
+    public Result<Transaction> addTransaction(Transaction transaction, AppUser user) {
         Result<Transaction> addedTransaction = new Result<>();
-        AppUser user = userJdbcRepo.getUserByUsername(transaction.getUser().getUsername());
         transaction.setUser(user);
 
         if (validateTransaction(transaction).isSuccess()) {

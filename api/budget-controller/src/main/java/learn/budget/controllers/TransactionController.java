@@ -38,7 +38,8 @@ public class TransactionController {
     }
     @PostMapping
     public ResponseEntity<Object> addTransaction(@RequestBody Transaction transaction) {
-        Result<Transaction> result = service.addTransaction(transaction);
+        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Result<Transaction> result = service.addTransaction(transaction, user);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }

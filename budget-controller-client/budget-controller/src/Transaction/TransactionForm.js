@@ -9,7 +9,7 @@ import AuthContext from "../AuthContext";
 
 function TransactionForm({onTransactionChange}){
     const auth = useContext(AuthContext);
-    const [transaction, setTransaction] = useState({username: auth.user.username,  transactionName: "", transactionAmount: 0, categoryId: 1, transacationDescription : ""});
+    const [transaction, setTransaction] = useState({username: auth.user.username,  transactionName: "", transactionAmount: 0, category: 1, transacationDescription : ""});
     const [budgetCategories, setBudgetCategories] = useState();
     
 
@@ -79,8 +79,8 @@ function TransactionForm({onTransactionChange}){
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
             <select
-                name="categoryId"
-                id="categoryId"
+                name="category"
+                id="category"
                 onChange={inputChangeHandler}
                 className="form-control"
                 defaultValue={budgetCategories ? budgetCategories[0].categoryId : ""}
