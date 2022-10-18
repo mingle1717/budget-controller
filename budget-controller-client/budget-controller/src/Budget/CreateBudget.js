@@ -58,16 +58,16 @@ function CreateBudget(){
     }
 
     function categoriesChangeHandler(incomingCategories){
-        const categoriesCopy = [incomingCategories]
+        const categoriesCopy = [...incomingCategories];
         setCategories(categoriesCopy);
-        const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
+        const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categoriesCopy};
         setBudget(budgetCopy)
     }
 
     function appUsersChangeHandler(incomingAppUsers) {
-        const appUsersCopy = incomingAppUsers;
+        const appUsersCopy = [...incomingAppUsers];
         setAppUsers(appUsersCopy);
-        const budgetCopy = {balance : budget.balance, appUsers : appUsers, categories : categories};
+        const budgetCopy = {balance : budget.balance, appUsers : appUsersCopy, categories : categories};
         console.log(budgetCopy);
         setBudget(budgetCopy)
     }
