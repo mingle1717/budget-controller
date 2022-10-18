@@ -19,7 +19,8 @@ function EditTransaction(){
 
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/transaction/" + transactionId, {
+        console.log(transactionId)
+        fetch("http://localhost:8080/api/transaction/" + transactionId.transactionId, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,

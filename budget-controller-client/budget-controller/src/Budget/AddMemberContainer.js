@@ -36,10 +36,10 @@ function AddMemberContainer({onMembersChange}){
 
     return(
         <div className="memberContainer">
-            {members.map( m => <AddMemberForm member={m} onMemberChange={memberChangeHandler} />)}
+            {members.map( m => <AddMemberForm member={m} key={m.memberId} onMemberChange={memberChangeHandler} />)}
             <div className="budgetButtons">
-                <button className="budgetSubmitButton" onClick={addMember}  > + </button>
-                <button className="budgetCancelButton" onClick={removeMember} > - </button>
+                <button type="button" className="budgetSubmitButton" onClick={addMember}  > + </button>
+                <button  type="button" className="budgetCancelButton" onClick={removeMember} > - </button>
             </div>
         </div>
     )

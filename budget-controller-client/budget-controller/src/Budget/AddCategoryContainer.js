@@ -17,7 +17,7 @@ function AddCategoryContainer({onCategoriesChange}){
     }
 
     function addCategory(){
-        const categoriesCopy = [categories];
+        const categoriesCopy = [...categories];
         categoriesCopy.push({categoryId : categoriesCopy.length , categoryName : "" , categoryPercent : 0, higherLimit : 100, lowerLimit : 0, goal : false});
         setCategories(categoriesCopy);
     }
@@ -25,7 +25,7 @@ function AddCategoryContainer({onCategoriesChange}){
 
     function removeCategory(){
         if(categories.length > 1){
-            const categoriesCopy = [categories];
+            const categoriesCopy = [...categories];
             categoriesCopy.pop();
             setCategories(categoriesCopy);
         }
@@ -35,11 +35,11 @@ function AddCategoryContainer({onCategoriesChange}){
 
     return(
         <div className='categoryContainer' key='editBudget'>
-            {categories.map( c => <CategoryForm category={c}  onCategoryChange={categoryChangeHandler} />)}
+            {categories.map( c => <CategoryForm onCategoryChange={categoryChangeHandler} category={c}  key={c.categoryId}  />)}
 
             <div className='budgetButtons'>
-                <button className="budgetSubmitButton" onClick={addCategory}  > + </button>
-                <button className="budgetCancelButton" onClick={removeCategory} > - </button>
+                <button  type="button" className="budgetSubmitButton" onClick={addCategory}  > + </button>
+                <button  type="button" className="budgetCancelButton" onClick={removeCategory} > - </button>
             </div>
         </div>
         )
