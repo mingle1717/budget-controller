@@ -1,7 +1,7 @@
 import {useContext, useState} from 'react';
 import AuthContext from '../AuthContext';
 import AddMemberForm from './AddMemberForm';
-import "./Budget.css"
+
 
 function AddMemberContainer({onMembersChange}){
 

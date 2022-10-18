@@ -32,9 +32,13 @@ function BudgetMemberDashboard() {
             }
         })
         .then(budget => {
-           const categories = budget.categories;
-           setBudgetCategories(categories);
-            console.log(budgetCategories);
+            console.log(budget)
+            if(budget !== undefined){
+            setHasBudget(true);
+            }
+            const categories = budget.categories;
+            setBudgetCategories(categories);
+             console.log(budgetCategories);
         })
         .catch(error => {
             console.log(error);
@@ -42,7 +46,7 @@ function BudgetMemberDashboard() {
     }, [])
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/transaction/" + auth.user.username, {
+        fetch("http://localhost:8080/api/transaction/", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,
@@ -59,7 +63,7 @@ function BudgetMemberDashboard() {
             .then(transactions => {
                 
                 setBudgetTransactions(transactions);
-                console.log(budgetTransactions);
+                console.log(transactions);
             })
             .catch(error => {
                 console.log(error);
@@ -79,17 +83,17 @@ function BudgetMemberDashboard() {
             </div>
             :
             <div>
-                <div className="container budgetPieContainer">
-                    <h2 className="budgetPieHeader">Budget Pie Chart</h2>
-                    <PieChart className="budgetPieChart" width={1000} height={400}>
+                <div className="container">
+                    <h2 >Budget Pie Chart</h2>
+                    <PieChart width={1000} height={400}>
                         <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
                         <Tooltip />
                     </PieChart>
                     </div> 
-                <div className="spendingPieContainer">
-                    <h2 className="transactionPieHeader" >Transaction Pie Chart</h2>
+                <div>
+                    <h2>Transaction Pie Chart</h2>
                     <Link to={Directories.MEMBERVIEW} >
-                        <PieChart className="spendingPieChart" width={1000} height={400} >
+                        <PieChart width={1000} height={400} >
                             <Pie data={budgetTransactions} dataKey="transactionAmount" nameKey="transactionName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
                             <Tooltip /> 
                         </PieChart>

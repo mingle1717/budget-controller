@@ -48,7 +48,8 @@ public class TransactionController {
     }
     @PutMapping("/{transactionId}")
     public ResponseEntity<Object> editTransaction(@RequestBody Transaction transaction){
-        Result<Transaction> result = service.editTransaction(transaction);
+        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Result<Transaction> result = service.editTransaction(transaction, user);
         if(result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.NO_CONTENT);
         }

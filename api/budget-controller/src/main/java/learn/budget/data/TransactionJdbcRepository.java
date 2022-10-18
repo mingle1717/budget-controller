@@ -67,14 +67,14 @@ public class TransactionJdbcRepository implements TransactionRepository {
     @Override
     @Transactional
     public boolean update(Transaction transactionUpdate) {
-        final String sql = "UPDATE `calculator_test`.`myTransaction`"
-                + "`transaction_name` = ?, "
-                + "`transaction_amount` = ?,"
-                + "`transaction_description = ?,"
-                + "`category_id` = ?, "
-                + "`auto_id` = ? "
-                + "`user_id` = ? "
-                + "where `transaction_id` = ?;";
+        final String sql = "UPDATE myTransaction set "
+                + "transaction_name = ?, "
+                + "transaction_amount = ?, "
+                + "transaction_description = ?, "
+                + "category_id = ?, "
+                + "auto_id = ?, "
+                + "user_id = ? "
+                + "where transaction_id = ?;";
 
         return jdbcTemplate.update(sql,
                 transactionUpdate.getTransactionName(),

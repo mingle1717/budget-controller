@@ -5,7 +5,7 @@ import { useContext, useState, useEffect } from "react";
 import Directories from "../Directories";
 import "./Transaction.css";
 function EditTransaction() {
-  const transactionId = useParams();
+  const editTransactionId = useParams();
 
   const auth = useContext(AuthContext);
   const [transaction, setTransaction] = useState();
@@ -17,7 +17,7 @@ function EditTransaction() {
 
   useEffect(() => {
     fetch(
-      "http://localhost:8080/api/transaction/" + transactionId.transactionId,
+      "http://localhost:8080/api/transaction/" + editTransactionId.transactionId,
       {
         method: "GET",
         headers: {
@@ -45,7 +45,7 @@ function EditTransaction() {
     event.preventDefault();
 
     fetch(
-      "http://localhost:8080/api/transaction/" + transactionId.transactionId,
+      "http://localhost:8080/api/transaction/" + editTransactionId.transactionId,
       {
         method: "PUT",
         headers: {
@@ -56,8 +56,8 @@ function EditTransaction() {
       }
     )
       .then((response) => {
-        if (response.status === 201) {
-          history.push(Directories.OWNERDASHBOARD);
+        if (response.status === 204) {
+          history.push(Directories.OWNERVIEW);
         } else {
           console.log(response);
         }
@@ -70,8 +70,7 @@ function EditTransaction() {
   return (
     <div className="container addContainer" key="editTransaction">
       <form onSubmit={handleSubmit}>
-        <TransactionForm
-          parentTransaction={transaction}
+        <TransactionForm id={editTransactionId.transactionId}
           onTransactionChange={handleTransactionChange}
         />
         <div className="buttons">

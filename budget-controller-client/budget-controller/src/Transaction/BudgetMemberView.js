@@ -9,9 +9,14 @@ function BudgetMemberView(){
 
     const auth = useContext(AuthContext);
 
-    const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, transactionCategory: "", transacationDescription : ""}]);
+    const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, category:{}, transacationDescription : ""}]);
 
-    useEffect(() => {
+    function onTransactionDelete(){
+        loadTransactions();
+    }
+
+    function loadTransactions(){
+    
         fetch("http://localhost:8080/api/transaction/", {
             method: "GET",
             headers: {
@@ -27,20 +32,26 @@ function BudgetMemberView(){
                 }
             })
             .then(transactions => {
-                const transactionsCopy = transactions;
+                const transactionsCopy = [...transactions];
                 setTransactions(transactionsCopy);
                 console.log(transactions)
             })
             .catch(error => {
                 console.log(error);
             });
-    }, [])
+        }
 
+        useEffect(
+            () => {
+                loadTransactions();
+            },
+            []);
     return(
         <div className="container">
             <table className="table container myTable">
                 <thead className="myTable">
                     <tr>
+                    <th className="myTable" scope="col"> Transaction name </th>
                         <th className="myTable" scope="col"> Money Spent </th>
                         <th className="myTable" scope="col"> Category </th>
                         <th className="myTable" scope="col"> Description </th>
@@ -50,7 +61,7 @@ function BudgetMemberView(){
                 </thead>
                 <tbody> 
                     <>
-                    {transactions.map( t => <Transaction transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.transactionCategory} transacationDescription={t.transacationDescription} username={t.username}/>)}
+                    {transactions ? transactions.map( t => <Transaction key={t.transactionId} onTransactionDelete={onTransactionDelete} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.category.categoryName} transacationDescription={t.transacationDescription} username={t.username}/>): null}
                     </>
                 </tbody>
             </table>

@@ -5,7 +5,7 @@ import AuthContext from "../AuthContext";
 import Directories from "../Directories";
 import FormInput from "../FormInput"
 import AddCategoryContainer from "./AddCategoryContainer"
-import AddMemberContainer from "./AddMemberContainer";
+import AddMemberContainer from "../AddMembers/AddMemberContainer";
 
 function CreateBudget(){
     const auth = useContext(AuthContext);
