@@ -43,7 +43,7 @@ function BudgetOwnerDashboard(){
     }, [])
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/transaction/", {
+        fetch("http://localhost:8080/api/transaction/transactionbalance", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,
@@ -57,9 +57,8 @@ function BudgetOwnerDashboard(){
                 console.log(response);
             }
         })
-        .then(transactions => {
-            setBudgetTransactions(transactions);
-            console.log(transactions)
+        .then(result => {
+            console.log(result);
         })
         .catch(error => {
             console.log(error);
@@ -87,8 +86,7 @@ function BudgetOwnerDashboard(){
                  <h2  >Transaction Pie Chart</h2>
                 <Link to={Directories.OWNERVIEW}>
                     <PieChart  width={1010} height={410} >
-                        <Pie data={budgetTransactions} dataKey="transactionAmount" nameKey="transactionName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
-                        <Pie data={budgetTransactions} dataKey="categoryId" nameKey="categoryName" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#000000" label />
+                        <Pie data={budgetTransactions} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#000000" label />
                         <Tooltip /> 
                      </PieChart>
                 </Link>

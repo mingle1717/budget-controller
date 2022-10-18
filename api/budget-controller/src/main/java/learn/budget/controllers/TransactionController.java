@@ -1,15 +1,15 @@
 package learn.budget.controllers;
 import learn.budget.domain.Result;
 import learn.budget.domain.TransactionService;
-import learn.budget.models.AppUser;
-import learn.budget.models.Budget;
+import learn.budget.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import learn.budget.models.Transaction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -36,6 +36,12 @@ public class TransactionController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/transactionbalance")
+    public List<TransactionPieChartObject> viewTransactionTotalsByCategory() {
+        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return service.viewTransactionTotalsByCategory(user);
+    }
+
     @PostMapping
     public ResponseEntity<Object> addTransaction(@RequestBody Transaction transaction) {
         AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

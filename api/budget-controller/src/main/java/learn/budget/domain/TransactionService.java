@@ -1,15 +1,15 @@
 package learn.budget.domain;
+import learn.budget.data.BudgetJdbcRepository;
 import learn.budget.data.CategoryJdbcRepository;
 import learn.budget.data.TransactionJdbcRepository;
 import learn.budget.data.UserJdbcRepo;
-import learn.budget.models.AppUser;
-import learn.budget.models.Category;
-import learn.budget.models.Transaction;
+import learn.budget.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -23,10 +23,39 @@ public class TransactionService {
     @Autowired
     CategoryJdbcRepository categoryJdbcRepo;
 
+    // for calculating totals by category
+    @Autowired
+    BudgetJdbcRepository budgetJdbcRepo;
+
 
     public List<Transaction> viewAllTransactions(AppUser user) {
         return repository.findTransactionsByUser(user.getUserId());
     }
+
+    public List<TransactionPieChartObject> viewTransactionTotalsByCategory(AppUser user) {
+        List<Transaction> allTransactions = repository.findTransactionsByUser(user.getUserId());
+
+        Budget budget = budgetJdbcRepo.findById(allTransactions.get(0).getCategory().getBudgetId());
+
+
+        List<TransactionPieChartObject> toReturn = new ArrayList<>();
+        for (Category c: budget.getCategories()) {
+            TransactionPieChartObject pieChartObject = new TransactionPieChartObject();
+            pieChartObject.setName(c.getCategoryName());
+            BigDecimal sumForCategory = BigDecimal.ZERO;
+
+            for (Transaction t : allTransactions) {
+                if (t.getCategory().equals(c)) {
+                    sumForCategory = sumForCategory.add(t.getTransactionAmount());
+                }
+            }
+
+            pieChartObject.setValue(sumForCategory);
+            toReturn.add(pieChartObject);
+        }
+        return toReturn;
+    }
+
     public Result<Transaction> validateTransaction(Transaction transaction){
         Result<Transaction> result = new Result<>();
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -104,6 +105,18 @@ public class CategoryService {
             result.addMessage("There are no categories associated with this budget", ResultType.INVALID);
             //shouldn't reach this since the savings category is on every created budget.
         }
+
+        // TODO: 10/18/2022 When getting a budget, the percentage of the balance for each category
+        //  should be calculated and returned.
+
+        HashMap<Category, BigDecimal> balanceForEachCategory = new HashMap<>();
+
+        for (Category c : budget.getCategories()) {
+            BigDecimal balance = (budget.getBalance().multiply(c.getCategoryPercent()));
+            balanceForEachCategory.put(c, balance);
+        }
+        budget.setCategoryBalance(balanceForEachCategory);
+
         result.setPayload(fullyHydratedBudget);
         return result;
     }

@@ -3,10 +3,12 @@ package learn.budget.controllers;
 import learn.budget.domain.BudgetService;
 import learn.budget.domain.CategoryService;
 import learn.budget.domain.Result;
+import learn.budget.models.AppUser;
 import learn.budget.models.Budget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,7 +34,7 @@ public class BudgetController {
 
     @GetMapping("/personal/{username}")
     public Object viewBudgetDetails(@PathVariable String username) {
-
+        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Result<Budget> partiallyHydratedBudgetResult = budgetService.viewBudgetDetails(username);
         if (partiallyHydratedBudgetResult == null) {
             return ErrorResponse.build(partiallyHydratedBudgetResult);
