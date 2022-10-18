@@ -66,14 +66,15 @@ public class BudgetService {
         }
         categories.addAll(budget.getCategories());
         //budget.setCategories(categories);
-        budget.setBudgetName(budget.getBudgetName() + "'s Budget");
-        budget.setBudgetId(budgetRepository.createBudget(budget).getBudgetId());
+        AppUser user = budget.getAppUsers().get(0);
+        budget.setBudgetName(user.getUsername() + "'s Budget");
+        int userId = userJdbcRepo.getUserByUsername(user.getUsername()).getUserId();
+        budget.setBudgetId(budgetRepository.createBudget(budget, userId).getBudgetId());
 
         for (Category c : budget.getCategories()) {
-            categoryService.repository.addCategory(c, budget.getBudgetId());
+            c.setBudgetId(budget.getBudgetId());
+            categoryService.repository.addCategory(c);
         }
-
-        AppUser user = budget.getAppUsers().get(0);
         userJdbcRepo.setUserToAdmin(user);
         result.setPayload(budget);
 
@@ -146,7 +147,8 @@ public class BudgetService {
             return result;
         }
         for (Category c : budget.getCategories()) {
-            categoryService.repository.addCategory(c, budget.getBudgetId());
+            c.setBudgetId(budget.getBudgetId());
+            categoryService.repository.addCategory(c);
         }
         result.setPayload(budget);
 

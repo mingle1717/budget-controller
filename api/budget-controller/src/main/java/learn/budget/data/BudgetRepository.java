@@ -8,5 +8,5 @@ public interface BudgetRepository {
     @Transactional
     Budget findById(int budgetId);
 
-    Budget createBudget(Budget toAdd);
+    Budget createBudget(Budget toAdd, int userId);
 }

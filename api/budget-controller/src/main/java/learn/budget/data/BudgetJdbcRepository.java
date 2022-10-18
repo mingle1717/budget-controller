@@ -32,7 +32,7 @@ public class BudgetJdbcRepository implements BudgetRepository {
     }
 
     @Override
-    public Budget createBudget(Budget toAdd) {
+    public Budget createBudget(Budget toAdd, int userId) {
         final String sql = "INSERT INTO `Budget`" +
                 "(`budget_id`, `budget_name`, `balance`)" +
                 " VALUES (?, ?, ?);";
@@ -55,7 +55,7 @@ public class BudgetJdbcRepository implements BudgetRepository {
         final String moreSql = "insert into userBudget (isOwner, user_id, budget_id) values (true, ?, ?);";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(moreSql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, toAdd.getAppUsers().get(0).getUserId());
+            ps.setInt(1, userId);
             ps.setInt(2, toAdd.getBudgetId());
             return ps;
         }, keyHolder);
