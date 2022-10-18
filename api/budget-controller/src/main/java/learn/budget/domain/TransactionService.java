@@ -35,7 +35,9 @@ public class TransactionService {
     public List<TransactionPieChartObject> viewTransactionTotalsByCategory(AppUser user) {
         List<Transaction> allTransactions = repository.findTransactionsByUser(user.getUserId());
 
-        Budget budget = budgetJdbcRepo.findById(allTransactions.get(0).getCategory().getBudgetId());
+        Budget budget = categoryJdbcRepo.findAllCategoriesForABudget(
+                budgetJdbcRepo.findById(
+                        allTransactions.get(0).getCategory().getBudgetId()));
 
 
         List<TransactionPieChartObject> toReturn = new ArrayList<>();
@@ -45,7 +47,7 @@ public class TransactionService {
             BigDecimal sumForCategory = BigDecimal.ZERO;
 
             for (Transaction t : allTransactions) {
-                if (t.getCategory().equals(c)) {
+                if (t.getCategory().getCategoryId() == (c.getCategoryId())) {
                     sumForCategory = sumForCategory.add(t.getTransactionAmount());
                 }
             }

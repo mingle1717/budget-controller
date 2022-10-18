@@ -11,7 +11,7 @@ function BudgetOwnerDashboard(){
     const auth = useContext(AuthContext);
    
     const [budgetCategories, setBudgetCategories] = useState();
-    const [budgetTransactions,setBudgetTransactions] = useState();
+    const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
     
 
     
@@ -58,7 +58,7 @@ function BudgetOwnerDashboard(){
             }
         })
         .then(result => {
-            console.log(result);
+            setBudgetTransactionTotals(result);
         })
         .catch(error => {
             console.log(error);
@@ -74,7 +74,7 @@ function BudgetOwnerDashboard(){
                     { budgetCategories ?
                     <Link to={Directories.EDITBUDGET}>
                         <PieChart  width={1000} height={400}>
-                            <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
+                            <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName" cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
                             <Tooltip />
                         </PieChart> 
                     </Link>
@@ -86,7 +86,7 @@ function BudgetOwnerDashboard(){
                  <h2  >Transaction Pie Chart</h2>
                 <Link to={Directories.OWNERVIEW}>
                     <PieChart  width={1010} height={410} >
-                        <Pie data={budgetTransactions} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#000000" label />
+                        <Pie data={budgetTransactionTotals} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#000000" label />
                         <Tooltip /> 
                      </PieChart>
                 </Link>
