@@ -30,7 +30,7 @@ public class UserJdbcRepo implements UserRepo {
     }
 
     public void setUserToAdmin(AppUser user) {
-        template.update("update appUser set role_id = '2' where user_id = ?;", user.getUserId());
+        template.update("update appUser set role_id = '1' where user_id = ?;", user.getUserId());
     }
 
     private List<MyRole> getRolesByUsername(String username) {

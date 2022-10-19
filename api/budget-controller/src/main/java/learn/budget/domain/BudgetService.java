@@ -1,11 +1,9 @@
 package learn.budget.domain;
 
 import learn.budget.data.BudgetJdbcRepository;
+import learn.budget.data.MyRoleJdbcRepository;
 import learn.budget.data.UserJdbcRepo;
-import learn.budget.models.AppUser;
-import learn.budget.models.Budget;
-import learn.budget.models.Category;
-import learn.budget.models.UserBudget;
+import learn.budget.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,7 @@ public class BudgetService {
     UserJdbcRepo userJdbcRepo;
     @Autowired
     CategoryService categoryService;
+
 
     public Result<Budget> createBudget(Budget budget, AppUser owner) {
         Result<Budget> result = new Result();
@@ -57,26 +56,43 @@ public class BudgetService {
                 }
             }
         }
+        // Creating the automatic savings category for each budget
+        Category savings = new Category();
+        savings.setHigherLimit(budget.getBalance());
+        savings.setLowerLimit(BigDecimal.ZERO);
+        savings.setCategoryName("Savings");
 
         // the next line checks if the total percentages are over 100 percent
         if (sum.compareTo(BigDecimal.valueOf(100)) > 0) {
             result.addMessage("The categories must add up to be no greater than 100.", ResultType.INVALID);
         }
+        if (sum.compareTo(BigDecimal.valueOf(100)) < 0) {
+            savings.setCategoryPercent(BigDecimal.valueOf(100).subtract(sum));
+        }
+        if (sum.compareTo(BigDecimal.valueOf(100)) == 0) {
+            savings.setCategoryPercent(BigDecimal.ZERO);
+        }
+
         if (result.getMessages().size() > 0) {
             return result;
         }
-        categories.addAll(budget.getCategories());
-        //budget.setCategories(categories);
+
         //AppUser user = budget.getAppUsers().get(0);
         budget.setBudgetName(owner.getUsername() + "'s Budget");
         int userId = owner.getUserId();
         budget.setBudgetId(budgetRepository.createBudget(budget, userId).getBudgetId());
 
+        savings.setBudgetId(budget.getBudgetId());
+        // savings is now fully hydrated and can be set as first category
+        categories.add(savings);
+        categories.addAll(budget.getCategories());
+        budget.setCategories(categories);
         for (Category c : budget.getCategories()) {
             c.setBudgetId(budget.getBudgetId());
             categoryService.repository.addCategory(c);
         }
         userJdbcRepo.setUserToAdmin(owner);
+
         result.setPayload(budget);
 
         return result;
@@ -97,8 +113,9 @@ public class BudgetService {
                 //
                     result.setPayload(budget);
                     return result;
+            } else {
+                result.addMessage("This user does not have a budget.", ResultType.INVALID); // there is a user but they don't have/own a budget
             }
-            return null; // there is a user but they don't have/own a budget
         }
         result.addMessage("There was no user found in the database with this information.", ResultType.INVALID);
         return result; // Note: the above error should never appear.
