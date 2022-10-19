@@ -9,4 +9,5 @@ public interface BudgetRepository {
     Budget findById(int budgetId);
 
     Budget createBudget(Budget toAdd, int userId);
+    int getBudgetOwnerId(int budgetId);
 }

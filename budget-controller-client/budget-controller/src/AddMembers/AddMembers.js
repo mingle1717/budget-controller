@@ -1,5 +1,5 @@
 
-import AddMemberContainer from './AddMemberContainer';
+
 import { useEffect } from "react";
 import { useContext, useState } from "react";
 import AuthContext from "../AuthContext";
@@ -23,7 +23,7 @@ function AddMembers(){
     }
     
     useEffect(() => {
-        fetch("http://localhost:8080/api/budget/personal/" + auth.user.username, {
+        fetch("http://localhost:8080/api/budget/personal", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,

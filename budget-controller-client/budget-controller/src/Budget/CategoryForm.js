@@ -18,6 +18,7 @@ function CategoryForm({ onCategoryChange , category}){
         categoryCopy[propertyName] = newValue;
 
         onCategoryChange(categoryCopy)
+        console.log(categoryCopy);
     }
 
   

@@ -172,8 +172,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+        //budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
@@ -207,8 +207,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+        //budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, null, BigDecimal.valueOf(20), BigDecimal.valueOf(120),
@@ -242,8 +242,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+        //budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, " ", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
@@ -278,8 +278,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+        //budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, "Gym Membership", null, BigDecimal.valueOf(120),
@@ -313,8 +313,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+        //budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
@@ -348,8 +348,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+        //budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), null,
@@ -383,8 +383,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+        //budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
@@ -418,8 +418,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+        //budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(-120),
@@ -453,8 +453,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+       // budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(-20), BigDecimal.valueOf(120),
@@ -488,8 +488,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+        //budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
@@ -524,8 +524,8 @@ public class CategoryServiceTest {
         budgetRoles.add(new MyRole(1, "Admin", roleUsers));
 
         budget.setBudgetId(1);
-        budget.setStartingBalance(BigDecimal.valueOf(2000));
-        budget.setAppUsers(budgetUsers);
+        budget.setBalance(BigDecimal.valueOf(2000));
+        //budget.setAppUsers(budgetUsers);
         List<Category> categories = new ArrayList<>();
 
         Category catOne = new Category(1, null, BigDecimal.valueOf(20), BigDecimal.valueOf(120),
@@ -557,7 +557,7 @@ public class CategoryServiceTest {
         mockBudget.setCategories(new ArrayList<>());
         when(repository.findAllCategoriesForABudget(budget)).thenReturn(mockBudget);
         budget.setBudgetName("Benny Bootstrap's Budget");
-        budget.setStartingBalance(BigDecimal.TEN);
+        budget.setBalance(BigDecimal.TEN);
         Result<Budget> validation = service.getBudgetCategoryDetails(budget);
         assertTrue(validation.isSuccess());
         assertEquals(0, validation.getMessages().size());
@@ -567,7 +567,7 @@ public class CategoryServiceTest {
         Budget budget = new Budget();
         when(repository.findAllCategoriesForABudget(budget)).thenReturn(new Budget());
         budget.setBudgetName("Benny Bootstrap's Budget");
-        budget.setStartingBalance(null);
+        budget.setBalance(null);
         Result<Budget> validation = service.getBudgetCategoryDetails(budget);
         assertFalse(validation.isSuccess());
         assertEquals(1, validation.getMessages().size());
@@ -577,7 +577,7 @@ public class CategoryServiceTest {
         Budget budget = new Budget();
         when(repository.findAllCategoriesForABudget(budget)).thenReturn(new Budget());
         budget.setBudgetName("Benny Bootstrap's Budget");
-        budget.setStartingBalance(BigDecimal.ZERO);
+        budget.setBalance(BigDecimal.ZERO);
         Result<Budget> validation = service.getBudgetCategoryDetails(budget);
         assertFalse(validation.isSuccess());
         assertEquals(1, validation.getMessages().size());
@@ -587,7 +587,7 @@ public class CategoryServiceTest {
         Budget budget = new Budget();
         when(repository.findAllCategoriesForABudget(budget)).thenReturn(new Budget());
         budget.setBudgetName(null);
-        budget.setStartingBalance(BigDecimal.TEN);
+        budget.setBalance(BigDecimal.TEN);
         Result<Budget> validation = service.getBudgetCategoryDetails(budget);
         assertFalse(validation.isSuccess());
         assertEquals(1, validation.getMessages().size());
@@ -597,7 +597,7 @@ public class CategoryServiceTest {
         Budget budget = new Budget();
         when(repository.findAllCategoriesForABudget(budget)).thenReturn(new Budget());
         budget.setBudgetName(" ");
-        budget.setStartingBalance(BigDecimal.TEN);
+        budget.setBalance(BigDecimal.TEN);
         Result<Budget> validation = service.getBudgetCategoryDetails(budget);
         assertFalse(validation.isSuccess());
         assertEquals(1, validation.getMessages().size());
@@ -609,7 +609,7 @@ public class CategoryServiceTest {
         mockBudget.setCategories(null);
         when(repository.findAllCategoriesForABudget(budget)).thenReturn(mockBudget);
         budget.setBudgetName("Benny Bootstrap's Budget");
-        budget.setStartingBalance(BigDecimal.TEN);
+        budget.setBalance(BigDecimal.TEN);
         Result<Budget> validation = service.getBudgetCategoryDetails(budget);
         assertFalse(validation.isSuccess());
         assertEquals(1, validation.getMessages().size());

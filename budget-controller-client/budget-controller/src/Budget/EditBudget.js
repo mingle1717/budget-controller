@@ -23,7 +23,7 @@ function EditBudget(){
 
 
     useEffect( () =>{
-        fetch( "http://localhost:8080/api/budget/personal/" + auth.user.username,{
+        fetch( "http://localhost:8080/api/budget/personal" ,{
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,
@@ -69,7 +69,7 @@ function EditBudget(){
         evt.preventDefault();
 
         console.log(budget);
-        fetch( "http://localhost:8080/api/budget/personal/" + auth.user.username, {
+        fetch( "http://localhost:8080/api/budget/personal", {
             method: "PUT",
             headers: {
                 "Content-Type" : "application/json",
@@ -89,7 +89,12 @@ function EditBudget(){
     }
 
     function categoriesChangeHandler(incomingCategories){
-        const categoriesCopy = [incomingCategories]
+        const categoriesCopy = [...categories]
+        for(let i = 0; i < categoriesCopy.length; i++){
+            if(categoriesCopy[i].categoryId === incomingCategories.categoryId){
+                categoriesCopy[i] = incomingCategories;
+            }
+        }
         setCategories(categoriesCopy);
     }
 
@@ -107,7 +112,7 @@ function EditBudget(){
                     inputType={"number"} 
                     identifier={"balance"} 
                     labelText={"Starting Balance"} 
-                    currVal={budget.startingBalance} 
+                    currVal={budget.balance} 
                     labelClass={"balanceLabel"}
                     onChangeHandler={inputChangeHandler}  
                     className={"form-control"}/> : null

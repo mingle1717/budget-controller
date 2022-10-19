@@ -39,7 +39,7 @@ function CreateBudget(){
             }
         })
         .catch (errors => {
-            console.log(errors);
+            setError(errors);
 
         })
     }
@@ -74,6 +74,9 @@ function CreateBudget(){
 
     return(
         <div className="container createBudgetContainer" key="createBudget">
+           {error?
+            error.map( e =><div className=" myText error" id="messages">{e}</div>)
+                : null}
             <form onSubmit={handleSubmit}>
             <FormInput 
                     inputType={"number"} 

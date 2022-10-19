@@ -76,7 +76,7 @@ function Navbar(){
             <div className="homeNav">
                 {auth.user ? 
                     (auth.user.userRoles[0].roleName==="Admin" ? 
-                    <Link to ={Directories.OWNERDASHBOARD} className="homeLink">{auth.user.username} Dashboard</Link> : 
+                    <Link to ={Directories.OWNERDASHBOARD} className="homeLink">{auth.user.username}'s Dashboard</Link> : 
                     <Link to ={Directories.MEMBERDASHBOARD} className="homeLink">Member Dashboard</Link> ) : 
                     <Link to ={Directories.HOME} className="homeLink">Home</Link>}
             </div>

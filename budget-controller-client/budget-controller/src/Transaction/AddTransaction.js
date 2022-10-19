@@ -11,6 +11,7 @@ function AddTransaction() {
 
     const auth = useContext(AuthContext)
     const [transaction, setTransaction] = useState();
+    const [error, setError] = useState([]);
     const history = useHistory();
     
 
@@ -30,21 +31,29 @@ function AddTransaction() {
             },
             body: JSON.stringify(transaction)
         })
-        .then(response => {
+        .then(async response => {
         if (response.status === 201) {
             history.push(Directories.OWNERDASHBOARD);
             } else {
-            console.log(response);
+            return Promise.reject(await response.json());
             }
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch (errorList => {
+            console.log(errorList)
+            if( errorList instanceof TypeError){
+                setError(["Could not connect to api"]);
+            } else {
+                setError( errorList + " ");
+            }
+        })
     }
             
 
     return (
             <div className="container addContainer">
+                {error?
+            <div className=" myText error" id="messages">{error}</div>
+                : null}
                 <form onSubmit={handleSubmit}>
                     <TransactionForm onTransactionChange={handleTransactionChange} />
                     <div className="buttons">

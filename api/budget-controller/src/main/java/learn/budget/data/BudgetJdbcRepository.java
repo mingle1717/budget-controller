@@ -1,8 +1,10 @@
 package learn.budget.data;
 
+import learn.budget.models.AppUser;
 import learn.budget.models.Budget;
 import learn.budget.models.UserBudget;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -72,11 +74,15 @@ public class BudgetJdbcRepository implements BudgetRepository {
     }
 
     public boolean update(Budget budget) {
-        final String sql = "update budget set balance = ?,\n" +
+        final String sql = "update Budget set balance = ?,\n" +
                 "budget_name = ?\n" +
                 "where budget_id = ?;";
         return jdbcTemplate.update(sql, budget.getBalance(),
                 budget.getBudgetName(), budget.getBudgetId()) > 0;
+    }
+    public int getBudgetOwnerId(int budgetId){
+        final String sql = "select a.user_id from appUser a inner join userBudget u on a.user_id = u.user_id where budget_id = ? and isOwner = 1 ;";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getInt("user_id"), budgetId ).stream().findFirst().orElse(-1);
     }
 }
 

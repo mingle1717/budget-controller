@@ -9,7 +9,7 @@ import AuthContext from "../AuthContext";
 
 function TransactionForm({onTransactionChange, id, editedTransaction}){
     const auth = useContext(AuthContext);
-    const [transaction, setTransaction] = useState({username: auth.user.username, transactionId : id,  transactionName: "", transactionAmount: 0, category : {categoryId : 1}, transacationDescription : ""});
+    const [transaction, setTransaction] = useState({transactionId : id, });
     const [budgetCategories, setBudgetCategories] = useState();
     const [categoryId, setCategoryId] = useState({categoryId : 1});
 
@@ -32,7 +32,7 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
     
     useEffect(() => {
         console.log(editedTransaction)
-        fetch("http://localhost:8080/api/budget/personal/" + auth.user.username, {
+        fetch("http://localhost:8080/api/budget/personal" , {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,
@@ -50,7 +50,7 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
         })
         .then(budget => {
             const categories = budget.categories;
-            setBudgetCategories(categories);
+            setBudgetCategories([...categories]);
            
             
             

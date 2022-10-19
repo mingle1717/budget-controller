@@ -23,14 +23,14 @@ public class BudgetService {
     @Autowired
     CategoryService categoryService;
 
-    public Result<Budget> createBudget(Budget budget) {
+    public Result<Budget> createBudget(Budget budget, AppUser owner) {
         Result<Budget> result = new Result();
         if (budget.getBalance() == null || budget.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
             result.addMessage("Please enter a balance greater than zero.", ResultType.INVALID);
         }
-        if (budget.getAppUsers() == null || budget.getAppUsers().size() <= 0) {
-            result.addMessage("There are no specified users for this budget.", ResultType.INVALID);
-        }
+//        if (budget.getAppUsers() == null || budget.getAppUsers().size() <= 0) {
+//            result.addMessage("There are no specified users for this budget.", ResultType.INVALID);
+//        }
         if (budget.getCategories() == null) {
             result.addMessage("The list of categories is null!", ResultType.INVALID);
         }
@@ -67,22 +67,22 @@ public class BudgetService {
         }
         categories.addAll(budget.getCategories());
         //budget.setCategories(categories);
-        AppUser user = budget.getAppUsers().get(0);
-        budget.setBudgetName(user.getUsername() + "'s Budget");
-        int userId = userJdbcRepo.getUserByUsername(user.getUsername()).getUserId();
+        //AppUser user = budget.getAppUsers().get(0);
+        budget.setBudgetName(owner.getUsername() + "'s Budget");
+        int userId = owner.getUserId();
         budget.setBudgetId(budgetRepository.createBudget(budget, userId).getBudgetId());
 
         for (Category c : budget.getCategories()) {
             c.setBudgetId(budget.getBudgetId());
             categoryService.repository.addCategory(c);
         }
-        userJdbcRepo.setUserToAdmin(user);
+        userJdbcRepo.setUserToAdmin(owner);
         result.setPayload(budget);
 
         return result;
     }
 
-    public Result<Budget> viewBudgetDetails(String username) {
+    public Result<Budget> viewBudgetDetails() {
         AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         // validate that user_id is in the database before having the repo retrieve the existing budget
         Result<Budget> result = new Result<>();
@@ -91,9 +91,9 @@ public class BudgetService {
             if (bridge != null) {
                 Budget budget = budgetRepository.findById(bridge.getBudgetId());
                 // temporary fix, only owner is visible
-                List<AppUser> appUsers = new ArrayList<>();
-                appUsers.add(user);
-                budget.setAppUsers(appUsers);
+//                List<AppUser> appUsers = new ArrayList<>();
+//                appUsers.add(user);
+//                budget.setAppUsers(appUsers);
                 //
                     result.setPayload(budget);
                     return result;
@@ -104,14 +104,19 @@ public class BudgetService {
         return result; // Note: the above error should never appear.
     }
 
-    public Result<Budget> updateBalanceOrName(Budget budget) {
+    public Result<Budget> updateBalanceOrName(Budget budget, AppUser user) {
         Result<Budget> result = new Result();
+        int ownerId = budgetRepository.getBudgetOwnerId(budget.getBudgetId());
+        if(ownerId != user.getUserId()){
+            result.addMessage("Not an authorized user, budget can only be edited by the owner", ResultType.FORBIDDEN);
+            return result;
+        }
         if (budget.getBalance() == null || budget.getBalance().compareTo(BigDecimal.ZERO) <= 0) {
             result.addMessage("Please enter a balance greater than zero.", ResultType.INVALID);
         }
-        if (budget.getAppUsers() == null || budget.getAppUsers().size() <= 0) {
-            result.addMessage("There are no specified users for this budget.", ResultType.INVALID);
-        }
+//        if (budget.getAppUsers() == null || budget.getAppUsers().size() <= 0) {
+//            result.addMessage("There are no specified users for this budget.", ResultType.INVALID);
+//        }
         if (budget.getCategories() == null) {
             result.addMessage("The list of categories is null!", ResultType.INVALID);
         }
@@ -148,7 +153,7 @@ public class BudgetService {
         }
         categories.addAll(budget.getCategories());
         budget.setCategories(categories);
-        if (budgetRepository.update(budget)) {
+        if (!budgetRepository.update(budget)) {
             result.addMessage("Error: this budget was not found.", ResultType.NOT_FOUND);
             return result;
         }

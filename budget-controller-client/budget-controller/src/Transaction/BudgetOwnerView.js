@@ -96,6 +96,7 @@ function BudgetOwnerView(){
                 </tbody>
             </table>
             <Link to={Directories.ADDTRANSACTION} className="tranSubmitButton addLink"> Add Transaction </Link>
+            <h2>These are your totals for each category</h2>
             <table className="table container budgetTable">
             <thead className="myTotalTable">
                     <tr >

@@ -23,19 +23,20 @@ public class BudgetController {
     CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<Object> createBudget(@RequestBody Budget budget) {
-        Result<Budget> budgetResult = budgetService.createBudget(budget);
+    public Object createBudget(@RequestBody Budget budget) {
+        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Result<Budget> budgetResult = budgetService.createBudget(budget, user);
         Result<Budget> budgetCategoryResult = categoryService.editBudgetCategories(budget);
         if (budgetResult.isSuccess() && budgetCategoryResult.isSuccess()) {
             return new ResponseEntity<>(budgetCategoryResult.getPayload(), HttpStatus.CREATED);
         }
-        return ErrorResponse.build(budgetResult);
+        return budgetResult.getMessages();
     }
 
-    @GetMapping("/personal/{username}")
-    public Object viewBudgetDetails(@PathVariable String username) {
-        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Result<Budget> partiallyHydratedBudgetResult = budgetService.viewBudgetDetails(username);
+    @GetMapping("/personal")
+    public Object viewBudgetDetails() {
+       // AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Result<Budget> partiallyHydratedBudgetResult = budgetService.viewBudgetDetails();
         if (partiallyHydratedBudgetResult == null) {
             return ErrorResponse.build(partiallyHydratedBudgetResult);
         }
@@ -53,7 +54,8 @@ public class BudgetController {
 
     @PutMapping("/personal")
     public Object editBudget(@RequestBody Budget budget) {
-        Result<Budget> budgetResult = budgetService.updateBalanceOrName(budget);
+        AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Result<Budget> budgetResult = budgetService.updateBalanceOrName(budget, user);
 
         if (budgetResult.isSuccess()) {
 
@@ -71,5 +73,5 @@ public class BudgetController {
 
     }
 
-    
+
 }

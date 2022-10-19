@@ -62,18 +62,18 @@ public class TransactionService {
         Result<Transaction> result = new Result<>();
 
         if(transaction.getTransactionAmount() == null) {
-            result.addMessage("Transaction amount must be added.", ResultType.INVALID);
+            result.addMessage("Transaction amount must be added", ResultType.INVALID);
         } else if (transaction.getTransactionAmount().compareTo(BigDecimal.ZERO) < 0) {
-            result.addMessage("Transaction amount must be positive number", ResultType.INVALID);
+            result.addMessage(" Transaction amount must be positive number", ResultType.INVALID);
         }
         if(transaction.getTransactionName() == null || transaction.getTransactionName().isBlank()) {
-            result.addMessage("Transaction name must be provided.", ResultType.INVALID);
+            result.addMessage(" Transaction name must be provided", ResultType.INVALID);
         }
         if(transaction.getTransacationDescription() == null || transaction.getTransactionName().isBlank()) {
-            result.addMessage("Transaction description must be provided.", ResultType.INVALID);
+            result.addMessage(" Transaction description must be provided", ResultType.INVALID);
         }
         if(transaction.getCategory() == null || transaction.getCategory().getCategoryId() == 0 || transaction.getCategory().getCategoryName() == null) {
-            result.addMessage("There is no category assigned to this transaction.", ResultType.INVALID);
+            result.addMessage(" There is no category assigned to this transaction", ResultType.INVALID);
         }
         result.setPayload(transaction);
         return result;

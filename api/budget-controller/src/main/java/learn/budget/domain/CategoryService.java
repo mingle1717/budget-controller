@@ -109,13 +109,13 @@ public class CategoryService {
         // TODO: 10/18/2022 When getting a budget, the percentage of the balance for each category
         //  should be calculated and returned.
 
-        HashMap<Category, BigDecimal> balanceForEachCategory = new HashMap<>();
+        //HashMap<Category, BigDecimal> balanceForEachCategory = new HashMap<>();
 
-        for (Category c : budget.getCategories()) {
-            BigDecimal balance = (budget.getBalance().multiply(c.getCategoryPercent()));
-            balanceForEachCategory.put(c, balance);
-        }
-        budget.setCategoryBalance(balanceForEachCategory);
+//        for (Category c : budget.getCategories()) {
+//            BigDecimal balance = (budget.getBalance().multiply(c.getCategoryPercent()));
+//            balanceForEachCategory.put(c, balance);
+//        }
+        //budget.setCategoryBalance(balanceForEachCategory);
 
         result.setPayload(fullyHydratedBudget);
         return result;

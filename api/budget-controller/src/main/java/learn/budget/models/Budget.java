@@ -8,32 +8,32 @@ public class Budget {
 
     private int budgetId;
 
-    private List<AppUser> appUsers;
+//    private List<AppUser> appUsers;
 
     private List<Category> categories;
 
     private BigDecimal balance;
 
-    private HashMap<Category, BigDecimal> categoryBalance;
+    //private HashMap<Category, BigDecimal> categoryBalance;
 
     private String budgetName;
 
-    public Budget(List<AppUser> appUsers, List<Category> categories, List<AutoTrigger> autoTriggers, List<Transaction> transactions, BigDecimal startingBalance, String budgetName,  HashMap<Category, BigDecimal> categoryBalance) {
-        this.appUsers = appUsers;
+    public Budget(List<Category> categories, BigDecimal startingBalance, String budgetName) {
+        //this.appUsers = appUsers;
         this.categories = categories;
         this.balance = startingBalance;
         this.budgetName = budgetName;
-        this.categoryBalance = categoryBalance;
+        //this.categoryBalance = categoryBalance;
     }
     public Budget(){};
 
-    public List<AppUser> getAppUsers() {
-        return appUsers;
-    }
-
-    public void setAppUsers(List<AppUser> appUsers) {
-        this.appUsers = appUsers;
-    }
+//    public List<AppUser> getAppUsers() {
+//        return appUsers;
+//    }
+//
+//    public void setAppUsers(List<AppUser> appUsers) {
+//        this.appUsers = appUsers;
+//    }
 
     public List<Category> getCategories() {
         return categories;
@@ -67,11 +67,11 @@ public class Budget {
         this.budgetId = budgetId;
     }
 
-    public HashMap<Category, BigDecimal> getCategoryBalance() {
-        return categoryBalance;
-    }
-
-    public void setCategoryBalance(HashMap<Category, BigDecimal> categoryBalance) {
-        this.categoryBalance = categoryBalance;
-    }
+//    public HashMap<Category, BigDecimal> getCategoryBalance() {
+//        return categoryBalance;
+//    }
+//
+//    public void setCategoryBalance(HashMap<Category, BigDecimal> categoryBalance) {
+//        this.categoryBalance = categoryBalance;
+//    }
 }
