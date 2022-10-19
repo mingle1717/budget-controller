@@ -86,7 +86,7 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
                 id="categoryId"
                 onChange={(event) => setCategoryId(event.target.value)}
                 className="form-control"
-                defaultValue={editedTransaction ? editedTransaction.category.categoryId : null}
+                
                 > 
                 
                 {budgetCategories ? budgetCategories.map(b => <option key={b.categoryId} value={b.categoryId}> {b.categoryName}</option>) : null}</select>

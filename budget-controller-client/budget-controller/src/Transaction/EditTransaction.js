@@ -12,7 +12,8 @@ function EditTransaction() {
   const history = useHistory();
 
   function handleTransactionChange(updatedTransaction) {
-    setTransaction(updatedTransaction);
+    
+    setTransaction(...updatedTransaction);
     
   }
 
@@ -36,9 +37,9 @@ function EditTransaction() {
       })
       .then((incomingTransaction) => {
 
-        const transactionCopy = {...incomingTransaction};
+        const transactionCopy = incomingTransaction;
         setTransaction(transactionCopy);
-       
+       console.log(transactionCopy)
       })
       .catch((error) => {
         console.log(error);

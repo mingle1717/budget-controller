@@ -96,6 +96,8 @@ function EditBudget(){
             }
         }
         setCategories(categoriesCopy);
+        const budgetCopy = {balance : budget.balance, categories : categoriesCopy};
+        setBudget(budgetCopy)
     }
 
 
