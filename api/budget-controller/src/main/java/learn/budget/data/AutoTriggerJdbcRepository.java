@@ -2,6 +2,7 @@ package learn.budget.data;
 
 import learn.budget.models.AutoTrigger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlTypeValue;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.SQLType;
 import java.sql.Statement;
 import java.util.List;
 
@@ -121,9 +123,19 @@ public class AutoTriggerJdbcRepository implements AutoTriggerRepository {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, autoTrigger.getCronSchedule());
             ps.setBigDecimal(2, autoTrigger.getPaymentAmount());
-            ps.setDate(3, Date.valueOf(autoTrigger.getEndDate().toLocalDate())); // THIS CAN BE NULL AND WILL EXPLODE AS IT IS
+
+            if (autoTrigger.getEndDate() != null)
+                ps.setDate(3, Date.valueOf(autoTrigger.getEndDate().toLocalDate()));
+            else
+                ps.setNull(3, java.sql.Types.DATE);
+
             ps.setInt(4, autoTrigger.getCategoryId());
-            ps.setDate(5, Date.valueOf(autoTrigger.getLastExecutionDate().toLocalDate())); // THIS CAN BE NULL AND WILL EXPLODE AS IT IS
+
+            if (autoTrigger.getLastExecutionDate() != null)
+                ps.setDate(5, Date.valueOf(autoTrigger.getLastExecutionDate().toLocalDate()));
+            else
+                ps.setNull(5, java.sql.Types.DATE);
+
             ps.setInt(6, autoTrigger.getAutoId());
 
             return ps;
