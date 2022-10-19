@@ -1,5 +1,7 @@
 package learn.budget.data;
 
+import learn.budget.domain.Result;
+import learn.budget.models.AppUser;
 import learn.budget.models.Budget;
 import learn.budget.models.UserBudget;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -77,6 +79,14 @@ public class BudgetJdbcRepository implements BudgetRepository {
                 "where budget_id = ?;";
         return jdbcTemplate.update(sql, budget.getBalance(),
                 budget.getBudgetName(), budget.getBudgetId()) > 0;
+    }
+
+    public boolean addMemberToBridgeTableWithFalseIsOwnerField(AppUser userToAddToBudget, int budgetId) {
+        final String sql = "insert into userBudget (isOwner, user_id, budget_id) values\n" +
+                "(False, ?, ?);";
+
+        return jdbcTemplate.update(sql, userToAddToBudget.getUserId(), budgetId) > 0;
+
     }
 }
 

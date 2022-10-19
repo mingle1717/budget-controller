@@ -68,7 +68,15 @@ public class BudgetController {
         } else {
             return ErrorResponse.build(budgetResult);
         }
-
     }
-
+    // TODO: 10/19/2022 make addMemberToBudget method
+    @PostMapping("/addmember")
+    public ResponseEntity<Object> addMemberToBudget(@RequestBody String username, @RequestBody int budgetId) {
+        Result<Budget> budgetResultWithAddedMember = budgetService.addMemberToBudget(username, budgetId);
+        if (budgetResultWithAddedMember.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return ErrorResponse.build(budgetResultWithAddedMember);
+        }
+    }
 }
