@@ -36,6 +36,7 @@ function AddMembers(){
         })
         .then(response => {
             if (response.status === 200) {
+                
                 return response.json();
             } else {
                 
@@ -70,7 +71,7 @@ function AddMembers(){
             body: JSON.stringify([username, budgetId ])
         })
         .then ( response => {
-            if ( response.status === 201){
+            if ( response.status === 204){
                 history.push(Directories.OWNERDASHBOARD)
             }
         })
