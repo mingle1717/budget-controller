@@ -37,6 +37,7 @@ function BudgetOwnerDashboard(){
             setBudgetCategories(categories);
             setBudgetId(budget.budgetId);
             console.log(budget.budgetId);
+            console.log(budgetTransactionTotals);
         })
         .catch(error => {
             console.log(error);
@@ -90,15 +91,15 @@ function BudgetOwnerDashboard(){
                <div>
                  <h2  >Transaction Pie Chart</h2>
 
-                 {budgetTransactionTotals ? 
+                 <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
                 <Link to={Directories.OWNERVIEW + "/" + budgetId}>
                     <PieChart  width={1010} height={410} >
                         <Pie data={budgetTransactionTotals} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#000000" label />
                         <Tooltip /> 
                      </PieChart>
                 </Link> :
-                <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
-}
+                
+
            </div>
      
 

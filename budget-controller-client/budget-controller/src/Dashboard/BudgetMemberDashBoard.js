@@ -38,7 +38,6 @@ function BudgetMemberDashboard() {
             }
             const categories = budget.categories;
             setBudgetCategories(categories);
-             console.log(budgetCategories);
         })
         .catch(error => {
             console.log(error);
@@ -62,6 +61,8 @@ function BudgetMemberDashboard() {
         })
         .then(result => {
             setBudgetTransactionTotals(result);
+            
+            console.log(result);
         })
         .catch(error => {
             console.log(error);
@@ -90,16 +91,16 @@ function BudgetMemberDashboard() {
                 </div> 
                 <div>
                     <h2>Transaction Pie Chart</h2>
-                    {budgetTransactionTotals ? 
+                    <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
                 <Link to={Directories.MEMBERVIEW}>
                     <PieChart  width={1010} height={410} >
                         <Pie data={budgetTransactionTotals} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#000000" label />
                         <Tooltip /> 
                      </PieChart>
                 </Link> :
-                <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
+                
                     
-                    }
+                    
             </div>
           
         </div>
