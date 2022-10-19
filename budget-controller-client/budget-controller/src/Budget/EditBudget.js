@@ -96,7 +96,7 @@ function EditBudget(){
             }
         }
         setCategories(categoriesCopy);
-        const budgetCopy = {balance : budget.balance, categories : categoriesCopy};
+        const budgetCopy = {budgetId : budget.budgetId, budgetName: budget.budgetName, balance : budget.balance, categories : categoriesCopy};
         setBudget(budgetCopy)
     }
 
