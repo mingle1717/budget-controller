@@ -9,7 +9,7 @@ import AuthContext from "../AuthContext";
 function BudgetOwnerDashboard(){
 
     const auth = useContext(AuthContext);
-    const [budgetId, setBudgetId] = useState();
+   
     const [budgetCategories, setBudgetCategories] = useState();
     const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
@@ -17,7 +17,7 @@ function BudgetOwnerDashboard(){
     
     
     useEffect(() => {
-        fetch("http://localhost:8080/api/budget/personal" , {
+        fetch("http://localhost:8080/api/budget/personal", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,
@@ -35,8 +35,7 @@ function BudgetOwnerDashboard(){
         .then(budget => {
             const categories = budget.categories;
             setBudgetCategories(categories);
-            setBudgetId(budget.budgetId);
-            console.log(budget.budgetId);
+            console.log(categories);
         })
         .catch(error => {
             console.log(error);
@@ -74,12 +73,13 @@ function BudgetOwnerDashboard(){
                     <h2 >Budget Pie Chart</h2>
                     { budgetCategories ?
                     <Link to={Directories.EDITBUDGET}>
-                        <PieChart  width={1000} height={400}>
-                            <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName" cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d">
-                            {/* {
-                                ...budgetCategories.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
-                            } */}
-                            </Pie>
+                        <PieChart width={1010} height={410} >
+                        <Pie data={budgetCategories} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="categoryPercent"
+                            nameKey="categoryName">
+                            {budgetTransactionTotals.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                        </Pie>
                             <Tooltip />
                         </PieChart> 
                     </Link>
@@ -89,19 +89,25 @@ function BudgetOwnerDashboard(){
                     
                <div>
                  <h2  >Transaction Pie Chart</h2>
-
-                 {budgetTransactionTotals ? 
-                <Link to={Directories.OWNERVIEW + "/" + budgetId}>
-                    <PieChart  width={1010} height={410} >
-                        <Pie data={budgetTransactionTotals} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#000000" label />
+                <Link to={Directories.OWNERVIEW}>
+                <PieChart width={1010} height={410} >
+                        <Pie data={budgetTransactionTotals} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="value"
+                            nameKey="name">
+                            {budgetTransactionTotals.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                        </Pie>
                         <Tooltip /> 
                      </PieChart>
-                </Link> :
-                <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
-}
+                </Link>
            </div>
      
 
+            <div className="manageTransactions">
+                <Link to={Directories.OWNERMANAGEAUTO} className="dashSubmitButton"> Manage auto transactions </Link>
+            </div>
+
+      
             
         </div>
         )
