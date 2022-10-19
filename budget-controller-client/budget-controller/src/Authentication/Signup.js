@@ -35,38 +35,38 @@ function Signup(){
 
 
             if(response.status ===201) {
-                fetch("http://localhost:8080/api/security", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type" : "application/json"
-                    },
-                    body: JSON.stringify({
-                        username,
-                        password
-                    })
-                })
-                .then( loginResponse => {
-                    if( loginResponse.status === 200){
-                        return loginResponse.json();
-                    } else {
-                        console.log( "failed at login" + loginResponse);
-                    }
-                })
-                .then(jwtContainer => {
-                    const jwt = jwtContainer.jwt_token;
-                    const claimsObject = jwtDecode(jwt);
+            //     fetch("http://localhost:8080/api/security", {
+            //         method: "POST",
+            //         headers: {
+            //             "Content-Type" : "application/json"
+            //         },
+            //         body: JSON.stringify({
+            //             username,
+            //             password
+            //         })
+            //     })
+            //     .then( loginResponse => {
+            //         if( loginResponse.status === 200){
+            //             return loginResponse.json();
+            //         } else {
+            //             console.log( "failed at login" + loginResponse);
+            //         }
+            //     })
+            //     .then(jwtContainer => {
+            //         const jwt = jwtContainer.jwt_token;
+            //         const claimsObject = jwtDecode(jwt);
 
-                    console.log( jwt );
-                    console.log(claimsObject);
+            //         console.log( jwt );
+            //         console.log(claimsObject);
 
-                    auth.login(jwt);
-                    history.push(Directories.MEMBERDASHBOARD);
-                })
-            .catch(loginError => {
-                console.log( "failed at login " + loginError );
-            });
-
-            return response.json();
+            //         auth.login(jwt);
+            //         history.push(Directories.MEMBERDASHBOARD);
+            //     })
+            // .catch(loginError => {
+            //     console.log( "failed at login " + loginError );
+            // });
+                history.push(Directories.LOGIN)
+             return response.json();
         }
             
          else if (response.status === 403) {
