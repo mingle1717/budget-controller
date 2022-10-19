@@ -2,7 +2,7 @@ import shibe from "../Images/PieChart.jpg"
 import {Link} from "react-router-dom";
 import "./Dashboard.css";
 import Directories from "../Directories";
-import { PieChart, Pie, Legend, Tooltip } from 'recharts';
+import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
 import { useEffect } from "react";
 import { useContext, useState } from "react";
 import AuthContext from "../AuthContext";
@@ -12,7 +12,7 @@ function BudgetOwnerDashboard(){
    
     const [budgetCategories, setBudgetCategories] = useState();
     const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
-    
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
     
     
@@ -74,7 +74,11 @@ function BudgetOwnerDashboard(){
                     { budgetCategories ?
                     <Link to={Directories.EDITBUDGET}>
                         <PieChart  width={1000} height={400}>
-                            <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName" cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
+                            <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName" cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d">
+                            {/* {
+                                ...budgetCategories.map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                            } */}
+                            </Pie>
                             <Tooltip />
                         </PieChart> 
                     </Link>
