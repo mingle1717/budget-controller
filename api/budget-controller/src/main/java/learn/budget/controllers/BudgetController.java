@@ -58,15 +58,7 @@ public class BudgetController {
         Result<Budget> budgetResult = budgetService.updateBalanceOrName(budget, user);
 
         if (budgetResult.isSuccess()) {
-
-            Result<Budget> budgetResultWithCategories = categoryService.editBudgetCategories(budget);
-
-            if (budgetResultWithCategories.isSuccess()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            } else {
-                return ErrorResponse.build(budgetResultWithCategories);
-            }
-
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return ErrorResponse.build(budgetResult);
         }

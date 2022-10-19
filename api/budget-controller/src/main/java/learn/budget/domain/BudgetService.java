@@ -176,11 +176,10 @@ public class BudgetService {
         }
         for (Category c : budget.getCategories()) {
             c.setBudgetId(budget.getBudgetId());
-            categoryService.repository.addCategory(c);
         }
         result.setPayload(budget);
-
-        return result;
+        Result<Budget> resultWithCategoriesAdded = categoryService.editBudgetCategories(result.getPayload());
+        return resultWithCategoriesAdded;
     }
 
     public Result<Budget> addMemberToBudget(String username, int budgetId) {
