@@ -9,6 +9,7 @@ import learn.budget.data.AutoTriggerRepository;
 import learn.budget.data.UserJdbcRepo;
 import learn.budget.models.AppUser;
 import learn.budget.models.AutoTrigger;
+import learn.budget.models.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class AutoTriggerService {
 
     public Result<AutoTrigger> addAutoTrigger(AutoTrigger trigger) {
         Result<AutoTrigger> addedAutoTrigger = new Result<>();
-        // if validate == true; insert into db
+
         if (validate(trigger).isSuccess()) {
             AutoTrigger triggerFromRepo = autoTriggerRepository.createTrigger(trigger);
             addedAutoTrigger.setPayload(triggerFromRepo);
@@ -54,7 +55,6 @@ public class AutoTriggerService {
         return addedAutoTrigger;
     }
 
-  
     public Result<AutoTrigger> update(AutoTrigger trigger) {
         Result<AutoTrigger> result = validate(trigger);
         if (!result.isSuccess()) {
@@ -66,6 +66,7 @@ public class AutoTriggerService {
             return result;
         }
 
+        // TODO: this should be in validate
         if (trigger.getCronSchedule() == null)
             result.addMessage("Cron can't be null for update", ResultType.INVALID);
         {
@@ -110,10 +111,7 @@ public class AutoTriggerService {
             if (trigger.getPaymentAmount() == null) {
                 result.addMessage("Trigger amount can't be null.", ResultType.INVALID);
             }
-            // validate end_date (null or in the future)
-            if (trigger.getEndDate() == null) {
-                result.addMessage("Trigger end date can't be null", ResultType.INVALID);
-            }
+
             // validate last_execution_date should be null
             if (trigger.getLastExecutionDate() == null) {
                 result.addMessage("Trigger last execution date must be provided", ResultType.INVALID);

@@ -157,15 +157,15 @@ VALUES
 
 INSERT INTO autoTrigger (cron_schedule, payment_amount, user_id, category_id, end_date, creation_date)
 VALUES
-('0 0 12 1 1/1 ? *', 500, 1, 1, '2024-01-01', NOW()), # First of every month
-('0 0 12 15 1/1 ? *', 800, 1, 2, NULL, NOW()), # Day 15 of every month
-('0 0 12 1 1/1 ? *', 90.50, 2, 3, '2023-04-01', NOW()), # First day of the month
-('0 0 12 1 1/1 ? *', 500, 2, 1, '2024-02-15', NOW()), # First day of the month
+('0 0 12 1 1/1 ? *', 500, 1, 1, '2024-01-01', '2020-01-05'), # First of every month
+('0 0 12 15 1/1 ? *', 800, 1, 2, NULL, '2022-05-30'), # Day 15 of every month
+('0 0 12 1 1/1 ? *', 90.50, 2, 3, '2023-04-01', '1993-06-28'), # First day of the month
+('0 0 12 1 1/1 ? *', 500, 2, 1, '2024-02-15', '2022-01-03'), # First day of the month
 ('0 0 12 15 1/1 ? *', 800, 2, 2, NULL, NOW()), # Day 15 of every month
-('0 0 12 1 1/1 ? *', 500, 3, 1, NULL, NOW()),  # First day of the month
-('0 0 12 15 1/1 ? *', 800, 3, 2, '2023-04-15', NOW()), # Day 15 of every month
+('0 0 12 1 1/1 ? *', 500, 3, 1, NULL, '2020-06-15'),  # First day of the month
+('0 0 12 15 1/1 ? *', 800, 3, 2, '2023-04-15', '2022-05-05'), # Day 15 of every month
 ('0 0 12 1 1/1 ? *', 90.50, 4, 3, '2020-01-01', NOW()), # First day of the month
-('0 0 12 15 1/1 ? *', 1000, 4, 1, '2023-10-17', NOW()); # Day 15 of every month
+('0 0 12 15 1/1 ? *', 1000, 4, 1, '2023-10-17', '2021-02-05'); # Day 15 of every month
 
 INSERT INTO myTransaction (transaction_name, transaction_amount, transaction_description, category_id, auto_id, user_id)
 VALUES

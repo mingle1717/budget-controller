@@ -9,7 +9,7 @@ function AutoTrigger(){
     ([{autoId: 0, userId: 0, cronSchedule: "", paymentAmount: 0, endDate: 0 , categoryId: 0, creationDate: 0, lastExecutionDate: 0}]);
 
     function loadAutoTriggers(){
-        fetch("http:localhost:8080/api/auto/" + auth.user.username, {
+        fetch("http://localhost:8080/api/auto/" + auth.user.username, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,

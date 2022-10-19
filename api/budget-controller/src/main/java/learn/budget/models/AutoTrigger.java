@@ -23,17 +23,6 @@ public class AutoTrigger {
 
     private LocalDateTime lastExecutionDate;
 
-    public AutoTrigger(int autoId, int userId, String cronSchedule, BigDecimal paymentAmount, LocalDateTime endDate, int categoryId, LocalDateTime creationDate, LocalDateTime lastExecutionDate) {
-        this.autoId = autoId;
-        this.userId = userId;
-        this.cronSchedule = cronSchedule;
-        this.paymentAmount = paymentAmount;
-        this.endDate = endDate;
-        this.categoryId = categoryId;
-        this.creationDate = creationDate;
-        this.lastExecutionDate = lastExecutionDate;
-    }
-
     public AutoTrigger(){}
 
     public int getAutoId() {
