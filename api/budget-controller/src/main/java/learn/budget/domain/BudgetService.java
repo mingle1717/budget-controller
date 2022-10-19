@@ -165,4 +165,28 @@ public class BudgetService {
 
         return result;
     }
+
+    public Result<Budget> addMemberToBudget(String username, int budgetId) {
+        Result<Budget> result = new Result<>();
+        AppUser userToAddToBudget = userJdbcRepo.getUserByUsername(username);
+        if (userToAddToBudget == null) {
+            result.addMessage("This user does not exist in the database", ResultType.NOT_FOUND);
+            return result;
+        }
+        UserBudget ownership = budgetRepository.getBridgeTableInfo(userToAddToBudget.getUserId());
+        if (ownership.getBudgetId() != 0 && ownership.getUserId() != 0) { // the user is associated with the budget already
+            result.addMessage("This user is already associated with this budget.", ResultType.INVALID);
+            return result;
+        }
+        if (ownership.isOwner()) {
+            result.addMessage("This user already has a budget", ResultType.INVALID);
+            return result;
+        }
+        if (budgetRepository.addMemberToBridgeTableWithFalseIsOwnerField(userToAddToBudget, budgetId)) {
+            return result;
+        } else {
+            result.addMessage("Something went wrong in the database", ResultType.INVALID);
+            return result;
+        }
+    }
 }

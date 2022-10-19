@@ -2,14 +2,17 @@
 
 import { useEffect } from "react";
 import { useContext, useState } from "react";
+import {useHistory} from "react-router-dom";
 import AuthContext from "../AuthContext";
 import FormInput from '../FormInput';
+import Directories from "../Directories";
 function AddMembers(){
 
     const auth = useContext(AuthContext);
    
     
     const [userToAdd, setUserToAdd] = useState({username:"", budgetId : ""})
+    const history = useHistory();
     
 
     function memberChangeHandler(inputChangeEvent){
@@ -50,17 +53,44 @@ function AddMembers(){
     }, [])
 
 
+    function handleSubmit(evt){
+        
+        evt.preventDefault();
+
+        console.log(userToAdd);
+        fetch( "http://localhost:8080/api/budget/addmember", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+                Authorization : "Bearer " + auth.user.token,
+            },
+            body: JSON.stringify(userToAdd)
+        })
+        .then ( response => {
+            if ( response.status === 201){
+                history.push(Directories.OWNERDASHBOARD)
+            }
+        })
+        .catch (errors => {
+            console.log(errors);
+        })
+    }
+
+
     return(
     <div>
          <div className="container">
+         <form onSubmit={handleSubmit}>
              <FormInput 
                     inputType={"text"} 
                     identifier={"username"} 
-                    labelText={"Add members"} 
+                    labelText={"Username"} 
                     currVal={userToAdd.username} 
                     labelClass={"membersLabel"}
                     onChangeHandler={memberChangeHandler}  
-                    className={"form-control"}/>    
+                    className={"form-control"}/>
+                <button className="btn btn-primary"onSubmit={handleSubmit}>Add Member</button>    
+                    </form>
     </div>
     </div>
     )

@@ -70,8 +70,16 @@ public class BudgetController {
         } else {
             return ErrorResponse.build(budgetResult);
         }
-
     }
 
+    @PostMapping("/addmember")
+    public ResponseEntity<Object> addMemberToBudget(@RequestBody String username, Integer budgetId) {
+        Result<Budget> budgetResultWithAddedMember = budgetService.addMemberToBudget(username, budgetId);
+        if (budgetResultWithAddedMember.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return ErrorResponse.build(budgetResultWithAddedMember);
+        }
+    }
 
 }
