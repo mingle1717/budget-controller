@@ -35,9 +35,10 @@ public class TransactionService {
     public List<TransactionPieChartObject> viewTransactionTotalsByCategory(AppUser user) {
         List<Transaction> allTransactions = repository.findTransactionsByUser(user.getUserId());
 
+        UserBudget userBudget = budgetJdbcRepo.getBridgeTableInfo(user.getUserId());
+
         Budget budget = categoryJdbcRepo.findAllCategoriesForABudget(
-                budgetJdbcRepo.findById(
-                        allTransactions.get(0).getCategory().getBudgetId()));
+                budgetJdbcRepo.findById(userBudget.getBudgetId()));
 
 
         List<TransactionPieChartObject> toReturn = new ArrayList<>();
