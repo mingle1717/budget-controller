@@ -115,7 +115,7 @@ function App() {
             <Route path={Directories.MEMBERVIEW}>
               {user ? (user.userRoles[0].roleName === "Member" ? <BudgetMemberView/>:<Redirect to={Directories.OWNERVIEW}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
-            <Route path={Directories.OWNERVIEW}>
+            <Route path={Directories.OWNERVIEW + "/:budgetId"}>
               {user ?(user.userRoles[0].roleName === "Admin" ? <BudgetOwnerView/>:<Redirect to={Directories.MEMBERVIEW}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
             <Route path={Directories.ADDTRANSACTION}>

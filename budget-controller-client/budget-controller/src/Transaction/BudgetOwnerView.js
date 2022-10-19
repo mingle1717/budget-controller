@@ -1,6 +1,6 @@
 
 
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import AuthContext from '../AuthContext';
 import { useContext, useState, useEffect } from "react";
 import Transaction from "./Transaction";
@@ -8,7 +8,9 @@ import Directories from "../Directories"
 import "./Transaction.css"
 function BudgetOwnerView(){
 
+    const budgetId = useParams();
     const auth = useContext(AuthContext);
+    const [budget, setBudget] = useState();
     const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
     const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, category:{}, transacationDescription : ""}]);
 
@@ -16,9 +18,35 @@ function BudgetOwnerView(){
         loadTransactions();
     }
 
+    useEffect(() => {
+        fetch("http://localhost:8080/api/budget/personal" , {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ` + auth.user.token,
+                "Content-Type": "application/json"
+            },
+        })
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                
+                console.log(response);
+            }
+        })
+        .then(budget => {
+            const budgetCopy = {...budget};
+            setBudget(budgetCopy);
+            console.log(budgetCopy)
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }, [])
+
     function loadTransactions(){
     
-        fetch("http://localhost:8080/api/transaction/", {
+        fetch("http://localhost:8080/api/transaction/getall/" + budgetId.budgetId, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,
@@ -106,8 +134,8 @@ function BudgetOwnerView(){
                     </thead>
              
                 <>
-                    {budgetTransactionTotals.map( t =>   <tbody><td className="myTotalTable"> {t.name}  </td>
-                <td className="myTotalTable"> ${t.value} </td> </tbody>)}
+                    {budgetTransactionTotals.map( t =>   <tbody><tr><td className="myTotalTable"> {t.name}  </td>
+                <td className="myTotalTable"> ${t.value} </td></tr> </tbody>)}
                 </>  
 
 

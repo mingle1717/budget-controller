@@ -9,7 +9,7 @@ import FormInput from "../FormInput";
 
 function EditBudget(){
 
-    const {budgetId} = useParams();
+    
 
     const [budget, setBudget]=useState(null);
     const [categories, setCategories] = useState([]);

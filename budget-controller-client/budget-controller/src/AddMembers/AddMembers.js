@@ -18,7 +18,7 @@ function AddMembers(){
     function memberChangeHandler(inputChangeEvent){
         const propertyName = inputChangeEvent.target.name;
         const newValue = inputChangeEvent.target.value;
-       const memberCopy = {...userToAdd};
+        const memberCopy = {...userToAdd};
         memberCopy[propertyName] = newValue;
          
          setUserToAdd(memberCopy)
@@ -32,6 +32,7 @@ function AddMembers(){
                 Authorization: `Bearer ` + auth.user.token,
                 "Content-Type": "application/json"
             },
+
         })
         .then(response => {
             if (response.status === 200) {
@@ -58,13 +59,15 @@ function AddMembers(){
         evt.preventDefault();
 
         console.log(userToAdd);
+        const username = userToAdd.username;
+        const budgetId = userToAdd.budgetId;
         fetch( "http://localhost:8080/api/budget/addmember", {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
                 Authorization : "Bearer " + auth.user.token,
             },
-            body: JSON.stringify(userToAdd)
+            body: JSON.stringify([username, budgetId ])
         })
         .then ( response => {
             if ( response.status === 201){

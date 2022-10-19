@@ -103,6 +103,10 @@ public class TransactionJdbcRepository implements TransactionRepository {
                         "inner join myRole r on a.role_id = r.role_id where a.user_id = ?;", new TransactionMapper(),
                 userId);
     }
+    public List<Transaction> findTransactionsByBudgetId(int budgetId){
+        String sql = "select c.*, a.*, t.transaction_id, t.transaction_name, t.transaction_amount, t.transaction_description, t.auto_id from myTransaction t inner join Category c on t.category_id = c.category_id inner join appUser a on a.user_id = t.user_id where c.budget_id=?";
+        return jdbcTemplate.query(sql, new TransactionMapper(), budgetId);
+    }
 
 
 }

@@ -17,7 +17,7 @@ function BudgetMemberView(){
 
     function loadTransactions(){
     
-        fetch("http://localhost:8080/api/transaction/", {
+        fetch("http://localhost:8080/api/transaction/getall/0", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ` + auth.user.token,

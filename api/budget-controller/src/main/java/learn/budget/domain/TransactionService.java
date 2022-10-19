@@ -28,7 +28,11 @@ public class TransactionService {
     BudgetJdbcRepository budgetJdbcRepo;
 
 
-    public List<Transaction> viewAllTransactions(AppUser user) {
+    public List<Transaction> viewAllTransactions(AppUser user, int budgetId) {
+
+        if(user.getUserRoles().get(0).getRoleName().equals("Admin")){
+            return repository.findTransactionsByBudgetId(budgetId);
+        }
         return repository.findTransactionsByUser(user.getUserId());
     }
 

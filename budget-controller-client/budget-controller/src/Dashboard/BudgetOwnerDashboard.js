@@ -9,7 +9,7 @@ import AuthContext from "../AuthContext";
 function BudgetOwnerDashboard(){
 
     const auth = useContext(AuthContext);
-   
+    const [budgetId, setBudgetId] = useState();
     const [budgetCategories, setBudgetCategories] = useState();
     const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
@@ -35,7 +35,8 @@ function BudgetOwnerDashboard(){
         .then(budget => {
             const categories = budget.categories;
             setBudgetCategories(categories);
-            console.log(categories);
+            setBudgetId(budget.budgetId);
+            console.log(budget.budgetId);
         })
         .catch(error => {
             console.log(error);
@@ -88,20 +89,19 @@ function BudgetOwnerDashboard(){
                     
                <div>
                  <h2  >Transaction Pie Chart</h2>
-                <Link to={Directories.OWNERVIEW}>
+
+                 {budgetTransactionTotals ? 
+                <Link to={Directories.OWNERVIEW + "/" + budgetId}>
                     <PieChart  width={1010} height={410} >
                         <Pie data={budgetTransactionTotals} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#000000" label />
                         <Tooltip /> 
                      </PieChart>
-                </Link>
+                </Link> :
+                <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
+}
            </div>
      
 
-            <div className="manageTransactions">
-                <Link to={Directories.OWNERMANAGEAUTO} className="dashSubmitButton"> Manage auto transactions </Link>
-            </div>
-
-      
             
         </div>
         )

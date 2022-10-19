@@ -73,8 +73,8 @@ public class BudgetController {
     }
 
     @PostMapping("/addmember")
-    public ResponseEntity<Object> addMemberToBudget(@RequestBody String username, Integer budgetId) {
-        Result<Budget> budgetResultWithAddedMember = budgetService.addMemberToBudget(username, budgetId);
+    public ResponseEntity<Object> addMemberToBudget(@RequestBody String [] userToAdd) {
+        Result<Budget> budgetResultWithAddedMember = budgetService.addMemberToBudget(userToAdd[0], Integer.parseInt(userToAdd[1]));
         if (budgetResultWithAddedMember.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

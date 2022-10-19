@@ -20,10 +20,10 @@ public class TransactionController {
     @Autowired
     TransactionService service;
 
-    @GetMapping
-    public List<Transaction> viewAllTransactions() {
+    @GetMapping("/getall/{budgetId}")
+    public List<Transaction> viewAllTransactions(@PathVariable int budgetId) {
         AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Transaction> allTransactions = service.viewAllTransactions(user);
+        List<Transaction> allTransactions = service.viewAllTransactions(user, budgetId);
         return allTransactions;
     }
     @GetMapping("/{transactionId}")

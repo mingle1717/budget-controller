@@ -174,13 +174,16 @@ public class BudgetService {
             return result;
         }
         UserBudget ownership = budgetRepository.getBridgeTableInfo(userToAddToBudget.getUserId());
-        if (ownership.getBudgetId() != 0 && ownership.getUserId() != 0) { // the user is associated with the budget already
-            result.addMessage("This user is already associated with this budget.", ResultType.INVALID);
-            return result;
-        }
-        if (ownership.isOwner()) {
-            result.addMessage("This user already has a budget", ResultType.INVALID);
-            return result;
+        if(ownership != null) {
+
+            if (ownership.getBudgetId() != 0 && ownership.getUserId() != 0) { // the user is associated with the budget already
+                result.addMessage("This user is already associated with this budget.", ResultType.INVALID);
+                return result;
+            }
+            if (ownership.isOwner()) {
+                result.addMessage("This user already has a budget", ResultType.INVALID);
+                return result;
+            }
         }
         if (budgetRepository.addMemberToBridgeTableWithFalseIsOwnerField(userToAddToBudget, budgetId)) {
             return result;
