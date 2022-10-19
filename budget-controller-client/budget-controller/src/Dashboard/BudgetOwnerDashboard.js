@@ -12,6 +12,7 @@ function BudgetOwnerDashboard(){
    
     const [budgetCategories, setBudgetCategories] = useState();
     const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
+    const [budgetId, setBudgetId] = useState();
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
     
@@ -35,13 +36,8 @@ function BudgetOwnerDashboard(){
         .then(budget => {
             const categories = budget.categories;
             setBudgetCategories(categories);
-<<<<<<< HEAD
-            console.log(categories);
-=======
             setBudgetId(budget.budgetId);
-            console.log(budget.budgetId);
-            console.log(budgetTransactionTotals);
->>>>>>> 1ccf61ce8b7e8527d57e12e3f76e1359c32013a6
+            
         })
         .catch(error => {
             console.log(error);
@@ -99,7 +95,12 @@ function BudgetOwnerDashboard(){
                  <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
                 <Link to={Directories.OWNERVIEW + "/" + budgetId}>
                     <PieChart  width={1010} height={410} >
-                        <Pie data={budgetTransactionTotals} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#000000" label />
+                    <Pie data={budgetTransactionTotals} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="value"
+                            nameKey="name">
+                            {budgetTransactionTotals.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                        </Pie>
                         <Tooltip /> 
                      </PieChart>
                 </Link> :
