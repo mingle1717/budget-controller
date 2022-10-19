@@ -9,7 +9,7 @@ import "./Transaction.css"
 function BudgetOwnerView(){
 
     const auth = useContext(AuthContext);
-
+    const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
     const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, category:{}, transacationDescription : ""}]);
 
     function onTransactionDelete(){
@@ -43,6 +43,30 @@ function BudgetOwnerView(){
             });
         }
 
+        useEffect(() => {
+            fetch("http://localhost:8080/api/transaction/transactionbalance", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ` + auth.user.token,
+                    "Content-Type": "application/json"
+                },
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    console.log(response);
+                }
+            })
+            .then(result => {
+                console.log(result)
+                setBudgetTransactionTotals(result);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }, [])
+
         useEffect(
             () => {
                 loadTransactions();
@@ -72,11 +96,21 @@ function BudgetOwnerView(){
                 </tbody>
             </table>
             <Link to={Directories.ADDTRANSACTION} className="tranSubmitButton addLink"> Add Transaction </Link>
-            <table className="table container">
-                <tbody>
+            <table className="table container budgetTable">
+            <thead className="myTotalTable">
+                    <tr >
+                        <th className="myTotalTable" scope="col"> Category </th>
+                        <th className="myTotalTable" scope="col"> Total Spent </th>
+                    </tr>
+                    </thead>
+             
+                <>
+                    {budgetTransactionTotals.map( t =>   <tbody><td className="myTotalTable"> {t.name}  </td>
+                <td className="myTotalTable"> ${t.value} </td> </tbody>)}
+                </>  
 
 
-                </tbody>
+                
             </table>
         </div>
         )
