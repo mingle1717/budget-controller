@@ -7,12 +7,7 @@
 .ownerDashboardHeader{
     margin-left: 40%;
 }
-.budgetPieChart {
-    size: 10%;
-    margin-right: 5%;
-    margin-top: -2%;
-    margin-left: -5%;
-}
+
 
 .spendingPieContainer{
      margin-top: -32.5%;
@@ -20,9 +15,14 @@
      
 
 }
-.spendingPieChart{
-    margin-left: -10%;
-    margin-top: -2.5%;
+.transactionPieChart{
+    margin-left: 50%;
+    margin-top: -35%;
+}
+.budgetPieChart{
+    margin-top: 5%;
+    margin-left: 10%;
+
 }
 .budgetPieHeader{
     padding-top: 5%;
@@ -49,7 +49,7 @@
 }
 .dashSubmitButton{
     margin-top: .5em;
-    margin-right: 1em;
+    margin-left: 35%;
     margin-bottom: 3em;
     
         color: rgb(255, 255, 255); 
