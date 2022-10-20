@@ -13,7 +13,7 @@ function EditBudget(){
 
     const [budget, setBudget]=useState(null);
     const [categories, setCategories] = useState([]);
-
+    const [categoryContainer, setCategoryContainer] = useState(false);
     const [errors, setErrors] = useState([]);
 
     const history = useHistory();
@@ -103,17 +103,25 @@ function EditBudget(){
         const budgetCopy = {budgetId : budget.budgetId, budgetName: budget.budgetName, balance : budget.balance, categories : categoriesCopy};
         setBudget(budgetCopy)
     }
-    function removeCategory(category){
-        console.log("clock")
-        const categoriesCopy = [...categories]
-        for(let i = 0; i < categoriesCopy.length; i++){
-            if(categoriesCopy[i].categoryId === category.categoryId){
-                categoriesCopy.splice(i,1);
-                console.log(categoriesCopy);
-            }
-        }
-    }
-
+    // function removeCategory(category){
+    //     console.log("clock")
+    //     const categoriesCopy = [...categories]
+    //     for(let i = 0; i < categoriesCopy.length; i++){
+    //         if(categoriesCopy[i].categoryId === category.categoryId){
+    //             categoriesCopy.splice(i,1);
+    //             console.log(categoriesCopy);
+    //         }
+    //     }
+    // }
+//     function categoriesChangeHandler(incomingCategories){
+//         const categoriesCopy = [...incomingCategories];
+       
+//         const budgetCopy = {balance : budget.balance, categories : categoriesCopy};
+//         setBudget(budgetCopy)
+//     }
+// function addCategoryContainer(){
+//     setCategoryContainer(true);
+// }
 
     return(
        
@@ -139,7 +147,8 @@ function EditBudget(){
                     <div id="balanceHelp" className="form-text">What balance do you want to start with?</div>
 
                 {categories ? categories.map( c => <CategoryForm category={c}  onCategoryChange={categoriesChangeHandler} /> ) : null}
-     
+                {/* <button type="button" onClick={addCategoryContainer}> + </button>
+                    {categoryContainer ? categoryContainer === true ? <AddCategoryContainer onCategoriesChange={categoriesChangeHandler} /> : null : null} */}
                 <button type="submit" className="budgetSubmitButton mySubmitButton">Submit</button>
             </form>
         </div>

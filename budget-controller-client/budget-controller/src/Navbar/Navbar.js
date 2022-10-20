@@ -89,12 +89,15 @@ function Navbar(){
                     null) : null}
                 
                 </div >
-                        </div>
+            </div>
+                
+                
+                       
                 <div className="contactNav">
                     <Link to ={Directories.CONTACT}  className="homeLink" >Contact</Link>
+               
                 </div>
-
-
+           
 
                 <div className="loginNav">
                     {

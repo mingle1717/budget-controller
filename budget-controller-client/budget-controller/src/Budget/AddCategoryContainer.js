@@ -4,7 +4,7 @@ import CategoryForm from './CategoryForm';
 import "./Budget.css"
 
 function AddCategoryContainer({onCategoriesChange}){
-    const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, higherLimit : 1000, lowerLimit : 500, goal : false }];
+    const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, goal : false }];
     const [categories, setCategories] = useState([startingCategories]);
 
     function categoryChangeHandler(category){
@@ -18,7 +18,7 @@ function AddCategoryContainer({onCategoriesChange}){
 
     function addCategory(){
         const categoriesCopy = [...categories];
-        categoriesCopy.push({categoryId : categoriesCopy.length , categoryName : "" , categoryPercent : 0, higherLimit : 100, lowerLimit : 0, goal : false});
+        categoriesCopy.push({categoryId : categoriesCopy.length , categoryName : "" , categoryPercent : 0, goal : false});
         setCategories(categoriesCopy);
     }
 

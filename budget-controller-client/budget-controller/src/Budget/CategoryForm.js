@@ -48,7 +48,7 @@ function CategoryForm({ onCategoryChange , category}){
                     className={"form-control"}/>
                     <div id="categoryHelp" className="form-text">How much of your budget do you want this category to use?</div>
               
-                <FormInput 
+                 <FormInput 
                     inputType={"number"} 
                     identifier={"higherLimit"} 
                     labelText={"Upper Limit"} 

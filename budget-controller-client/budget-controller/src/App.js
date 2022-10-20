@@ -10,7 +10,7 @@ import CreateBudget from './Budget/CreateBudget';
 import jwtDecode from "jwt-decode";
 import AuthContext from "./AuthContext";
 import EditBudget from "./Budget/EditBudget";
-import BudgetMemberDashboard from './Dashboard/BudgetMemberDashboard';
+import BudgetMemberDashboard from './Dashboard/BudgetMemberDashBoard';
 import BudgetMemberView from "./Transaction/BudgetMemberView";
 import BudgetOwnerView from "./Transaction/BudgetOwnerView";
 import BudgetOwnerDashboard from './Dashboard/BudgetOwnerDashboard';
