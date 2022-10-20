@@ -161,22 +161,33 @@ public class BudgetService {
             }
         }
 
-        // the next line checks if the total percentages are over 100 percent
+        // finding the savings category and adjusting its percentage
+        Category savings = budget.getCategories().get(0);
+        // the next line checks if the total percentages are over 100 percent and if the savings category can be changed
         if (sum.compareTo(BigDecimal.valueOf(100)) > 0) {
-            result.addMessage("The categories must add up to be no greater than 100.", ResultType.INVALID);
+            BigDecimal toCompare = sum.subtract(savings.getCategoryPercent());
+            if (toCompare.compareTo(BigDecimal.valueOf(100)) > 0) {
+                result.addMessage("The categories must add up to be no greater than 100.", ResultType.INVALID);
+            } else if (toCompare.compareTo(BigDecimal.valueOf(100)) < 0) {
+                savings.setCategoryPercent(BigDecimal.valueOf(100).subtract(sum.subtract(savings.getCategoryPercent())));
+                // here the app auto-sets savings
+            } else if (toCompare.compareTo(BigDecimal.valueOf(100)) == 0) {
+                savings.setCategoryPercent(BigDecimal.ZERO);
+            }
         }
         if (result.getMessages().size() > 0) {
             return result;
         }
+//        if (savings.getCategoryPercent().compareTo(BigDecimal.valueOf(-1)) > 0) {
+//            categories.add(savings);
+//        }
         categories.addAll(budget.getCategories());
         budget.setCategories(categories);
         if (!budgetRepository.update(budget)) {
             result.addMessage("Error: this budget was not found.", ResultType.NOT_FOUND);
             return result;
         }
-        for (Category c : budget.getCategories()) {
-            c.setBudgetId(budget.getBudgetId());
-        }
+
         result.setPayload(budget);
         Result<Budget> resultWithCategoriesAdded = categoryService.editBudgetCategories(result.getPayload());
         return resultWithCategoriesAdded;
@@ -193,7 +204,7 @@ public class BudgetService {
         if(ownership != null) {
 
             if (ownership.getBudgetId() != 0 && ownership.getUserId() != 0) { // the user is associated with the budget already
-                result.addMessage("This user is already associated with this budget.", ResultType.INVALID);
+                result.addMessage("This user is already associated with a budget.", ResultType.INVALID);
                 return result;
             }
             if (ownership.isOwner()) {

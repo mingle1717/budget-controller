@@ -119,7 +119,7 @@ function BudgetOwnerDashboard(){
             <h1 className="dashboardHeader">Click on a chart to view details!</h1>
                   
                 <div> 
-                    <h2 >Budget Pie Chart</h2>
+                    <h2 >My Budget</h2>
                     { budgetCategories ?
                     <Link to={Directories.EDITBUDGET}>
                         <PieChart width={1010} height={410} >
@@ -137,7 +137,7 @@ function BudgetOwnerDashboard(){
                </div> 
                     
                <div>
-                 <h2  >Transaction Pie Chart</h2>
+                 <h2  >My Transactions</h2>
 
                  <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
                 <Link to={Directories.OWNERVIEW + "/" + budgetId}>

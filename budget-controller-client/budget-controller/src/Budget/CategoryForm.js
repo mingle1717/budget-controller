@@ -68,14 +68,14 @@ function CategoryForm({ onCategoryChange , category}){
                     className={"form-control"}/>
                     <div id="lowerLimitHelp" className="form-text">We will alert you if you go lower than this!</div>
                
-                <FormInput 
+                {/* <FormInput 
                     inputType={"checkbox"} 
                     identifier={"goal"} 
                     labelText={"Financial Goal?"} 
                     currVal={category.goal} 
                     labelClass={"financialCheckboxLabel"}
                     onChangeHandler={inputChangeHandler}  
-                    className={"financialCheckbox"}/>
+                    className={"financialCheckbox"}/> */}
                
         
             </div>
