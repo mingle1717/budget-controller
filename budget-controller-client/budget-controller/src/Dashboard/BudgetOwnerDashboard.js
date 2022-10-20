@@ -11,13 +11,18 @@ function BudgetOwnerDashboard(){
     const auth = useContext(AuthContext);
    
     const [budgetCategories, setBudgetCategories] = useState();
+    const [budgetCategoriesTotals, setBudgetCategoriesTotals] = useState([]);
     const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
     const [errors, setErrors] = useState([]);
     const [budgetId, setBudgetId] = useState();
+    const [limitMessage, setLimitMessage] = useState();
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
+   
     
     
+        
+
     useEffect(() => {
         fetch("http://localhost:8080/api/budget/personal", {
             method: "GET",
@@ -35,8 +40,19 @@ function BudgetOwnerDashboard(){
             }
         })
         .then(budget => {
+            console.log(budget)
             const categories = budget.categories;
+            const budgetCategoriesTotalsCopy = [...budgetCategoriesTotals];
+            for(let i = 0; i < categories.length; i++){
+                const currentTotal = Math.ceil(budget.balance * (categories[i].categoryPercent/100))
+                
+                budgetCategoriesTotalsCopy.push({categoryName : categories[i].categoryName, total : currentTotal, higherLimit: categories[i].higherLimit, lowerLimit: categories[i].lowerLimit });
+                
+            }
+            setBudgetCategoriesTotals(budgetCategoriesTotalsCopy);
+            
             setBudgetCategories(categories);
+            
             setBudgetId(budget.budgetId);
             
         })
@@ -47,9 +63,7 @@ function BudgetOwnerDashboard(){
                 setErrors( errorList + " ");
             }
         });
-    }, [])
 
-    useEffect(() => {
         fetch("http://localhost:8080/api/transaction/transactionbalance", {
             method: "GET",
             headers: {
@@ -66,6 +80,7 @@ function BudgetOwnerDashboard(){
         })
         .then(result => {
             setBudgetTransactionTotals(result);
+            console.log(result)
         })
         .catch (errorList => {
             if( errorList instanceof TypeError){
@@ -74,19 +89,41 @@ function BudgetOwnerDashboard(){
                 setErrors( errorList + " ");
             }
         })
+        
     }, [])
-
+    function displayLimitMessage(){
+        console.log("click")
+        console.log(budgetCategoriesTotals)
+        console.log(budgetTransactionTotals)
+        for(let i =0; i < budgetCategoriesTotals.length; i++){
+            for(let k=0; k<budgetTransactionTotals.length;k++){
+                if(budgetTransactionTotals[k].name === budgetCategoriesTotals[i].categoryName){
+                    if(budgetCategoriesTotals[i].total - budgetTransactionTotals[k].value > budgetCategoriesTotals[i].higherLimit){
+                        setLimitMessage("You still have more to spend on " + budgetCategoriesTotals[i].name)
+                        console.log("You still have more to spend on " + budgetCategoriesTotals[i].name)
+                    }
+                    else if(budgetCategoriesTotals[i].total - budgetTransactionTotals[k].value < budgetCategoriesTotals[i].lowerLimit){
+                        setLimitMessage("You have overspent on " + budgetCategoriesTotals[i].name)
+                        console.log("You have overspent on " + budgetCategoriesTotals[i].name)
+                    }
+                    else{
+                        console.log("rip")
+                    }
+                }
+            }
+        }
+    }
     return(
         <div className="container">
             
             <h1 className="dashboardHeader">Click on a chart to view details!</h1>
-   
+                  
                 <div> 
                     <h2 >Budget Pie Chart</h2>
                     { budgetCategories ?
                     <Link to={Directories.EDITBUDGET}>
                         <PieChart width={1010} height={410} >
-                        <Pie data={budgetCategories} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="categoryPercent"
+                        <Pie data={budgetCategoriesTotals} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="total"
                             nameKey="categoryName">
                             {budgetTransactionTotals.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -119,9 +156,7 @@ function BudgetOwnerDashboard(){
            </div>
      
 
-            <div className="manageTransactions">
-                <Link to={Directories.OWNERMANAGEAUTO} className="dashSubmitButton"> Manage auto transactions </Link>
-            </div>
+         
 
       
             

@@ -79,7 +79,7 @@ function CreateBudget(){
     return(
         <div className="container createBudgetContainer" key="createBudget">
            {errors?
-            errors.map( e =><div className=" myText error" id="messages">{e}</div>)
+            <div className=" myText error" id="messages">{errors}</div>
                 : null}
             <form onSubmit={handleSubmit}>
             <FormInput 

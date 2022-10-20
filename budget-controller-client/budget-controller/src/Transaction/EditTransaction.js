@@ -6,17 +6,16 @@ import Directories from "../Directories";
 import "./Transaction.css";
 function EditTransaction() {
   const editTransactionId = useParams();
-
+  const [budgetId, setBudgetId] = useState();
   const auth = useContext(AuthContext);
   const [transaction, setTransaction] = useState();
   const history = useHistory();
   const [errors, setErrors] = useState([])
 
   function handleTransactionChange(updatedTransaction) {
-    
-    setTransaction(...updatedTransaction);
-    
-  }
+    setTransaction(updatedTransaction)
+   
+}
 
   useEffect(() => {
     fetch(
@@ -40,7 +39,8 @@ function EditTransaction() {
 
         const transactionCopy = incomingTransaction;
         setTransaction(transactionCopy);
-       console.log(transactionCopy)
+        setBudgetId(incomingTransaction.category.budgetId);
+        
       })
       .catch (errorList => {
         if( errorList instanceof TypeError){
@@ -53,7 +53,7 @@ function EditTransaction() {
 
   function handleSubmit(event) {
     event.preventDefault();
-
+    console.log(transaction)
     fetch(
       "http://localhost:8080/api/transaction/" + editTransactionId.transactionId,
       {
@@ -67,7 +67,7 @@ function EditTransaction() {
     )
       .then(async response => {
         if (response.status === 204) {
-          history.push(Directories.OWNERVIEW);
+          history.push(Directories.OWNERVIEW + "/" + budgetId);
         } else {
           return Promise.reject(response.json())
         }
@@ -95,9 +95,11 @@ function EditTransaction() {
           <button type="submit" className="tranSubmitButton">
             Edit
           </button>
-          <Link to={Directories.MEMBERVIEW} className="tranCancelButton">
+          {transaction?
+          <Link to={Directories.OWNERVIEW + "/" + budgetId} className="tranCancelButton">
             Cancel
-          </Link>
+          </Link>: null
+}
         </div>
       </form>
     </div>

@@ -12,6 +12,7 @@ function BudgetMemberDashboard() {
    
     const auth = useContext(AuthContext);
     const [hasBudget, setHasBudget] = useState(false);
+    const [budgetCategoriesTotals, setBudgetCategoriesTotals] = useState([]);
     const [budgetCategories, setBudgetCategories] = useState();
     const [budgetTransactionTotals,setBudgetTransactionTotals] = useState();
     const [errors, setErrors] = useState([]);
@@ -38,6 +39,14 @@ function BudgetMemberDashboard() {
             setHasBudget(true);
             }
             const categories = budget.categories;
+            const budgetCategoriesTotalsCopy = [...budgetCategoriesTotals];
+            for(let i = 0; i < categories.length; i++){
+                const currentTotal = Math.ceil(budget.balance * (categories[i].categoryPercent/100))
+                
+                budgetCategoriesTotalsCopy.push({categoryName : categories[i].categoryName, total : currentTotal});
+                
+            }
+            setBudgetCategoriesTotals(budgetCategoriesTotalsCopy);
             setBudgetCategories(categories);
         })
         .catch (errorList => {
@@ -95,7 +104,7 @@ function BudgetMemberDashboard() {
                 <div className="container">
                     <h2 >Budget Pie Chart</h2>
                     <PieChart width={1000} height={400}>
-                        <Pie data={budgetCategories} dataKey="categoryPercent" nameKey="categoryName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
+                        <Pie data={budgetCategoriesTotals} dataKey="total" nameKey="categoryName"   cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
                         <Tooltip />
                     </PieChart>
                 </div> 

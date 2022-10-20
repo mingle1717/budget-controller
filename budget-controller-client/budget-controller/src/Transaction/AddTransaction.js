@@ -58,7 +58,7 @@ function AddTransaction() {
                     <TransactionForm onTransactionChange={handleTransactionChange} />
                     <div className="buttons">
                         <button type="submit" className="tranSubmitButton ">Add</button>
-                        <Link to={Directories.MEMBERVIEW} className="tranCancelButton">Cancel</Link>
+                        <Link to={Directories.MEMBERDASHBOARD} className="tranCancelButton">Cancel</Link>
                     </div>
                 </form>
             </div>

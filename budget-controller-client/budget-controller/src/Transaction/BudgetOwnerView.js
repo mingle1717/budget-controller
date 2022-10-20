@@ -17,6 +17,7 @@ function BudgetOwnerView(){
 
     function onTransactionDelete(){
         loadTransactions();
+        loadAllCategoryTotals();
     }
 
     useEffect(() => {
@@ -80,7 +81,8 @@ function BudgetOwnerView(){
             })
         }
 
-        useEffect(() => {
+        function loadAllCategoryTotals(){
+        
             fetch("http://localhost:8080/api/transaction/transactionbalance", {
                 method: "GET",
                 headers: {
@@ -106,12 +108,12 @@ function BudgetOwnerView(){
                     setErrors( errorList + " ");
                 }
             })
-        }, [])
+        }
 
         useEffect(
             () => {
                 loadTransactions();
-                
+                loadAllCategoryTotals();
             },
             []);
 
@@ -128,14 +130,14 @@ function BudgetOwnerView(){
                         <th className="myTable" scope="col"> Money Spent </th>
                         <th className="myTable"scope="col"> Category </th>
                         <th className="myTable"scope="col"> Description </th>
-                        {auth.user.userRoles[0].roleName === "Admin" ? <th scope="col"> Spender </th> : null}
+                        {auth.user.userRoles[0].roleName === "Admin" ?  <th scope="col"> Spender </th> : null}
                     <th/>
                     
                     </tr>
                 </thead>
                 <tbody> 
                     <>
-                    {transactions.map( t => <Transaction key={t.transactionId} onTransactionDelete={onTransactionDelete} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.category.categoryName} transacationDescription={t.transacationDescription} username={t.username}/> )}
+                    {transactions.map( t => t.user ? <Transaction key={t.transactionId} onTransactionDelete={onTransactionDelete} transactionName={t.transactionName} transactionId={t.transactionId} transactionAmount={t.transactionAmount} transactionCategory={t.category.categoryName} transacationDescription={t.transacationDescription} username={t.user.username}/> : null) }
                     </>  
                 </tbody>
             </table>

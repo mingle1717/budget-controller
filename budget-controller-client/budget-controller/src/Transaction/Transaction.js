@@ -1,5 +1,5 @@
 
-import { useContext} from 'react';
+import { useContext, useState} from 'react';
 import {Link} from 'react-router-dom';
 import AuthContext from '../AuthContext';
 import Directories from '../Directories';
@@ -7,30 +7,39 @@ import Directories from '../Directories';
 function Transaction(props){
 
     const auth = useContext(AuthContext);
+    const [errors, setErrors] = useState([]);
 
     function deleteTransaction(){
-        if( window.confirm("Are you sure you want to delete " + props.transactionId + "?")){
+        if( window.confirm("Are you sure you want to delete transaction" + props.transactionName + "?")){
             fetch("http://localhost:8080/api/transaction/" + props.transactionId, {
                 headers: {
                     Authorization: `Bearer ` + auth.user.token,
                 },
                 method: "DELETE"
             })
-            .then(response => {
+            .then(async response => {
                 if( response.status ===204){
                     props.onTransactionDelete();
                 } else {
-                    console.log(response);
+                    return Promise.reject(await response.json())
                 }
             })
-            .catch(error => console.log(error));
+            .catch (errorList => {
+                if( errorList instanceof TypeError){
+                    setErrors(["Could not connect to api"]);
+                } else {
+                    setErrors( errorList + " ");
+                }
+            })
         }
     }
 
 
     return(
+       
 
         <tr>
+            
             <th scope="row" > {props.transactionName}</th>
                 <td> ${props.transactionAmount}  </td>
                 <td> {props.transactionCategory} </td>

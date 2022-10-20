@@ -9,30 +9,43 @@ import AuthContext from "../AuthContext";
 
 function TransactionForm({onTransactionChange, id, editedTransaction}){
     const auth = useContext(AuthContext);
-    const [transaction, setTransaction] = useState({transactionId : id, });
+    const [transaction, setTransaction] = useState();
     const [budgetCategories, setBudgetCategories] = useState();
-    const [categoryId, setCategoryId] = useState({categoryId : 1});
+    const [categoryId, setCategoryId] = useState()
     const [errors, setErrors] = useState([])
 
     function inputChangeHandler(inputChangeEvent){
         const propertyName = inputChangeEvent.target.name;
         const newValue = inputChangeEvent.target.value;
-    
-        const transactionCopy = {...transaction};
-    
+        console.log(editedTransaction)
+        if(editedTransaction !== undefined){
+        const transactionCopy = {...editedTransaction};
+      
         transactionCopy[propertyName] = newValue;
         transactionCopy["category"] = {categoryId};
 
         
         setTransaction(transactionCopy);
         onTransactionChange(transactionCopy);
-        console.log(editedTransaction)
+        
+        }
+        else{
+            const transactionCopy = {...transaction};
+        
+        transactionCopy[propertyName] = newValue;
+        transactionCopy["category"] = {categoryId};
+    
+
         console.log(transactionCopy)
-        console.log(categoryId)
+        setTransaction(transactionCopy);
+        onTransactionChange(transactionCopy);
+
+        }
+        
     }
     
     useEffect(() => {
-        console.log(editedTransaction)
+        
         fetch("http://localhost:8080/api/budget/personal" , {
             method: "GET",
             headers: {
@@ -52,6 +65,7 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
         .then(budget => {
             const categories = budget.categories;
             setBudgetCategories([...categories]);
+            console.log(categories)
            
             
             
@@ -73,11 +87,12 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
             {errors?
             <div className=" myText error" id="messages">{errors}</div>
                 : null}
+                
             <FormInput
                 inputType={"text"} 
                 identifier={"transactionName"} 
                 labelText={"Name"} 
-                currVal={editedTransaction ? editedTransaction.transactionName : null}
+                currVal={editedTransaction !== undefined? editedTransaction.transactionName : null}
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
@@ -85,25 +100,25 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
                 inputType={"number"} 
                 identifier={"transactionAmount"} 
                 labelText={"Money Spent"} 
-                currVal={editedTransaction ? editedTransaction.transactionAmount : null}
+                currVal={editedTransaction !== undefined ? editedTransaction.transactionAmount : null}
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
-            <label> </label>
+            <label htmlFor="categoryId"> Category </label>
             <select
-                name="categoryId"
-                id="categoryId"
+                name="category.categoryId"
+                id="category.categoryId"
                 onChange={(event) => setCategoryId(event.target.value)}
                 className="form-control"
-                
+        
                 > 
-                
+                <option value="none" selected disabled hidden>Select an Option</option>
                 {budgetCategories ? budgetCategories.map(b => <option key={b.categoryId} value={b.categoryId}> {b.categoryName}</option>) : null}</select>
             <FormInput 
                 inputType={"text"} 
                 identifier={"transacationDescription"} 
                 labelText={"Description of Transaction"} 
-                currVal={editedTransaction ? editedTransaction.transacationDescription : null}
+                currVal={editedTransaction !== undefined ? editedTransaction.transacationDescription : null}
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
