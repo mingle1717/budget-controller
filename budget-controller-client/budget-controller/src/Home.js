@@ -1,13 +1,14 @@
 
-import shibe from "./Images/shibe.jpg"
-import shibe2 from "./Images/shibe2.jpg"
-import shibe3 from "./Images/shibe3.jpg"
+import shibe from "./Images/Ownerview.PNG"
+import shibe2 from "./Images/ownerDashboard.PNG"
+import shibe3 from "./Images/createBudget.PNG"
 import './Home.css'
 
 function Home(){
     return(
         <div>
-            <h1>Home</h1>
+            <h1 className="homeHeader">Home</h1>
+            <h2 className="homeHeader">Check out these features!</h2>
             <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
   <div className="carousel-inner">
     <div className="carousel-item active">

@@ -1,9 +1,13 @@
 .carouselImage{
-    size: 48px
+    size: 48px;
+    margin-left: 10%;
 }
 .myCarousel-inner{
     size: 48px
 }
 .carousel-item{
     size: 48px
+}
+.homeHeader{
+    text-align: center;
 }
