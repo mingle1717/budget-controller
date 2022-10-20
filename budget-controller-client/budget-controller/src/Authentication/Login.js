@@ -32,7 +32,11 @@ function Login(props){
         .then (async response => {
             if( response.status === 200) {
                 return response.json();
-            } else {
+            }
+            else if(response.status === 403){
+                setErrors(["Password is not correct"]);
+            }
+             else {
                 return Promise.reject(await response.json())
             }
         })
@@ -48,16 +52,20 @@ function Login(props){
             history.push(Directories.MEMBERDASHBOARD);
         
         })
-        .catch( error => {
-            console.log( error );
-        });
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["User credentials are not correct"]);
+            } else {
+                setErrors( errorList + " ");
+            }
+        })
     }
 
 
     return(
     <div className="container">
-        {errors?
-            <div className=" myText error" id="messages">{errors}</div>
+        {errors.length > 0?
+            <div className="error" id="messages"> Attention: {errors}</div>
                 : null}
       
 

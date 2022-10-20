@@ -35,37 +35,37 @@ function Signup(){
 
 
             if(response.status ===201) {
-            //     fetch("http://localhost:8080/api/security", {
-            //         method: "POST",
-            //         headers: {
-            //             "Content-Type" : "application/json"
-            //         },
-            //         body: JSON.stringify({
-            //             username,
-            //             password
-            //         })
-            //     })
-            //     .then( loginResponse => {
-            //         if( loginResponse.status === 200){
-            //             return loginResponse.json();
-            //         } else {
-            //             console.log( "failed at login" + loginResponse);
-            //         }
-            //     })
-            //     .then(jwtContainer => {
-            //         const jwt = jwtContainer.jwt_token;
-            //         const claimsObject = jwtDecode(jwt);
+                fetch("http://localhost:8080/api/security", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type" : "application/json"
+                    },
+                    body: JSON.stringify({
+                        username,
+                        password
+                    })
+                })
+                .then( loginResponse => {
+                    if( loginResponse.status === 200){
+                        return loginResponse.json();
+                    } else {
+                        console.log( "failed at login" + loginResponse);
+                    }
+                })
+                .then(jwtContainer => {
+                    const jwt = jwtContainer.jwt_token;
+                    const claimsObject = jwtDecode(jwt);
 
-            //         console.log( jwt );
-            //         console.log(claimsObject);
+                    console.log( jwt );
+                    console.log(claimsObject);
 
-            //         auth.login(jwt);
-            //         history.push(Directories.MEMBERDASHBOARD);
-            //     })
-            // .catch(loginError => {
-            //     console.log( "failed at login " + loginError );
-            // });
-                history.push(Directories.LOGIN)
+                    auth.login(jwt);
+                    history.push(Directories.MEMBERDASHBOARD);
+                })
+            .catch(loginError => {
+                console.log( "failed at login " + loginError );
+            });
+                history.push(Directories.MEMBERDASHBOARD)
              return response.json();
         }
             
@@ -82,8 +82,8 @@ function Signup(){
 
     return(
         <div className="container">
-            {errors?
-            <div className=" myText error" id="messages">{errors}</div>
+            {errors.length > 0?
+            <div className=" myText signUpError" id="messages"> Attention: {errors}</div>
                 : null}
             <form className = "loginForm" onSubmit={handleSubmit}>
             <div className="form-group fieldContainer">

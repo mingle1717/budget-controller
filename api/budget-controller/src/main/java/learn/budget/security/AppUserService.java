@@ -30,7 +30,7 @@ public class AppUserService {
         // password validation here
 
         if (password == null || password.length() < 6 || password.length() > 12 || password.isBlank()) {
-            result.addMessage("This password does not meet the length requirements" +
+            result.addMessage("This password does not meet the length requirements " +
                     " (6-12 characters)", ResultType.INVALID);
         }
 
@@ -39,7 +39,7 @@ public class AppUserService {
         }
 
         if (repo.getUserByUsername(username) != null) {
-            result.addMessage("This username already exists. Please try a different username.",
+            result.addMessage("This username already exists. Please try a different username ",
                     ResultType.INVALID);
         }
 
@@ -48,7 +48,7 @@ public class AppUserService {
         }
 
         if (repo.getUserByEmail(email) != null) {
-            result.addMessage("This email is already in use. Please try a different email.",
+            result.addMessage("This email is already in use. Please try a different email ",
                     ResultType.INVALID);
         }
         if (result.getMessages().size() > 0) {

@@ -10,7 +10,7 @@ function Transaction(props){
     const [errors, setErrors] = useState([]);
 
     function deleteTransaction(){
-        if( window.confirm("Are you sure you want to delete transaction" + props.transactionName + "?")){
+        if( window.confirm("Are you sure you want to delete transaction " + props.transactionName + "?")){
             fetch("http://localhost:8080/api/transaction/" + props.transactionId, {
                 headers: {
                     Authorization: `Bearer ` + auth.user.token,
@@ -45,7 +45,8 @@ function Transaction(props){
                 <td> {props.transactionCategory} </td>
                 <td> {props.transacationDescription} </td>
                 {auth.user.userRoles[0].roleName === "Admin" ? <td>{props.username}</td>: null}
-                <td><Link to={Directories.EDITTRANSACTION + "/" + props.transactionId} className='tranSubmitButton' > Edit </Link>
+                <td>
+                {auth.user.username === props.username ? <Link to={Directories.EDITTRANSACTION + "/" + props.transactionId} className='tranSubmitButton' > Edit </Link> :null}
                 <button onClick={deleteTransaction}className='tranCancelButton' > Delete </button></td>
         </tr>
     )
