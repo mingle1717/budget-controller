@@ -118,7 +118,8 @@ function BudgetOwnerDashboard(){
             
             <h1 className="dashboardHeader">Click on a chart to view details!</h1>
                   
-                <div> 
+            
+                    <div className="budgetPieChart">
                     <h2 >My Budget</h2>
                     
                     { budgetCategories ? 
@@ -135,12 +136,14 @@ function BudgetOwnerDashboard(){
                     </Link>
 : null
                     }
-               </div> 
+                    </div>
+           
                     
-               <div>
+              
+                <div className="transactionPieChart">
                  <h2  >My Transactions</h2>
-
-                 <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
+                 
+                 
                 <Link to={Directories.OWNERVIEW + "/" + budgetId}>
                     <PieChart  width={1010} height={410} >
                     <Pie data={budgetTransactionTotals} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="value"
@@ -151,15 +154,15 @@ function BudgetOwnerDashboard(){
                         </Pie>
                         <Tooltip /> 
                      </PieChart>
-                </Link> :
-                
+                </Link> 
+                </div>
 
-           </div>
+          
      
 
          
 
-      
+           <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
             
         </div>
         )

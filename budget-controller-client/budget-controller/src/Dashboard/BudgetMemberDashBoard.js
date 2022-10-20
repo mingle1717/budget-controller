@@ -102,7 +102,7 @@ function BudgetMemberDashboard() {
             </div>
             :
             <div>
-                <div className="container">
+                <div className="budgetPieChart">
                     <h2 >My Budget</h2>
                     <PieChart width={1010} height={410} >
                         <Pie data={budgetCategoriesTotals} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="total"
@@ -114,9 +114,9 @@ function BudgetMemberDashboard() {
                             <Tooltip />
                         </PieChart> 
                 </div> 
-                <div>
+                <div className="transactionPieChart">
                     <h2>My Transactions</h2>
-                    <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
+                    
                 <Link to={Directories.MEMBERVIEW}>
                 <PieChart  width={1010} height={410} >
                     <Pie data={budgetTransactionTotals} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="value"
@@ -132,9 +132,10 @@ function BudgetMemberDashboard() {
                     
                     
             </div>
-          
+            <Link to={Directories.ADDTRANSACTION}className="dashSubmitButton"> Add Transaction </Link>
         </div>
 }
+
         </div>
     )
 }    
