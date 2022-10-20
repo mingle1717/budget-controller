@@ -48,7 +48,7 @@ function CategoryForm({ onCategoryChange , category}){
                     className={"form-control"}/>
                     <div id="categoryHelp" className="form-text">How much of your budget do you want this category to use?</div>
               
-                <FormInput 
+                 <FormInput 
                     inputType={"number"} 
                     identifier={"higherLimit"} 
                     labelText={"Higher Limit"} 
@@ -66,7 +66,7 @@ function CategoryForm({ onCategoryChange , category}){
                     labelClass={"inputLabel"}
                     onChangeHandler={inputChangeHandler}
                     className={"form-control"}/>
-                    <div id="lowerLimitHelp" className="form-text">We will alert you if you go lower than this!</div>
+                    <div id="lowerLimitHelp" className="form-text">We will alert you if you go lower than this!</div> 
                
                 {/* <FormInput 
                     inputType={"checkbox"} 
