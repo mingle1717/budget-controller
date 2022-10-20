@@ -74,16 +74,16 @@ public class CategoryService {
         if (category.getCategoryName() == null || category.getCategoryName().isBlank()) {
             result.addMessage("Category name must be provided.", ResultType.INVALID);
         }
-        if (category.getLowerLimit() == null) {
-            result.addMessage("Category lower limit must be provided.", ResultType.INVALID);
-        } else if (category.getLowerLimit().compareTo(BigDecimal.ZERO) < 0) {
-            result.addMessage("Category lower limit must be a positive number", ResultType.INVALID);
-        }
-        if (category.getHigherLimit() == null) {
-            result.addMessage("Category higher limit must be provided.", ResultType.INVALID);
-        } else if (category.getHigherLimit().compareTo(BigDecimal.ZERO) < 0) {
-            result.addMessage("Category higher limit must be a positive number", ResultType.INVALID);
-        }
+//        if (category.getLowerLimit() == null) {
+//            result.addMessage("Category lower limit must be provided.", ResultType.INVALID);
+//        } else if (category.getLowerLimit().compareTo(BigDecimal.ZERO) < 0) {
+//            result.addMessage("Category lower limit must be a positive number", ResultType.INVALID);
+//        }
+//        if (category.getHigherLimit() == null) {
+//            result.addMessage("Category higher limit must be provided.", ResultType.INVALID);
+//        } else if (category.getHigherLimit().compareTo(BigDecimal.ZERO) < 0) {
+//            result.addMessage("Category higher limit must be a positive number", ResultType.INVALID);
+//        }
         result.setPayload(category);
         return result;
     }
