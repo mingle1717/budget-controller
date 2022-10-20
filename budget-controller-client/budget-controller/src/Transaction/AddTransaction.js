@@ -16,6 +16,7 @@ function AddTransaction() {
     
 
     function handleTransactionChange(updatedTransaction) {
+        console.log(updatedTransaction)
         setTransaction(updatedTransaction);
     }
 
@@ -39,7 +40,7 @@ function AddTransaction() {
             }
         })
         .catch (errorList => {
-            console.log(errorList)
+            
             if( errorList instanceof TypeError){
                 setErrors(["Could not connect to api"]);
             } else {

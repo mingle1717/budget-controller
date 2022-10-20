@@ -17,12 +17,12 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
     function inputChangeHandler(inputChangeEvent){
         const propertyName = inputChangeEvent.target.name;
         const newValue = inputChangeEvent.target.value;
-        console.log(editedTransaction)
+       
         if(editedTransaction !== undefined){
         const transactionCopy = {...editedTransaction};
       
         transactionCopy[propertyName] = newValue;
-        transactionCopy["category"] = {categoryId};
+        
 
         
         setTransaction(transactionCopy);
@@ -33,15 +33,39 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
             const transactionCopy = {...transaction};
         
         transactionCopy[propertyName] = newValue;
-        transactionCopy["category"] = {categoryId};
+    
     
 
-        console.log(transactionCopy)
+        
         setTransaction(transactionCopy);
         onTransactionChange(transactionCopy);
 
         }
         
+    }
+    function selectChangeHandler(event) {
+        const newValue = event.target.value;
+        if(editedTransaction !== undefined){
+            const transactionCopy = {...editedTransaction};
+          
+            transactionCopy["category"] = {categoryId: newValue};
+            
+    
+            
+            setTransaction(transactionCopy);
+            onTransactionChange(transactionCopy);
+            
+            }
+        else{
+        const transactionCopy = {...transaction};
+        
+        
+        transactionCopy["category"] = {categoryId: newValue};
+    
+        setTransaction(transactionCopy);
+        onTransactionChange(transactionCopy);
+
+        }
     }
     
     useEffect(() => {
@@ -65,7 +89,7 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
         .then(budget => {
             const categories = budget.categories;
             setBudgetCategories([...categories]);
-            console.log(categories)
+            
            
             
             
@@ -108,7 +132,7 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
             <select
                 name="category.categoryId"
                 id="category.categoryId"
-                onChange={(event) => setCategoryId(event.target.value)}
+                onChange={selectChangeHandler}
                 className="form-control"
         
                 > 
