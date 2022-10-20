@@ -46,7 +46,7 @@ function BudgetOwnerDashboard(){
             for(let i = 0; i < categories.length; i++){
                 const currentTotal = Math.ceil(budget.balance * (categories[i].categoryPercent/100))
                 
-                budgetCategoriesTotalsCopy.push({categoryName : categories[i].categoryName, total : currentTotal, higherLimit: categories[i].higherLimit, lowerLimit: categories[i].lowerLimit });
+                budgetCategoriesTotalsCopy.push({categoryName : categories[i].categoryName, total : currentTotal, higherLimit: 0, lowerLimit: 0 });
                 
             }
             setBudgetCategoriesTotals(budgetCategoriesTotalsCopy);
@@ -91,28 +91,28 @@ function BudgetOwnerDashboard(){
         })
         
     }, [])
-    function displayLimitMessage(){
-        console.log("click")
-        console.log(budgetCategoriesTotals)
-        console.log(budgetTransactionTotals)
-        for(let i =0; i < budgetCategoriesTotals.length; i++){
-            for(let k=0; k<budgetTransactionTotals.length;k++){
-                if(budgetTransactionTotals[k].name === budgetCategoriesTotals[i].categoryName){
-                    if(budgetCategoriesTotals[i].total - budgetTransactionTotals[k].value > budgetCategoriesTotals[i].higherLimit){
-                        setLimitMessage("You still have more to spend on " + budgetCategoriesTotals[i].name)
-                        console.log("You still have more to spend on " + budgetCategoriesTotals[i].name)
-                    }
-                    else if(budgetCategoriesTotals[i].total - budgetTransactionTotals[k].value < budgetCategoriesTotals[i].lowerLimit){
-                        setLimitMessage("You have overspent on " + budgetCategoriesTotals[i].name)
-                        console.log("You have overspent on " + budgetCategoriesTotals[i].name)
-                    }
-                    else{
-                        console.log("rip")
-                    }
-                }
-            }
-        }
-    }
+    // function displayLimitMessage(){
+    //     console.log("click")
+    //     console.log(budgetCategoriesTotals)
+    //     console.log(budgetTransactionTotals)
+    //     for(let i =0; i < budgetCategoriesTotals.length; i++){
+    //         for(let k=0; k<budgetTransactionTotals.length;k++){
+    //             if(budgetTransactionTotals[k].name === budgetCategoriesTotals[i].categoryName){
+    //                 if(budgetCategoriesTotals[i].total - budgetTransactionTotals[k].value > budgetCategoriesTotals[i].higherLimit){
+    //                     setLimitMessage("You still have more to spend on " + budgetCategoriesTotals[i].name)
+    //                     console.log("You still have more to spend on " + budgetCategoriesTotals[i].name)
+    //                 }
+    //                 else if(budgetCategoriesTotals[i].total - budgetTransactionTotals[k].value < budgetCategoriesTotals[i].lowerLimit){
+    //                     setLimitMessage("You have overspent on " + budgetCategoriesTotals[i].name)
+    //                     console.log("You have overspent on " + budgetCategoriesTotals[i].name)
+    //                 }
+    //                 else{
+    //                     console.log("rip")
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
     return(
         <div className="container">
             
@@ -124,7 +124,7 @@ function BudgetOwnerDashboard(){
                     <Link to={Directories.EDITBUDGET}>
                         <PieChart width={1010} height={410} >
                         <Pie data={budgetCategoriesTotals} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="total"
-                            nameKey="categoryName">
+                            nameKey="categoryName" label>
                             {budgetTransactionTotals.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}

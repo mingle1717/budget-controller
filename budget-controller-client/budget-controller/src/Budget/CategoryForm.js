@@ -51,12 +51,12 @@ function CategoryForm({ onCategoryChange , category}){
                 <FormInput 
                     inputType={"number"} 
                     identifier={"higherLimit"} 
-                    labelText={"Higher Limit"} 
+                    labelText={"Upper Limit"} 
                     currVal={category.higherLimit} 
                     labelClass={"inputLabel"}
                     onChangeHandler={inputChangeHandler} 
                     className={"form-control"}/>
-                    <div id="higherLimitHelp" className="form-text">We will alert you if you have more money than you expected!</div>
+                    
              
                 <FormInput 
                     inputType={"number"} 
@@ -66,7 +66,7 @@ function CategoryForm({ onCategoryChange , category}){
                     labelClass={"inputLabel"}
                     onChangeHandler={inputChangeHandler}
                     className={"form-control"}/>
-                    <div id="lowerLimitHelp" className="form-text">We will alert you if you go lower than this!</div>
+                    
                
                 {/* <FormInput 
                     inputType={"checkbox"} 

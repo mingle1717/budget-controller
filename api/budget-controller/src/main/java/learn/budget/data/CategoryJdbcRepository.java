@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
@@ -47,8 +48,8 @@ public class CategoryJdbcRepository implements CategoryRepository {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, category.getCategoryName());
             ps.setBigDecimal(2, category.getCategoryPercent());
-            ps.setBigDecimal(3, category.getHigherLimit());
-            ps.setBigDecimal(4, category.getLowerLimit());
+            ps.setBigDecimal(3, BigDecimal.TEN);
+            ps.setBigDecimal(4, BigDecimal.TEN);
             ps.setBoolean(5, category.isGoal());
             ps.setInt(6, category.getBudgetId());
             return ps;
