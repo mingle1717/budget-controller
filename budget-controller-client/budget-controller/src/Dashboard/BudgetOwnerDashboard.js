@@ -144,7 +144,7 @@ function BudgetOwnerDashboard(){
                 <Link to={Directories.OWNERVIEW + "/" + budgetId}>
                     <PieChart  width={1010} height={410} >
                     <Pie data={budgetTransactionTotals} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="value"
-                            nameKey="name">
+                            nameKey="name" label>
                             {budgetTransactionTotals.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
