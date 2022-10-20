@@ -42,8 +42,8 @@
 //        budgetUsers.add(benny);
 //
 //        budget.setBudgetId(1);
-//        budget.setStartingBalance(BigDecimal.valueOf(2000));
-//        budget.setAppUsers(budgetUsers);
+//        budget.setBalance(BigDecimal.valueOf(2000));
+////        budget.setAppUsers(budgetUsers);
 //        List<Category> categories = new ArrayList<>();
 //
 //        Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
@@ -57,8 +57,8 @@
 //        categories.add(catTwo);
 //
 //        budget.setCategories(categories);
-//        when(budgetRepo.createBudget(budget)).thenReturn(budget);
-//        Result<Budget> validation = service.createBudget(budget);
+//        when(budgetRepo.createBudget(budget, benny.getUserId())).thenReturn(budget);
+//        Result<Budget> validation = service.createBudget(budget, benny);
 //        assertTrue(validation.isSuccess());
 //        assertEquals(0, validation.getMessages().size());
 //    }
@@ -78,8 +78,8 @@
 //        budgetUsers.add(benny);
 //
 //        budget.setBudgetId(1);
-//        budget.setStartingBalance(null);
-//        budget.setAppUsers(budgetUsers);
+//        budget.setBalance(null);
+////        budget.setAppUsers(budgetUsers);
 //        List<Category> categories = new ArrayList<>();
 //
 //        Category catOne = new Category(1, "Gym Membership", BigDecimal.valueOf(20), BigDecimal.valueOf(120),
@@ -93,9 +93,9 @@
 //        categories.add(catTwo);
 //
 //        budget.setCategories(categories);
-//        when(budgetRepo.createBudget(budget)).thenReturn(budget);
+//        when(budgetRepo.createBudget(budget, benny.getUserId())).thenReturn(budget);
 //
-//        Result<Budget> validation = service.createBudget(budget);
+//        Result<Budget> validation = service.createBudget(budget, benny);
 //        assertFalse(validation.isSuccess());
 //        assertEquals(1, validation.getMessages().size());
 //        assertEquals("Please enter a balance greater than zero.", validation.getMessages().get(0));
