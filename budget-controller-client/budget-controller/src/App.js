@@ -40,7 +40,11 @@ function App() {
      setRestoreLoginAttemptCompleted(true);
    },[]);
 
-
+   function promoteUserToAdmin(){
+    const userCopy = {...user};
+    userCopy.userRoles[0].roleName = "Admin";
+    setUser(userCopy);
+   }
 
   const login = (token) => {
 
@@ -107,7 +111,7 @@ function App() {
               <Signup/>
             </Route>
             <Route path={Directories.CREATEBUDGET}>
-              {user ? (user.userRoles[0].roleName === "Member" ? <CreateBudget/>:<Redirect to={Directories.OWNERDASHBOARD}/> ) : <Redirect to={Directories.LOGIN}/>}
+              {user ? (user.userRoles[0].roleName === "Member" ? <CreateBudget createBudgetPromote={promoteUserToAdmin}/>:<Redirect to={Directories.OWNERDASHBOARD}/> ) : <Redirect to={Directories.LOGIN}/>}
             </Route>
             <Route path={Directories.EDITBUDGET }>
               {user ?(user.userRoles[0].roleName === "Admin" ? <EditBudget/>:<Redirect to={Directories.MEMBERDASHBOARD}/> ): <Redirect to={Directories.LOGIN}/>}

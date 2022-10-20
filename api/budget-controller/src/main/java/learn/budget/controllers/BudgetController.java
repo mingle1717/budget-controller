@@ -27,7 +27,9 @@ public class BudgetController {
         AppUser user = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Result<Budget> budgetResult = budgetService.createBudget(budget, user);
         Result<Budget> budgetCategoryResult = categoryService.editBudgetCategories(budget);
+
         if (budgetResult.isSuccess() && budgetCategoryResult.isSuccess()) {
+
             return new ResponseEntity<>(budgetCategoryResult.getPayload(), HttpStatus.CREATED);
         }
         return budgetResult.getMessages();

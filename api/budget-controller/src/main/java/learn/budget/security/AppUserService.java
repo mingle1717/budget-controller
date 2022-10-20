@@ -8,6 +8,7 @@ import learn.budget.models.AppUser;
 import learn.budget.models.viewmodels.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,12 +17,16 @@ public class AppUserService {
     @Autowired
     UserJdbcRepo repo;
 
+    @Autowired
+    PasswordEncoder encoder;
+
     public Result<AppUser> register(RegisterRequest request) {
         Result result = new Result();
         AppUser payload;
         String username = request.getUsername();
         String email = request.getEmail();
         String password = request.getPassword();
+        String passhash = encoder.encode(password);
         // password validation here
 
         if (password == null || password.length() < 6 || password.length() > 12 || password.isBlank()) {
@@ -49,7 +54,7 @@ public class AppUserService {
         if (result.getMessages().size() > 0) {
             return result;
         } else  {
-            payload = repo.register(request, request.getPasshash());
+            payload = repo.register(request, passhash);
             if (payload != null) {
                 result.setPayload(payload);
                 return result;

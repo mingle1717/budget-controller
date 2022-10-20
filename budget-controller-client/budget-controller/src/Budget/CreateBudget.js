@@ -7,7 +7,7 @@ import FormInput from "../FormInput"
 import AddCategoryContainer from "./AddCategoryContainer"
 import AddMemberContainer from "../AddMembers/AddMemberContainer";
 
-function CreateBudget(){
+function CreateBudget({createBudgetPromote}){
     const auth = useContext(AuthContext);
     const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, higherLimit : 1000, lowerLimit : 500, goal : false }];
     const [budget, setBudget] = useState({budgetName : auth.user.username, balance: 0, appUsers : [auth.user], categories: [...startingCategories]});
@@ -35,6 +35,7 @@ function CreateBudget(){
         })
         .then ( async response => {
             if ( response.status === 201){
+                createBudgetPromote();
                 history.push(Directories.OWNERDASHBOARD)
             }
             return Promise.reject(await response.json());
