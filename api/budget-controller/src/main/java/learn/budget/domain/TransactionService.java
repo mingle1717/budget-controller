@@ -40,27 +40,30 @@ public class TransactionService {
         List<Transaction> allTransactions = repository.findTransactionsByUser(user.getUserId());
 
         UserBudget userBudget = budgetJdbcRepo.getBridgeTableInfo(user.getUserId());
+        if (userBudget != null) {
+            Budget budget = categoryJdbcRepo.findAllCategoriesForABudget(
+                    budgetJdbcRepo.findById(userBudget.getBudgetId()));
 
-        Budget budget = categoryJdbcRepo.findAllCategoriesForABudget(
-                budgetJdbcRepo.findById(userBudget.getBudgetId()));
 
+            List<TransactionPieChartObject> toReturn = new ArrayList<>();
+            for (Category c : budget.getCategories()) {
+                TransactionPieChartObject pieChartObject = new TransactionPieChartObject();
+                pieChartObject.setName(c.getCategoryName());
+                BigDecimal sumForCategory = BigDecimal.ZERO;
 
-        List<TransactionPieChartObject> toReturn = new ArrayList<>();
-        for (Category c: budget.getCategories()) {
-            TransactionPieChartObject pieChartObject = new TransactionPieChartObject();
-            pieChartObject.setName(c.getCategoryName());
-            BigDecimal sumForCategory = BigDecimal.ZERO;
-
-            for (Transaction t : allTransactions) {
-                if (t.getCategory().getCategoryId() == (c.getCategoryId())) {
-                    sumForCategory = sumForCategory.add(t.getTransactionAmount());
+                for (Transaction t : allTransactions) {
+                    if (t.getCategory().getCategoryId() == (c.getCategoryId())) {
+                        sumForCategory = sumForCategory.add(t.getTransactionAmount());
+                    }
                 }
-            }
 
-            pieChartObject.setValue(sumForCategory);
-            toReturn.add(pieChartObject);
+                pieChartObject.setValue(sumForCategory);
+                toReturn.add(pieChartObject);
+            }
+            return toReturn;
+        } else {
+            return null;
         }
-        return toReturn;
     }
 
     public Result<Transaction> validateTransaction(Transaction transaction){
