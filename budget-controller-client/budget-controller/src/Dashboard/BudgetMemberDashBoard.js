@@ -96,7 +96,7 @@ function BudgetMemberDashboard() {
                     <Link to={Directories.CREATEBUDGET}>Create Budget</Link>
                 </div>
                 <div className="tipLink">
-                    <Link to="https://n26.com/en-eu/blog/50-30-20-rule#:~:text=The%2050%2F30%2F20%20rule%20is%20an%20easy%20budgeting%20method,savings%20or%20paying%20off%20debt."> Click here for some advice! </Link>
+                    <><a href="https://n26.com/en-eu/blog/50-30-20-rule#:~:text=The%2050%2F30%2F20%20rule%20is%20an%20easy%20budgeting%20method,savings%20or%20paying%20off%20debt." target={"_blank"}> Click here for some advice! </a></>
                 </div>
             </div>
             :
