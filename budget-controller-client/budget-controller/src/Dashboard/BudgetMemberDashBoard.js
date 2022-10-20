@@ -107,7 +107,7 @@ function BudgetMemberDashboard() {
                     <PieChart width={1010} height={410} >
                         <Pie data={budgetCategoriesTotals} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="total"
                             nameKey="categoryName">
-                            {budgetTransactionTotals.map((entry, index) => (
+                            {budgetCategoriesTotals.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>
@@ -121,9 +121,9 @@ function BudgetMemberDashboard() {
                 <PieChart  width={1010} height={410} >
                     <Pie data={budgetTransactionTotals} cx={120} cy={200} innerRadius={60} outerRadius={80} fill="#8884d8" paddingAngle={5} dataKey="value"
                             nameKey="name">
-                            {budgetTransactionTotals.map((entry, index) => (
+                            {budgetTransactionTotals ? budgetTransactionTotals.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                            ))}
+                            )) : null}
                         </Pie>
                         <Tooltip /> 
                      </PieChart>
