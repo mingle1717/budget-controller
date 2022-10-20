@@ -12,6 +12,7 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
     const [transaction, setTransaction] = useState({transactionId : id, });
     const [budgetCategories, setBudgetCategories] = useState();
     const [categoryId, setCategoryId] = useState({categoryId : 1});
+    const [errors, setErrors] = useState([])
 
     function inputChangeHandler(inputChangeEvent){
         const propertyName = inputChangeEvent.target.name;
@@ -39,13 +40,13 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
                 "Content-Type": "application/json"
             },
         })
-        .then(response => {
+        .then(async response => {
             if (response.status === 200) {
              
                 return response.json();
             } else {
                 
-                console.log(response);
+                return Promise.reject(await response.json())
             }
         })
         .then(budget => {
@@ -55,8 +56,12 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
             
             
         })
-        .catch(error => {
-            console.log(error);
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
         });
     }, [])
 
@@ -65,6 +70,9 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
 
     return(
         <div className="container">
+            {errors?
+            <div className=" myText error" id="messages">{errors}</div>
+                : null}
             <FormInput
                 inputType={"text"} 
                 identifier={"transactionName"} 
@@ -81,6 +89,7 @@ function TransactionForm({onTransactionChange, id, editedTransaction}){
                 labelClass={"inputLabel"}
                 onChangeHandler={inputChangeHandler}
                 className={"form-control"}/>
+            <label> </label>
             <select
                 name="categoryId"
                 id="categoryId"

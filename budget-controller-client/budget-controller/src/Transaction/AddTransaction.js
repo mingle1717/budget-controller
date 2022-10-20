@@ -11,7 +11,7 @@ function AddTransaction() {
 
     const auth = useContext(AuthContext)
     const [transaction, setTransaction] = useState();
-    const [error, setError] = useState([]);
+    const [errors, setErrors] = useState([]);
     const history = useHistory();
     
 
@@ -41,9 +41,9 @@ function AddTransaction() {
         .catch (errorList => {
             console.log(errorList)
             if( errorList instanceof TypeError){
-                setError(["Could not connect to api"]);
+                setErrors(["Could not connect to api"]);
             } else {
-                setError( errorList + " ");
+                setErrors( errorList + " ");
             }
         })
     }
@@ -51,8 +51,8 @@ function AddTransaction() {
 
     return (
             <div className="container addContainer">
-                {error?
-            <div className=" myText error" id="messages">{error}</div>
+                {errors?
+            <div className=" myText error" id="messages">{errors}</div>
                 : null}
                 <form onSubmit={handleSubmit}>
                     <TransactionForm onTransactionChange={handleTransactionChange} />

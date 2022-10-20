@@ -10,6 +10,7 @@ function EditTransaction() {
   const auth = useContext(AuthContext);
   const [transaction, setTransaction] = useState();
   const history = useHistory();
+  const [errors, setErrors] = useState([])
 
   function handleTransactionChange(updatedTransaction) {
     
@@ -28,22 +29,26 @@ function EditTransaction() {
         },
       }
     )
-      .then((response) => {
+      .then(async response => {
         if (response.status === 200) {
           return response.json();
         } else {
-          console.log(response);
+          return Promise.reject(await response.json());
         }
       })
-      .then((incomingTransaction) => {
+      .then(incomingTransaction => {
 
         const transactionCopy = incomingTransaction;
         setTransaction(transactionCopy);
        console.log(transactionCopy)
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch (errorList => {
+        if( errorList instanceof TypeError){
+            setErrors(["Could not connect to api"]);
+        } else {
+            setErrors( errorList + " ");
+        }
+    })
   }, []);
 
   function handleSubmit(event) {
@@ -60,21 +65,29 @@ function EditTransaction() {
         body: JSON.stringify(transaction),
       }
     )
-      .then((response) => {
+      .then(async response => {
         if (response.status === 204) {
           history.push(Directories.OWNERVIEW);
         } else {
-          console.log(response);
+          return Promise.reject(response.json())
         }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch (errorList => {
+        if( errorList instanceof TypeError){
+            setErrors(["Could not connect to api"]);
+        } else {
+            setErrors( errorList + " ");
+        }
+    })
   }
 
   return (
-    <div className="container addContainer" key="editTransaction">
-      <form onSubmit={handleSubmit}>
+    <div className="container" key="editTransaction">
+      <h2 className="editHeader">Edit a Transaction!</h2>
+      {errors?
+            <div className=" myText error" id="messages">{errors}</div>
+                : null}
+      <form className="addContainer" onSubmit={handleSubmit}>
         <TransactionForm editedTransaction={transaction} id={editTransactionId.transactionId}
           onTransactionChange={handleTransactionChange}
         />

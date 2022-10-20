@@ -14,6 +14,7 @@ function BudgetMemberDashboard() {
     const [hasBudget, setHasBudget] = useState(false);
     const [budgetCategories, setBudgetCategories] = useState();
     const [budgetTransactionTotals,setBudgetTransactionTotals] = useState();
+    const [errors, setErrors] = useState([]);
 
 
     useEffect(() => {
@@ -24,11 +25,11 @@ function BudgetMemberDashboard() {
                 "Content-Type": "application/json"
             },
         })
-        .then(response => {
+        .then(async response => {
             if (response.status === 200) {
                 return response.json();
             } else {
-                console.log(response);
+                return Promise.reject(await response.json());
             }
         })
         .then(budget => {
@@ -39,9 +40,13 @@ function BudgetMemberDashboard() {
             const categories = budget.categories;
             setBudgetCategories(categories);
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
+        })
     }, [])
 
     useEffect(() => {
@@ -52,11 +57,11 @@ function BudgetMemberDashboard() {
                 "Content-Type": "application/json"
             },
         })
-        .then(response => {
+        .then(async response => {
             if (response.status === 200) {
                 return response.json();
             } else {
-                console.log(response);
+                return Promise.reject(await response.json());
             }
         })
         .then(result => {
@@ -64,20 +69,25 @@ function BudgetMemberDashboard() {
             
             console.log(result);
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
+        })
     }, [])
 
     return (
         <div className="container">
+            
             {hasBudget === false ?
             <div>
                 <div className="createBudgetLink">
                     <Link to={Directories.CREATEBUDGET}>Create Budget</Link>
                 </div>
                 <div className="tipLink">
-                    <Link to="google.com"> Click here for some advice! </Link>
+                    <href to="google.com"> Click here for some advice! </href>
                 </div>
             </div>
             :

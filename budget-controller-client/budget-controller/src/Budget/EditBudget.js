@@ -14,7 +14,7 @@ function EditBudget(){
     const [budget, setBudget]=useState(null);
     const [categories, setCategories] = useState([]);
 
-    const [errors, setErrors] = useState(null);
+    const [errors, setErrors] = useState([]);
 
     const history = useHistory();
 
@@ -30,11 +30,11 @@ function EditBudget(){
                 "Content-Type": "application/json"
             },
         })
-        .then(response => {
+        .then(async response => {
             if(response.status===200){
                 return response.json();
             } else {
-                console.log(response)
+                return Promise.reject(await response.json());
             }
         })
         .then(selectedBudget => {
@@ -77,14 +77,18 @@ function EditBudget(){
                 Accept : "application/json"
             },
             body: JSON.stringify(budget)
-        }).then ( response => {
+        }).then ( async response => {
             if ( response.status === 204){
                 history.push(Directories.MEMBERDASHBOARD);
             }
+            return Promise.reject(await response.json())
         })
-        .catch (errors => {
-            console.log(errors);
-
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
         })
     }
 
@@ -105,7 +109,9 @@ function EditBudget(){
        
             
             <div className="container">
-           
+           {errors?
+            <div className=" myText error" id="messages">{errors}</div>
+                : null}
       
            
             <form onSubmit={handleSubmit}>

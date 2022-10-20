@@ -9,7 +9,7 @@ import Directories from '../Directories';
 function Login(props){
     const [username,setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errors,setErrors] = useState("");
+    const [errors,setErrors] = useState([]);
 
     const history = useHistory();
 
@@ -29,11 +29,11 @@ function Login(props){
                 password
             })
         })
-        .then (response => {
+        .then (async response => {
             if( response.status === 200) {
                 return response.json();
             } else {
-                console.log(response);
+                return Promise.reject(await response.json())
             }
         })
         .then( jwtContainer => {
@@ -56,6 +56,9 @@ function Login(props){
 
     return(
     <div className="container">
+        {errors?
+            <div className=" myText error" id="messages">{errors}</div>
+                : null}
       
 
         <form className="loginForm"onSubmit={handleSubmit}>

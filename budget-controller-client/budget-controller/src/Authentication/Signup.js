@@ -9,7 +9,7 @@ function Signup(){
     const [username,setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [errors,setErrors] = useState("");
+    const [errors,setErrors] = useState([]);
 
     const history = useHistory();
 
@@ -31,7 +31,7 @@ function Signup(){
                 email
             }),
         })
-        .then(response => {
+        .then(async response => {
 
 
             if(response.status ===201) {
@@ -69,17 +69,22 @@ function Signup(){
              return response.json();
         }
             
-         else if (response.status === 403) {
-            console.log("not found")
-        } else {
-            console.log("reg issue" + response.json());
-        }
+         return Promise.reject(await response.json());
+        })
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
         })
     };
 
     return(
-        <div className="container darkMode">
-            
+        <div className="container">
+            {errors?
+            <div className=" myText error" id="messages">{errors}</div>
+                : null}
             <form className = "loginForm" onSubmit={handleSubmit}>
             <div className="form-group fieldContainer">
                 <label htmlFor="username" className="usernameLabel"> Username</label>

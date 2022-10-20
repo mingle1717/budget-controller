@@ -12,6 +12,7 @@ function BudgetOwnerDashboard(){
     const [budgetId, setBudgetId] = useState();
     const [budgetCategories, setBudgetCategories] = useState();
     const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
+    const [errors, setErrors] = useState([]);
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
     
@@ -24,12 +25,12 @@ function BudgetOwnerDashboard(){
                 "Content-Type": "application/json"
             },
         })
-        .then(response => {
+        .then(async response => {
             if (response.status === 200) {
                 return response.json();
             } else {
                 
-                console.log(response);
+                return Promise.reject(await response.json());
             }
         })
         .then(budget => {
@@ -39,8 +40,12 @@ function BudgetOwnerDashboard(){
             console.log(budget.budgetId);
             console.log(budgetTransactionTotals);
         })
-        .catch(error => {
-            console.log(error);
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
         });
     }, [])
 
@@ -52,23 +57,28 @@ function BudgetOwnerDashboard(){
                 "Content-Type": "application/json"
             },
         })
-        .then(response => {
+        .then(async response => {
             if (response.status === 200) {
                 return response.json();
             } else {
-                console.log(response);
+                return Promise.reject(await response.json());
             }
         })
         .then(result => {
             setBudgetTransactionTotals(result);
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
+        })
     }, [])
 
     return(
         <div className="container">
+            
             <h1 className="dashboardHeader">Click on a chart to view details!</h1>
    
                 <div> 

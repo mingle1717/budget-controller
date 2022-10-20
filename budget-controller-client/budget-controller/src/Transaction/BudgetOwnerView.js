@@ -13,6 +13,7 @@ function BudgetOwnerView(){
     const [budget, setBudget] = useState();
     const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
     const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, category:{}, transacationDescription : ""}]);
+    const [errors, setErrors] = useState([])
 
     function onTransactionDelete(){
         loadTransactions();
@@ -26,12 +27,12 @@ function BudgetOwnerView(){
                 "Content-Type": "application/json"
             },
         })
-        .then(response => {
+        .then(async response => {
             if (response.status === 200) {
                 return response.json();
             } else {
                 
-                console.log(response);
+                return Promise.reject(await response.json());
             }
         })
         .then(budget => {
@@ -39,9 +40,13 @@ function BudgetOwnerView(){
             setBudget(budgetCopy);
             console.log(budgetCopy)
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
+        })
     }, [])
 
     function loadTransactions(){
@@ -53,11 +58,11 @@ function BudgetOwnerView(){
                 "Content-Type": "application/json"
             },
         })
-            .then(response => {
+            .then(async response => {
                 if (response.status === 200) {
                     return response.json();
                 } else {
-                    console.log(response);
+                   return Promise.reject(response.json())
                 }
             })
             .then(transactions => {
@@ -66,9 +71,13 @@ function BudgetOwnerView(){
                 console.log(transactionsCopy)
                 
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch (errorList => {
+                if( errorList instanceof TypeError){
+                    setErrors(["Could not connect to api"]);
+                } else {
+                    setErrors( errorList + " ");
+                }
+            })
         }
 
         useEffect(() => {
@@ -79,20 +88,24 @@ function BudgetOwnerView(){
                     "Content-Type": "application/json"
                 },
             })
-            .then(response => {
+            .then(async response => {
                 if (response.status === 200) {
                     return response.json();
                 } else {
-                    console.log(response);
+                    return Promise.reject(response.json());
                 }
             })
             .then(result => {
                 console.log(result)
                 setBudgetTransactionTotals(result);
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch (errorList => {
+                if( errorList instanceof TypeError){
+                    setErrors(["Could not connect to api"]);
+                } else {
+                    setErrors( errorList + " ");
+                }
+            })
         }, [])
 
         useEffect(
@@ -104,7 +117,10 @@ function BudgetOwnerView(){
 
     return(
         <div className="container">
-            
+            <h2 className="editHeader">View All Transactions</h2>
+            {errors?
+            <div className=" myText error" id="messages">{errors}</div>
+                : null}
             <table className="table container myTable">
                 <thead className="myTable">
                     <tr >
