@@ -12,7 +12,7 @@ function CreateBudget(){
     const startingCategories = [{categoryId : 0, categoryName : "Savings", categoryPercent : 100, higherLimit : 1000, lowerLimit : 500, goal : false }];
     const [budget, setBudget] = useState({budgetName : auth.user.username, balance: 0, appUsers : [auth.user], categories: [...startingCategories]});
     const budgetAppUsers = budget.appUsers;
-    const [error, setError]= useState([]);
+    const [errors, setErrors]= useState([]);
     const [categories, setCategories] = useState();
     const [appUsers, setAppUsers] = useState(budgetAppUsers);
     const history = useHistory();
@@ -33,14 +33,18 @@ function CreateBudget(){
             },
             body: JSON.stringify(budget)
         })
-        .then ( response => {
+        .then ( async response => {
             if ( response.status === 201){
                 history.push(Directories.OWNERDASHBOARD)
             }
+            return Promise.reject(await response.json());
         })
-        .catch (errors => {
-            setError(errors);
-
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
         })
     }
 
@@ -74,8 +78,8 @@ function CreateBudget(){
 
     return(
         <div className="container createBudgetContainer" key="createBudget">
-           {error?
-            error.map( e =><div className=" myText error" id="messages">{e}</div>)
+           {errors?
+            errors.map( e =><div className=" myText error" id="messages">{e}</div>)
                 : null}
             <form onSubmit={handleSubmit}>
             <FormInput 

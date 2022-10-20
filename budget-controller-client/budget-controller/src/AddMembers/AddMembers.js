@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom";
 import AuthContext from "../AuthContext";
 import FormInput from '../FormInput';
 import Directories from "../Directories";
+import "./Member.css"
 function AddMembers(){
 
     const auth = useContext(AuthContext);
@@ -13,7 +14,7 @@ function AddMembers(){
     
     const [userToAdd, setUserToAdd] = useState({username:"", budgetId : ""})
     const history = useHistory();
-    
+    const [errors, setErrors] = useState([]);
 
     function memberChangeHandler(inputChangeEvent){
         const propertyName = inputChangeEvent.target.name;
@@ -34,12 +35,13 @@ function AddMembers(){
             },
 
         })
-        .then(response => {
+        .then(async response => {
             if (response.status === 200) {
+                
                 return response.json();
             } else {
                 
-                console.log(response);
+                return Promise.reject(await response.json())
             }
         })
         .then(budget => {
@@ -48,9 +50,13 @@ function AddMembers(){
             setUserToAdd(userToAddCopy)
 
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
+        })
     }, [])
 
 
@@ -69,20 +75,29 @@ function AddMembers(){
             },
             body: JSON.stringify([username, budgetId ])
         })
-        .then ( response => {
-            if ( response.status === 201){
+        .then ( async response => {
+            if ( response.status === 204){
                 history.push(Directories.OWNERDASHBOARD)
             }
+            return Promise.reject(await response.json())
         })
-        .catch (errors => {
-            console.log(errors);
+        .catch (errorList => {
+            if( errorList instanceof TypeError){
+                setErrors(["Could not connect to api"]);
+            } else {
+                setErrors( errorList + " ");
+            }
         })
     }
 
 
     return(
     <div>
-         <div className="container">
+         <div className="container memberContainer">
+        <h3>Search by </h3>
+         {errors?
+            <div className=" myText error" id="messages">{errors}</div>
+                : null}
          <form onSubmit={handleSubmit}>
              <FormInput 
                     inputType={"text"} 
@@ -92,7 +107,9 @@ function AddMembers(){
                     labelClass={"membersLabel"}
                     onChangeHandler={memberChangeHandler}  
                     className={"form-control"}/>
-                <button className="btn btn-primary"onSubmit={handleSubmit}>Add Member</button>    
+                    <div className="buttonContainer">
+                <button className="memberSubmitButton"onSubmit={handleSubmit}>Add Member</button>    
+                    </div>
                     </form>
     </div>
     </div>

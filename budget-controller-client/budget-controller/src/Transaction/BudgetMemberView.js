@@ -10,6 +10,7 @@ function BudgetMemberView(){
     const auth = useContext(AuthContext);
     const [budgetTransactionTotals, setBudgetTransactionTotals] = useState([]);
     const [transactions, setTransactions] = useState([{transactionName: "", transactionAmount: 0, category:{}, transacationDescription : ""}]);
+    const [errors, setErrors] = useState([])
 
     function onTransactionDelete(){
         loadTransactions();
@@ -24,11 +25,11 @@ function BudgetMemberView(){
                 "Content-Type": "application/json"
             },
         })
-            .then(response => {
+            .then(async response => {
                 if (response.status === 200) {
                     return response.json();
                 } else {
-                    console.log(response);
+                    return Promise.reject(await response.json());
                 }
             })
             .then(transactions => {
@@ -36,9 +37,13 @@ function BudgetMemberView(){
                 setTransactions(transactionsCopy);
                 console.log(transactions)
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch (errorList => {
+                if( errorList instanceof TypeError){
+                    setErrors(["Could not connect to api"]);
+                } else {
+                    setErrors( errorList + " ");
+                }
+            })
         }
 
         useEffect(() => {
@@ -49,20 +54,24 @@ function BudgetMemberView(){
                     "Content-Type": "application/json"
                 },
             })
-            .then(response => {
+            .then(async response => {
                 if (response.status === 200) {
                     return response.json();
                 } else {
-                    console.log(response);
+                    return Promise.reject(await response.json());
                 }
             })
             .then(result => {
                 console.log(result)
                 setBudgetTransactionTotals(result);
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch (errorList => {
+                if( errorList instanceof TypeError){
+                    setErrors(["Could not connect to api"]);
+                } else {
+                    setErrors( errorList + " ");
+                }
+            })
         }, [])
 
         useEffect(
@@ -70,8 +79,13 @@ function BudgetMemberView(){
                 loadTransactions();
             },
             []);
+
+
     return(
         <div className="container">
+            {errors?
+            <div className=" myText error" id="messages">{errors}</div>
+                : null}
             <table className="table container myTable">
                 <thead className="myTable">
                     <tr>

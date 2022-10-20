@@ -60,6 +60,9 @@ function Navbar(){
             case Directories.MEMBERMANAGEAUTO:
                 setPageTitle(PageTitles.MEMBERMANAGEAUTO);
                 break;
+            case Directories.ADDMEMBERS:
+                setPageTitle(PageTitles.ADDMEMBERS);
+                break;
             default:
                 setPageTitle(PageTitles.HOME);
                 break;
