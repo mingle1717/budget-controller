@@ -21,7 +21,7 @@ function Contact(){
 
     return(
     <div className="container">
-       <h1 className="contactHeader"> Let us know what we can do to help you! Ryan is a great guy and would love to fix any problem you may have or even lend you any money you may need!!</h1>
+       <h1 className="contactHeader"> Send us an email, let us know what we can do to help you! </h1>
             <form className="contactForm">
         
                 <FormInput 
